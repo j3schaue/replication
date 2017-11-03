@@ -68,7 +68,7 @@ replicationTest = function(t=NULL, v=NULL, data=NULL, h0replication=TRUE, fixed=
       pval = pchisq(Q, df=k-1, ncp=lambda0) # p-value
     }
     
-    out = list(Q=Q, calpha=calpha, p=pval, alpha=alpha, reject=reject)
+    out = list(k=k, Q=Q, calpha=calpha, p=pval, alpha=alpha, reject=reject)
   
   } else { # Random effect test
     
@@ -89,7 +89,7 @@ replicationTest = function(t=NULL, v=NULL, data=NULL, h0replication=TRUE, fixed=
       pval <- pchisq(Q/g, df=h, ncp=0) # p-value
     }
     
-    out = list(Q=Q, calpha=calpha, p=pval, g=g, h=h, alpha=alpha, reject=reject)
+    out = list(k=k, Q=Q, calpha=calpha, p=pval, g=g, h=h, alpha=alpha, reject=reject)
   }
   
   print(cat(
