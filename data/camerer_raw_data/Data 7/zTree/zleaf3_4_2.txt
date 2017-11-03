@@ -1,0 +1,8 @@
+﻿FILE QUARANTINED
+
+Der Virenscan am Exchange Server hat eine Datei entfernt, da sie als potenziell gefährlich eingestuft wurde.
+Dateiname: "winmail.dat->07 - Duffy, Puzzello.zip->zleaf3_4_2.exe"
+Filter-Name: "FILE FILTER= Block Executables: *.exe*"
+
+Weitere Infos finden Sie unter:
+http://www.uibk.ac.at/zid/systeme/microsoft/exchange/virusscan.html

@@ -1,0 +1,22 @@
+--------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/ad.3103/Dropbox/Research/Prediction markets/Harvard Replications/KesslerRoth/analysi
+> s/to_send/main.log
+  log type:  text
+ opened on:  28 Oct 2015, 17:13:17
+
+. /* START */
+. 
+. /* Load full dataset */
+. use "data.dta", clear
+file data.dta not found
+r(601);
+
+end of do-file
+
+r(601);
+
+. do "/Users/ad.3103/Dropbox/Research/Prediction markets/Harvard Replications/EricsonFuster/analysis/ana
+> lysis.do"
+
+. capture log close /* close old log file */

@@ -1,0 +1,36 @@
+{smcl}
+{com}{sf}{ul off}{txt}{.-}
+      name:  {res}<unnamed>
+       {txt}log:  {res}/Users/es.3386/Google Drive/Doktorand/Behavioral pred. markets/Replication Reports Finished/Study 06 - de Clippel et al. 2014/Data/results payoff comparison2.smcl
+  {txt}log type:  {res}smcl
+ {txt}opened on:  {res}10 Nov 2015, 13:41:02
+{txt}
+{com}. use "payoff comparison.dta", clear
+{txt}
+{com}. ttest payoffSL==payoffVR, unpaired
+
+{txt}Two-sample t test with equal variances
+{hline 9}{c TT}{hline 68}
+Variable{col 10}{c |}{col 16}Obs{col 27}Mean{col 35}Std. Err.{col 47}Std. Dev.{col 59}[95% Conf. Interval]
+{hline 9}{c +}{hline 68}
+payoffSL {c |}{res}{col 12}    390{col 22} 1.705128{col 34} .0104177{col 46} .2057324{col 58} 1.684646{col 70}  1.72561
+{txt}payoffVR {c |}{res}{col 12}    390{col 22} 1.538141{col 34} .0189772{col 46} .3747691{col 58}  1.50083{col 70} 1.575452
+{txt}{hline 9}{c +}{hline 68}
+combined {c |}{res}{col 12}    780{col 22} 1.621635{col 34} .0112234{col 46} .3134512{col 58} 1.599603{col 70} 1.643666
+{txt}{hline 9}{c +}{hline 68}
+    diff {c |}{res}{col 22} .1669872{col 34} .0216486{col 58} .1244906{col 70} .2094837
+{txt}{hline 9}{c BT}{hline 68}
+    diff = mean({res}payoffSL{txt}) - mean({res}payoffVR{txt})                        t = {res}  7.7135
+{txt}Ho: diff = 0                                     degrees of freedom = {res}     778
+
+    {txt}Ha: diff < 0                 Ha: diff != 0                 Ha: diff > 0
+ Pr(T < t) = {res}1.0000         {txt}Pr(|T| > |t|) = {res}0.0000          {txt}Pr(T > t) = {res}0.0000
+{txt}
+{com}. log close
+      {txt}name:  {res}<unnamed>
+       {txt}log:  {res}/Users/es.3386/Google Drive/Doktorand/Behavioral pred. markets/Replication Reports Finished/Study 06 - de Clippel et al. 2014/Data/results payoff comparison2.smcl
+  {txt}log type:  {res}smcl
+ {txt}closed on:  {res}10 Nov 2015, 13:41:02
+{txt}{.-}
+{smcl}
+{txt}{sf}{ul off}
