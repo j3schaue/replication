@@ -4,7 +4,7 @@
 ###-----------------------------------------------------------###
 ###-----------------------------------------------------------###
 library(foreign); library(dplyr); library(ggplot2)
-tmp = read.spss("1 effectsizes.graphdata 2015 08 31 1431.sav")
+tmp = read.spss("../raw_ppir/1 effectsizes.graphdata 2015 08 31 1431.sav")
 
 names(tmp)
 sapply(tmp, length)
