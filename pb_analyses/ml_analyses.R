@@ -7,7 +7,8 @@
 ###------------------------------------------------------------###
 
 library(dplyr)
-setwd("~/Documents/replication/replication/pb_analyses/")
+# setwd("~/Documents/replication/replication/pb_analyses/") #jakes path
+setwd("./pb_analyses") # relative path
 source("../package/replicationTest.R")
 source("../package/mdh.R")
 combineResults = function(t=NULL, v=NULL, h0replication=TRUE, fixed=TRUE, alpha=.05, lambda0=0, tau0=0, power=0.8, step=.001, maxratio=100){

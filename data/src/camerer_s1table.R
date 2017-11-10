@@ -59,4 +59,6 @@ df$es = "r"
 
 str(df)
 
+write.csv(df, "camerer_full.csv")
+
 write.csv(df %>% select(experiment, site, es, z, vz), "../camerer.csv", row.names=F)
