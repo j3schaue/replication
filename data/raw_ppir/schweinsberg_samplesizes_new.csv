@@ -1,4 +1,4 @@
-Studies ,University,Sample Size,Online/Lab
+Studies,University,Sample Size,Online/Lab
 Bad Tipper,American University in Washington DC,108,Lab
 Bad Tipper,"Beijing Normal University, China",111,Lab
 Bad Tipper,Harvard University,51,Online
@@ -58,15 +58,15 @@ Burn in Hell,University of St. Thomas,131,Lab
 Cold-Hearted Prosociality,HEC Paris,113,Online
 Cold-Hearted Prosociality,"INSEAD, France",243,Online
 Cold-Hearted Prosociality,Yale,161,Online
-Cold-Hearted Prosociality ,American University in Washington DC,108,Lab
-Cold-Hearted Prosociality ,Harvard University,39,Online
-Cold-Hearted Prosociality ,Mechanical Turk sample,1026,Online
-Cold-Hearted Prosociality ,"University of Cologne, Germany",254,Online
-Cold-Hearted Prosociality ,University of Illinois at Chicago,605,Online
-Cold-Hearted Prosociality ,University of Massachusetts Amherst,104,Lab
-Cold-Hearted Prosociality ,University of Southern California,302,Online
-Cold-Hearted Prosociality ,University of St. Thomas,131,Lab
-Cold-Hearted Prosociality ,University of Washington Bothell,179,Online
+Cold-Hearted Prosociality,American University in Washington DC,108,Lab
+Cold-Hearted Prosociality,Harvard University,39,Online
+Cold-Hearted Prosociality,Mechanical Turk sample,1026,Online
+Cold-Hearted Prosociality,"University of Cologne, Germany",254,Online
+Cold-Hearted Prosociality,University of Illinois at Chicago,605,Online
+Cold-Hearted Prosociality,University of Massachusetts Amherst,104,Lab
+Cold-Hearted Prosociality,University of Southern California,302,Online
+Cold-Hearted Prosociality,University of St. Thomas,131,Lab
+Cold-Hearted Prosociality,University of Washington Bothell,179,Online
 Higher Standards - Charity,American University in Washington DC,108,Lab
 Higher Standards - Charity,Harvard University,39,Online
 Higher Standards - Charity,"INSEAD, France",243,Online

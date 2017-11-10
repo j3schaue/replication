@@ -6,8 +6,8 @@
 ###-----------------------------------------------------------###
 ###-----------------------------------------------------------###
 
-# setwd("~/Documents/replication/replication/data/raw_camerer/") #path on Jake's machine
-setwd("./data/raw_camerer") # relative path
+setwd("~/Documents/replication/replication/data/raw_camerer/") #path on Jake's machine
+# setwd("./data/raw_camerer") # relative path
 list.files()
 
 
@@ -33,6 +33,7 @@ sizes$replicate = as.integer(sizes$replicate == "nrep")
 corrs = s1 %>% select(-replicated, -reles, -n, -nrep) %>% gather(replicate, r, c(r,rrep))
 corrs$replicate = as.integer(corrs$replicate == "rrep")
 df = left_join(sizes, corrs)  # melted df
+df$n = as.numeric(as.character(df$n))
 
 # transform correlations 
 df$z = 0.5*log((1 + df$r)/(1 - df$r))
@@ -59,6 +60,6 @@ df$es = "r"
 
 str(df)
 
-write.csv(df, "camerer_full.csv")
+write.csv(df, "camerer_full.csv", row.names=F)
 
 write.csv(df %>% select(experiment, site, es, z, vz), "../camerer.csv", row.names=F)

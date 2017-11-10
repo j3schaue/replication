@@ -1,37 +1,389 @@
 "experiment","site","es","z","vz"
-"Abeler et al.","Abeler_orig","r",0.181982688600706,0.00854700854700855
-"Ambrus and Greiner","Ambrus_orig","r",0.320545409301946,0.0087719298245614
-"Bartling et al.","Bartling_orig","r",0.907644983319124,0.00469483568075117
-"Charness and Dufwenberg","Charness_orig","r",0.400059650056057,0.00628930817610063
-"Chen and Chen","Chen_orig","r",1.2211735176846,0.0144927536231884
-"de Clippel et al.","deClippel_orig","r",0.120581028408444,0.00645161290322581
-"Duffy and Puzzello","Duffy_orig","r",0.996215082345103,0.0196078431372549
-"Dulleck et al.","Dulleck_orig","r",0.907644983319124,0.00606060606060606
-"Ericson and Fuster","Ericson_orig","r",0.21317134656486,0.00917431192660551
-"Fehr et al.","Fehr_orig","r",0.484700278594052,0.0175438596491228
-"Friedman and Oprea","Friedman_orig","r",0.758173744684044,0.0133333333333333
-"Fudenberg et al.","Fudenberg_orig","r",0.309519604203112,0.00826446280991736
-"Huck et al.","Huck_orig","r",1.1881364043926,0.00854700854700855
-"Ifcher and Zarghamee","Ifcher_orig","r",0.287682072451781,0.0181818181818182
-"Kessler and Roth","Kessler_orig","r",0.536060336610567,0.00350877192982456
-"Kirchler et al","Kirchler_orig","r",0.792813631870191,0.00854700854700855
-"Kogan et al.","Kogan_orig","r",0.331647108705132,0.00813008130081301
-"Kuziemko et al.","Kuziemko_orig","r",0.287682072451781,0.0256410256410256
-"Abeler et al.","Abeler_rep","r",0.0801713250375897,0.00317460317460317
-"Ambrus and Greiner","Ambrus_rep","r",0.234189466759367,0.00282485875706215
-"Bartling et al.","Bartling_rep","r",0.792813631870191,0.00280112044817927
-"Charness and Dufwenberg","Charness_rep","r",0.37688590118819,0.00383141762452107
-"Chen and Chen","Chen_rep","r",0.171666663500579,0.00606060606060606
-"de Clippel et al.","deClippel_rep","r",0.2768638226551,0.0065359477124183
-"Duffy and Puzzello","Duffy_rep","r",0.120581028408444,0.010752688172043
-"Dulleck et al.","Dulleck_rep","r",0.928727364246725,0.008
-"Ericson and Fuster","Ericson_rep","r",0.120581028408444,0.00386100386100386
-"Fehr et al.","Fehr_rep","r",0.320545409301946,0.0101010101010101
-"Friedman and Oprea","Friedman_rep","r",0.472230804420426,0.027027027027027
-"Fudenberg et al.","Fudenberg_rep","r",0.342828254415394,0.008
-"Huck et al.","Huck_rep","r",0.388423099718296,0.00636942675159236
-"Ifcher and Zarghamee","Ifcher_rep","r",0.0100003333533347,0.0078125
-"Kessler and Roth","Kessler_rep","r",0.354092528962243,0.0222222222222222
-"Kirchler et al","Kirchler_rep","r",0.590145159841189,0.00460829493087558
-"Kogan et al.","Kogan_rep","r",0.309519604203112,0.0114942528735632
-"Kuziemko et al.","Kuziemko_rep","r",0.120581028408444,0.00709219858156028
+"Tracing attention and the activation flow in spoken word planning using eye movements.","Abeler_orig","r",0.684760158473966,0.0476190476190476
+"Tracing attention and the activation flow in spoken word planning using eye movements.","Ambrus_orig","r",0.149443120256283,0.0476190476190476
+"Now you see it, now you don't: repetition blindness for nonwords","Bartling_orig","r",0.710707113969394,0.0476190476190476
+"Now you see it, now you don't: repetition blindness for nonwords","Charness_orig","r",0.233772054589965,0.0476190476190476
+"Working memory costs of task switching.","Chen_orig","r",0.453753708518042,0.0454545454545455
+"Working memory costs of task switching.","deClippel_orig","r",-0.218663485593077,0.0454545454545455
+"Accelerated relearning after retrieval-induced forgetting: The benefit of being forgotten.","Duffy_orig","r",0.232859089732106,0.00421940928270042
+"Accelerated relearning after retrieval-induced forgetting: The benefit of being forgotten.","Dulleck_orig","r",-0.00610843397346169,0.00421940928270042
+"The intermixed-blocked effect in human perceptual learning is not the consequence of trial spacing.","Ericson_orig","r",0.498962392476004,0.0344827586206897
+"The intermixed-blocked effect in human perceptual learning is not the consequence of trial spacing.","Fehr_orig","r",0.135637524870972,0.0344827586206897
+"A single-system account of the relationship between priming, recognition, and fluency.","Friedman_orig","r",0.685309769582024,0.0476190476190476
+"A single-system account of the relationship between priming, recognition, and fluency.","Fudenberg_orig","r",0.418710420698763,0.0476190476190476
+"Modeling distributions of immediate memory effects: No strategies needed?","Huck_orig","r",0.897633709106095,0.0103092783505155
+"Modeling distributions of immediate memory effects: No strategies needed?","Ifcher_orig","r",0.132176372921613,0.0103092783505155
+"Stereotypes and retrieval-provoked illusory source recollections.","Kessler_orig","r",0.634908053973584,0.0277777777777778
+"Stereotypes and retrieval-provoked illusory source recollections.","Kirchler_orig","r",-0.111068831072181,0.0277777777777778
+"Across-notation automatic numerical processing.","Kogan_orig","r",0.864534746467758,0.0344827586206897
+"Across-notation automatic numerical processing.","Kuziemko_orig","r",1.04722667369848,0.0344827586206897
+"Attractor dynamics and semantic neighborhood density: Processing is slowed by near neighbors and speeded by distant neighbors.","Abeler_orig","r",0.814534581372408,0.0526315789473684
+"Attractor dynamics and semantic neighborhood density: Processing is slowed by near neighbors and speeded by distant neighbors.","Ambrus_orig","r",0.505515292648616,0.0526315789473684
+"When does between-sequence phonological similarity promote irrelevant sound disruption?","Bartling_orig","r",0.180409785295794,0.0222222222222222
+"When does between-sequence phonological similarity promote irrelevant sound disruption?","Charness_orig","r",0.0834306805876074,0.0222222222222222
+"Bidirectional associations in multiplication memory: Conditions of negative and positive transfer.","Chen_orig","r",0.582530435743512,0.0303030303030303
+"Bidirectional associations in multiplication memory: Conditions of negative and positive transfer.","deClippel_orig","r",0.582581291188142,0.0303030303030303
+"The Stroop effect: Why proportion congruent has nothing to do with congruency and everything to do with contingency.","Duffy_orig","r",0.197671341200697,0.0108695652173913
+"The Stroop effect: Why proportion congruent has nothing to do with congruency and everything to do with contingency.","Dulleck_orig","r",0.252085564199444,0.0108695652173913
+"The ultimate sampling dilemma in experience-based decision making.","Ericson_orig","r",0.314772324350052,0.0277777777777778
+"The ultimate sampling dilemma in experience-based decision making.","Fehr_orig","r",0.465443374485164,0.0277777777777778
+"How to say no: Single-and dual-process theories of short-term recognition tested on negative probes.","Friedman_orig","r",0.63356067564677,0.0344827586206897
+"How to say no: Single-and dual-process theories of short-term recognition tested on negative probes.","Fudenberg_orig","r",0.425959601340054,0.0344827586206897
+"Intentional forgetting is easier after two ""shots"" than one.","Huck_orig","r",0.227960364129573,0.010752688172043
+"Intentional forgetting is easier after two ""shots"" than one.","Ifcher_orig","r",0.0194244956568418,0.010752688172043
+"How does bilingualism improve executive control? A comparison of active and reactive inhibition mechanisms.","Kessler_orig","r",0.222982920488814,0.0666666666666667
+"How does bilingualism improve executive control? A comparison of active and reactive inhibition mechanisms.","Kirchler_orig","r",0.0647516900439762,0.0666666666666667
+"Priming addition facts with semantic relations.","Kogan_orig","r",0.381180652550176,0.00662251655629139
+"Priming addition facts with semantic relations.","Kuziemko_orig","r",0.29232618593634,0.00662251655629139
+"Learning correct responses and errors in the Hebb repetition effect: two faces of the same coin.","Abeler_orig","r",0.363303690199693,0.0476190476190476
+"Learning correct responses and errors in the Hebb repetition effect: two faces of the same coin.","Ambrus_orig","r",0.280456144360303,0.0476190476190476
+"Contextual effects on reading aloud: Evidence for pathway control.","Bartling_orig","r",0.162367653957866,0.0769230769230769
+"Contextual effects on reading aloud: Evidence for pathway control.","Charness_orig","r",0.145077808249329,0.0769230769230769
+"On the additive effects of stimulus quality and word frequency in lexical decision: Evidence for opposing interactive influences revealed by RT distributional analyses.","Chen_orig","r",0.397804631884721,0.0344827586206897
+"On the additive effects of stimulus quality and word frequency in lexical decision: Evidence for opposing interactive influences revealed by RT distributional analyses.","deClippel_orig","r",0.399561810599662,0.0344827586206897
+"Semantic interference in a delayed naming task: Evidence for the response exclusion hypothesis.","Duffy_orig","r",0.356099200575972,0.0344827586206897
+"Semantic interference in a delayed naming task: Evidence for the response exclusion hypothesis.","Dulleck_orig","r",0.103630490542844,0.0344827586206897
+"Multidimensional visual statistical learning.","Ericson_orig","r",0.945679455083732,0.2
+"Multidimensional visual statistical learning.","Fehr_orig","r",0.874998612661069,0.2
+"Accounting for occurrences: A new view of the use of contingency information in causal judgment.","Friedman_orig","r",0.730493922145522,0.0294117647058824
+"Accounting for occurrences: A new view of the use of contingency information in causal judgment.","Fudenberg_orig","r",0.523916497045395,0.0294117647058824
+"Multiple roles for time in short-term memory: Evidence from serial recall of order and timing.","Huck_orig","r",0.571980598502644,0.027027027027027
+"Multiple roles for time in short-term memory: Evidence from serial recall of order and timing.","Ifcher_orig","r",0.327197057137755,0.027027027027027
+"An attention-based associative account of adjacent and nonadjacent dependency learning.","Kessler_orig","r",0.895136292560066,0.0476190476190476
+"An attention-based associative account of adjacent and nonadjacent dependency learning.","Kirchler_orig","r",0.832022572221689,0.0476190476190476
+"Orienting attention in visual working memory reduces interference from memory probes.","Kogan_orig","r",0.620072140594967,0.111111111111111
+"Orienting attention in visual working memory reduces interference from memory probes.","Kuziemko_orig","r",0.365206268595273,0.111111111111111
+"Decision making and learning while taking sequential risks.","Abeler_orig","r",0.384507676875194,0.0153846153846154
+"Decision making and learning while taking sequential risks.","Ambrus_orig","r",0.102062072805603,0.0153846153846154
+"The rejection of moral rebels: Resenting those who do the right thing.","Bartling_orig","r",0.362314568656241,0.015625
+"The rejection of moral rebels: Resenting those who do the right thing.","Charness_orig","r",0.16247858884867,0.015625
+"Why do implicit and explicit attitude tests diverge? The role of structural fit.","Chen_orig","r",0.367924620459263,0.0149253731343284
+"Why do implicit and explicit attitude tests diverge? The role of structural fit.","deClippel_orig","r",0.151382853963031,0.0149253731343284
+"The developmental psychometrics of big five self-reports: Acquiescence, factor structure, coherence, and differentiation from ages 10 to 20.","Duffy_orig","r",0.022546192531379,4.34699448801099e-06
+"The developmental psychometrics of big five self-reports: Acquiescence, factor structure, coherence, and differentiation from ages 10 to 20.","Dulleck_orig","r",0.0238460558679042,4.34699448801099e-06
+"Terror management and adults' attachment to their parents: The safe haven remains.","Ericson_orig","r",0.229432826442352,0.0103092783505155
+"Terror management and adults' attachment to their parents: The safe haven remains.","Fehr_orig","r",-0.0523380189858188,0.0103092783505155
+"Increasing and decreasing motor and cognitive output: A model of general action and inaction goals.","Friedman_orig","r",0.398127096417791,0.0303030303030303
+"Increasing and decreasing motor and cognitive output: A model of general action and inaction goals.","Fudenberg_orig","r",-0.0304949873644914,0.0303030303030303
+"Increasing and decreasing motor and cognitive output: A model of general action and inaction goals.","Huck_orig","r",0.211141100838117,0.0105263157894737
+"Increasing and decreasing motor and cognitive output: A model of general action and inaction goals.","Ifcher_orig","r",0.156303691857083,0.0105263157894737
+"Affective incoherence: When affective concepts and embodied reactions clash.","Kessler_orig","r",0.208715672093056,0.00769230769230769
+"Affective incoherence: When affective concepts and embodied reactions clash.","Kirchler_orig","r",0.0943002047242516,0.00769230769230769
+"Individual differences in the regulation of intergroup bias: The role of conflict monitoring and neural signals for control.","Kogan_orig","r",0.396705896912039,0.0222222222222222
+"Individual differences in the regulation of intergroup bias: The role of conflict monitoring and neural signals for control.","Kuziemko_orig","r",0.0768516200278652,0.0222222222222222
+"Left frontal cortical activation and spreading of alternatives: Tests of the action-based model of dissonance.","Abeler_orig","r",0.234033485657996,0.0185185185185185
+"Left frontal cortical activation and spreading of alternatives: Tests of the action-based model of dissonance.","Ambrus_orig","r",0.0662266601626609,0.0185185185185185
+"A social functional approach to emotions in bargaining: when communicating anger pays and when it backfires.","Bartling_orig","r",0.399054301120861,0.01
+"A social functional approach to emotions in bargaining: when communicating anger pays and when it backfires.","Charness_orig","r",-0.0421650745796795,0.01
+"Walking on eggshells: How expressing relationship insecurities perpetuates them.","Chen_orig","r",0.168875882264062,0.00546448087431694
+"Walking on eggshells: How expressing relationship insecurities perpetuates them.","deClippel_orig","r",0.0367683101769055,0.00546448087431694
+"Poignancy: Mixed emotional experience in the face of meaningful endings.","Duffy_orig","r",0.223306089724669,0.00934579439252336
+"Poignancy: Mixed emotional experience in the face of meaningful endings.","Dulleck_orig","r",-0.00471938103724945,0.00934579439252336
+"1/f noise and effort on implicit measures of bias.","Ericson_orig","r",0.281194479704791,0.0147058823529412
+"1/f noise and effort on implicit measures of bias.","Fehr_orig","r",0.0739316991417272,0.0147058823529412
+"The effect of global versus local processing styles on assimilation versus contrast in social judgment.","Friedman_orig","r",0.454384970010148,0.0126582278481013
+"The effect of global versus local processing styles on assimilation versus contrast in social judgment.","Fudenberg_orig","r",0.114349602276968,0.0126582278481013
+"Not so innocent: Does seeing one's own capacity for wrongdoing predict forgiveness?","Huck_orig","r",0.462187795505302,0.0238095238095238
+"Not so innocent: Does seeing one's own capacity for wrongdoing predict forgiveness?","Ifcher_orig","r",0.0117217018177724,0.0238095238095238
+"Why people are reluctant to tempt fate.","Kessler_orig","r",0.188035056711107,0.00840336134453781
+"Why people are reluctant to tempt fate.","Kirchler_orig","r",0.00300149701344736,0.00840336134453781
+"On the relative independence of thinking biases and cognitive ability.","Kogan_orig","r",0.225897217190119,0.00268817204301075
+"On the relative independence of thinking biases and cognitive ability.","Kuziemko_orig","r",0.0734857299440754,0.00268817204301075
+"Opening the mind to close it: Considering a message in light of important values increases message processing and later resistance to change.","Abeler_orig","r",0.210706953837397,0.00387596899224806
+"Opening the mind to close it: Considering a message in light of important values increases message processing and later resistance to change.","Ambrus_orig","r",0.044525220365058,0.00387596899224806
+"Distinguishing between silent and vocal minorities: Not all deviants feel marginal.","Bartling_orig","r",0.334517515861865,0.0294117647058824
+"Distinguishing between silent and vocal minorities: Not all deviants feel marginal.","Charness_orig","r",0.202732554054082,0.0294117647058824
+"The effects of an implemental mind-set on attitude strength.","Chen_orig","r",0.266063935058371,0.0232558139534884
+"The effects of an implemental mind-set on attitude strength.","deClippel_orig","r",0.156664646344502,0.0232558139534884
+"A needs-based model of reconciliation: Satisfying the differential emotional needs of victim and perpetrator as a key to promoting reconciliation.","Duffy_orig","r",0.275008386572745,0.010989010989011
+"A needs-based model of reconciliation: Satisfying the differential emotional needs of victim and perpetrator as a key to promoting reconciliation.","Dulleck_orig","r",-0.101989411675437,0.010989010989011
+"The face of success: inferences from chief executive officers' appearance predict company profits.","Ericson_orig","r",0.309519604203112,0.0212765957446809
+"The face of success: inferences from chief executive officers' appearance predict company profits.","Fehr_orig","r",0.2768638226551,0.0212765957446809
+"Selective exposure and information quantity: How different information quantities moderate decision makers' preference for consistent and inconsistent information.","Friedman_orig","r",0.553916296490002,0.0204081632653061
+"Selective exposure and information quantity: How different information quantities moderate decision makers' preference for consistent and inconsistent information.","Fudenberg_orig","r",0.221095810338853,0.0204081632653061
+"Self-regulation and selective exposure: The impact of depleted self-regulation resources on confirmatory information processing.","Huck_orig","r",0.215279491482967,0.0121951219512195
+"Self-regulation and selective exposure: The impact of depleted self-regulation resources on confirmatory information processing.","Ifcher_orig","r",0.119372369949725,0.0121951219512195
+"The space between us: Stereotype threat and distance in interracial contexts.","Kessler_orig","r",0.418373377644792,0.0192307692307692
+"The space between us: Stereotype threat and distance in interracial contexts.","Kirchler_orig","r",0.013046191117014,0.0192307692307692
+"Sex differences in mate preferences revisited: Do people know what they initially desire in a romantic partner?","Kogan_orig","r",0.140738547101889,0.00625
+"Sex differences in mate preferences revisited: Do people know what they initially desire in a romantic partner?","Kuziemko_orig","r",0.0294131791904262,0.00625
+"Balancing connectedness and self-protection goals in close relationships: A levels-of-processing perspective on risk regulation.","Abeler_orig","r",0.328823222570441,0.0113636363636364
+"Balancing connectedness and self-protection goals in close relationships: A levels-of-processing perspective on risk regulation.","Ambrus_orig","r",-0.135931069224414,0.0113636363636364
+"Self-handicapping, excuse making, and counterfactual thinking: Consequences for self-esteem and future motivation.","Bartling_orig","r",0.358977418835944,0.04
+"Self-handicapping, excuse making, and counterfactual thinking: Consequences for self-esteem and future motivation.","Charness_orig","r",0.298247895841039,0.04
+"Social identity contingencies: How diversity cues signal threat or safety for African Americans in mainstream institutions.","Chen_orig","r",0.398044963704019,0.0114942528735632
+"Social identity contingencies: How diversity cues signal threat or safety for African Americans in mainstream institutions.","deClippel_orig","r",-0.0369521557380355,0.0114942528735632
+"Effects of fluency on psychological distance and mental construal (or why New York is a large city, but New York is a civilized jungle).","Duffy_orig","r",0.128088292454287,0.00429184549356223
+"Effects of fluency on psychological distance and mental construal (or why New York is a large city, but New York is a civilized jungle).","Dulleck_orig","r",0.0183785849799619,0.00429184549356223
+"More than meets the eye: the role of language in binding and maintaining feature conjunctions.","Ericson_orig","r",0.402099816773692,0.0303030303030303
+"More than meets the eye: the role of language in binding and maintaining feature conjunctions.","Fehr_orig","r",-0.226727712667986,0.0303030303030303
+"Nonconscious goal pursuit in novel environments: The case of implicit learning.","Friedman_orig","r",0.226106188572231,0.0120481927710843
+"Nonconscious goal pursuit in novel environments: The case of implicit learning.","Fudenberg_orig","r",0.105329585238058,0.0120481927710843
+"Perceptual mechanisms that characterize gender differences in decoding women's sexual intent","Huck_orig","r",0.624750856813491,0.0036101083032491
+"Perceptual mechanisms that characterize gender differences in decoding women's sexual intent","Ifcher_orig","r",0.0914164977721764,0.0036101083032491
+"Precision of the anchor influences the amount of adjustment.","Kessler_orig","r",0.34669477755082,0.0178571428571429
+"Precision of the anchor influences the amount of adjustment.","Kirchler_orig","r",0.229721666607801,0.0178571428571429
+"Action dynamics reveal parallel competition in decision making","Kogan_orig","r",0.869438514085779,0.0072463768115942
+"Action dynamics reveal parallel competition in decision making","Kuziemko_orig","r",0.973880109255998,0.0072463768115942
+"Prescribed optimism: Is it right to be wrong about the future?","Abeler_orig","r",0.831260365276445,0.00819672131147541
+"Prescribed optimism: Is it right to be wrong about the future?","Ambrus_orig","r",1.00457484452595,0.00819672131147541
+"Age-related changes in the episodic simulation of future events","Bartling_orig","r",0.648550826829565,0.0344827586206897
+"Age-related changes in the episodic simulation of future events","Charness_orig","r",0.780041330582545,0.0344827586206897
+"Preschoolers' perspective taking in word learning: do they blindly follow eye gaze?","Chen_orig","r",0.551707796113811,0.0344827586206897
+"Preschoolers' perspective taking in word learning: do they blindly follow eye gaze?","deClippel_orig","r",-0.484935913612849,0.0344827586206897
+"Measuring the crowd within: Probabilistic representations within individuals.","Duffy_orig","r",0.296077402194826,0.00588235294117647
+"Measuring the crowd within: Probabilistic representations within individuals.","Dulleck_orig","r",0.334688430685667,0.00588235294117647
+"Temporal selection is suppressed, delayed, and diffused during the attentional blink.","Ericson_orig","r",0.131535509743525,0.111111111111111
+"Temporal selection is suppressed, delayed, and diffused during the attentional blink.","Fehr_orig","r",0.121107792678052,0.111111111111111
+"Toward a physiology of dual-process reasoning and judgment: lemonade, willpower, and expensive rule-based analysis.","Friedman_orig","r",0.217031412373752,0.00892857142857143
+"Toward a physiology of dual-process reasoning and judgment: lemonade, willpower, and expensive rule-based analysis.","Fudenberg_orig","r",-0.0489573144713753,0.00892857142857143
+"Errors Are Aversive: Defensive Motivation and the Error-Related Negativity","Huck_orig","r",0.400059650056057,0.0357142857142857
+"Errors Are Aversive: Defensive Motivation and the Error-Related Negativity","Ifcher_orig","r",0.255412811882995,0.0357142857142857
+"The sunny side of fairness: Preference for fairness activates reward circuitry (and disregarding unfairness activates self-control circuitry)","Kessler_orig","r",1.2622359039858,0.111111111111111
+"The sunny side of fairness: Preference for fairness activates reward circuitry (and disregarding unfairness activates self-control circuitry)","Kirchler_orig","r",1.18492314412419,0.111111111111111
+"The representation of simple ensemble visual features outside the focus of attention","Kogan_orig","r",0.911580609250947,0.2
+"The representation of simple ensemble visual features outside the focus of attention","Kuziemko_orig","r",1.60847594653146,0.2
+"Loving those who justify inequality: the effects of system threat on attraction to women who embody benevolent sexist ideals.","Abeler_orig","r",0.405048559767843,0.0303030303030303
+"Loving those who justify inequality: the effects of system threat on attraction to women who embody benevolent sexist ideals.","Ambrus_orig","r",-0.0342929956428472,0.0303030303030303
+"A motion aftereffect from still photographs depicting motion","Bartling_orig","r",0.83912881221931,0.0384615384615385
+"A motion aftereffect from still photographs depicting motion","Charness_orig","r",0.58640880552693,0.0384615384615385
+"The threat of appearing prejudiced and race-based attentional biases.","Chen_orig","r",0.390481398198824,0.04
+"The threat of appearing prejudiced and race-based attentional biases.","deClippel_orig","r",0.0176767489061405,0.04
+"Where do we look during potentially offensive behavior?","Duffy_orig","r",0.252158936395347,0.0454545454545455
+"Where do we look during potentially offensive behavior?","Dulleck_orig","r",0.181360494878753,0.0454545454545455
+"Adaptive memory: The comparative value of survival processing.","Ericson_orig","r",0.479262324352725,0.0476190476190476
+"Adaptive memory: The comparative value of survival processing.","Fehr_orig","r",0.451783336020072,0.0476190476190476
+"Is happiness having what you want, wanting what you have, or both?","Friedman_orig","r",0.213138445861106,0.00862068965517241
+"Is happiness having what you want, wanting what you have, or both?","Fudenberg_orig","r",0.549546123796944,0.00862068965517241
+"Implicit attitude generalization occurs immediately; explicit attitude generalization takes time","Huck_orig","r",0.00464005329997545,0.0017825311942959
+"Implicit attitude generalization occurs immediately; explicit attitude generalization takes time","Ifcher_orig","r",0.10628949138422,0.0017825311942959
+"The value of believing in free will: Encouraging a belief in determinism increases cheating.","Kessler_orig","r",0.546841417850272,0.037037037037037
+"The value of believing in free will: Encouraging a belief in determinism increases cheating.","Kirchler_orig","r",0.102714869812966,0.037037037037037
+"Auditory change detection: simple sounds are not memorized better than complex sounds","Kogan_orig","r",0.544469283070039,1
+"Auditory change detection: simple sounds are not memorized better than complex sounds","Kuziemko_orig","r",0.556198279242192,1
+"Keeping one's distance: The influence of spatial distance cues on affect and evaluation.","Abeler_orig","r",0.238180507391454,0.0123456790123457
+"Keeping one's distance: The influence of spatial distance cues on affect and evaluation.","Ambrus_orig","r",0.0442952283539177,0.0123456790123457
+"Hedonic and instrumental motives in anger regulation.","Bartling_orig","r",0.68290665629042,0.0126582278481013
+"Hedonic and instrumental motives in anger regulation.","Charness_orig","r",0.708784059252991,0.0126582278481013
+"Creating social connection through inferential reproduction: Loneliness and perceived agency in gadgets, gods, and greyhounds.","Chen_orig","r",0.174716536811263,0.0185185185185185
+"Creating social connection through inferential reproduction: Loneliness and perceived agency in gadgets, gods, and greyhounds.","deClippel_orig","r",0.0617856577111544,0.0185185185185185
+"ñIn_Group Loveî and ñOut_Group Hateî as Motives for Individual Participation in Intergroup Conflict: A New Game Paradigm","Duffy_orig","r",1.01702492443777,0.00421940928270042
+"ñIn_Group Loveî and ñOut_Group Hateî as Motives for Individual Participation in Intergroup Conflict: A New Game Paradigm","Dulleck_orig","r",0.780480766803962,0.00421940928270042
+"A word-order constraint on phonological activation","Ericson_orig","r",0.775221776719086,0.0833333333333333
+"A word-order constraint on phonological activation","Fehr_orig","r",0.545423705409234,0.0833333333333333
+"The Best Men Are Already Taken: Female Preference for Single Versus Attached Males Depends on Conception Risk","Friedman_orig","r",0.190949992796085,0.0048780487804878
+"The Best Men Are Already Taken: Female Preference for Single Versus Attached Males Depends on Conception Risk","Fudenberg_orig","r",-0.0301814559621975,0.0048780487804878
+"The Best Men Are Already Taken: Female Preference for Single Versus Attached Males Depends on Conception Risk","Huck_orig","r",0.190949992796085,0.0048780487804878
+"The Best Men Are Already Taken: Female Preference for Single Versus Attached Males Depends on Conception Risk","Ifcher_orig","r",0.0182854486872587,0.0048780487804878
+"Sensitivity to object viewpoint and action instructions during search for targets in the lower visual field","Kessler_orig","r",0.91293165300265,0.0909090909090909
+"Sensitivity to object viewpoint and action instructions during search for targets in the lower visual field","Kirchler_orig","r",0.210572424096054,0.0909090909090909
+"With a clean conscience: Cleanliness reduces the severity of moral judgments.","Kogan_orig","r",0.423661125491187,0.025
+"With a clean conscience: Cleanliness reduces the severity of moral judgments.","Kuziemko_orig","r",0.00283980563384237,0.025
+"Extremal edge: a powerful cue to depth perception and figure-ground organization","Abeler_orig","r",1.29162832504362,0.2
+"Extremal edge: a powerful cue to depth perception and figure-ground organization","Ambrus_orig","r",0.120655671934318,0.2
+"What Do Cross_National Comparisons of Personality Traits Tell Us? The Case of Conscientiousness","Bartling_orig","r",0.459896681212679,0.0149253731343284
+"What Do Cross_National Comparisons of Personality Traits Tell Us? The Case of Conscientiousness","Charness_orig","r",0.110446915790097,0.0149253731343284
+"Personality dominance and preferential use of the vertical dimension of space","Chen_orig","r",0.320545409301946,0.02
+"Personality dominance and preferential use of the vertical dimension of space","deClippel_orig","r",-0.0340131104279282,0.02
+"Conflict-triggered goal shielding: Response conflicts attenuate background monitoring for prospective memory cues.","Duffy_orig","r",0.393981877130233,0.027027027027027
+"Conflict-triggered goal shielding: Response conflicts attenuate background monitoring for prospective memory cues.","Dulleck_orig","r",0.437218946739661,0.027027027027027
+"Detecting the snake in the grass: attention to fear-relevant stimuli by adults and young children.","Ericson_orig","r",0.527466797836033,0.0222222222222222
+"Detecting the snake in the grass: attention to fear-relevant stimuli by adults and young children.","Fehr_orig","r",0.179748763345337,0.0222222222222222
+"The value heuristic in judgments of relative frequency.","Friedman_orig","r",0.291797237670132,0.0188679245283019
+"The value heuristic in judgments of relative frequency.","Fudenberg_orig","r",-0.177289012352195,0.0188679245283019
+"Head up, foot down: Object words orient attention to the objects' typical location.","Huck_orig","r",0.685792015328455,0.0666666666666667
+"Head up, foot down: Object words orient attention to the objects' typical location.","Ifcher_orig","r",0.259835474573725,0.0666666666666667
+"Tracing attention and the activation flow in spoken word planning using eye movements.","Kessler_orig","r",0.684760158473966,0.0384615384615385
+"Tracing attention and the activation flow in spoken word planning using eye movements.","Kirchler_orig","r",0.149443120256283,0.0384615384615385
+"Now you see it, now you don't: repetition blindness for nonwords","Kogan_orig","r",0.710707113969394,0.0476190476190476
+"Now you see it, now you don't: repetition blindness for nonwords","Kuziemko_orig","r",0.233772054589965,0.0476190476190476
+"Working memory costs of task switching.","Abeler_orig","r",0.453753708518042,0.0344827586206897
+"Working memory costs of task switching.","Ambrus_orig","r",-0.218663485593077,0.0344827586206897
+"Accelerated relearning after retrieval-induced forgetting: The benefit of being forgotten.","Bartling_orig","r",0.232859089732106,0.00374531835205993
+"Accelerated relearning after retrieval-induced forgetting: The benefit of being forgotten.","Charness_orig","r",-0.00610843397346169,0.00374531835205993
+"The intermixed-blocked effect in human perceptual learning is not the consequence of trial spacing.","Chen_orig","r",0.498962392476004,0.0222222222222222
+"The intermixed-blocked effect in human perceptual learning is not the consequence of trial spacing.","deClippel_orig","r",0.135637524870972,0.0222222222222222
+"A single-system account of the relationship between priming, recognition, and fluency.","Duffy_orig","r",0.685309769582024,0.0344827586206897
+"A single-system account of the relationship between priming, recognition, and fluency.","Dulleck_orig","r",0.418710420698763,0.0344827586206897
+"Modeling distributions of immediate memory effects: No strategies needed?","Ericson_orig","r",0.897633709106095,0.0833333333333333
+"Modeling distributions of immediate memory effects: No strategies needed?","Fehr_orig","r",0.132176372921613,0.0833333333333333
+"Stereotypes and retrieval-provoked illusory source recollections.","Friedman_orig","r",0.634908053973584,0.0333333333333333
+"Stereotypes and retrieval-provoked illusory source recollections.","Fudenberg_orig","r",-0.111068831072181,0.0333333333333333
+"Across-notation automatic numerical processing.","Huck_orig","r",0.864534746467758,0.0344827586206897
+"Across-notation automatic numerical processing.","Ifcher_orig","r",1.04722667369848,0.0344827586206897
+"Attractor dynamics and semantic neighborhood density: Processing is slowed by near neighbors and speeded by distant neighbors.","Kessler_orig","r",0.814534581372408,0.037037037037037
+"Attractor dynamics and semantic neighborhood density: Processing is slowed by near neighbors and speeded by distant neighbors.","Kirchler_orig","r",0.505515292648616,0.037037037037037
+"When does between-sequence phonological similarity promote irrelevant sound disruption?","Kogan_orig","r",0.180409785295794,0.00869565217391304
+"When does between-sequence phonological similarity promote irrelevant sound disruption?","Kuziemko_orig","r",0.0834306805876074,0.00869565217391304
+"Bidirectional associations in multiplication memory: Conditions of negative and positive transfer.","Abeler_orig","r",0.582530435743512,0.0303030303030303
+"Bidirectional associations in multiplication memory: Conditions of negative and positive transfer.","Ambrus_orig","r",0.582581291188142,0.0303030303030303
+"The Stroop effect: Why proportion congruent has nothing to do with congruency and everything to do with contingency.","Bartling_orig","r",0.197671341200697,0.00418410041841004
+"The Stroop effect: Why proportion congruent has nothing to do with congruency and everything to do with contingency.","Charness_orig","r",0.252085564199444,0.00418410041841004
+"The ultimate sampling dilemma in experience-based decision making.","Chen_orig","r",0.314772324350052,0.0227272727272727
+"The ultimate sampling dilemma in experience-based decision making.","deClippel_orig","r",0.465443374485164,0.0227272727272727
+"How to say no: Single-and dual-process theories of short-term recognition tested on negative probes.","Duffy_orig","r",0.63356067564677,0.0555555555555556
+"How to say no: Single-and dual-process theories of short-term recognition tested on negative probes.","Dulleck_orig","r",0.425959601340054,0.0555555555555556
+"Intentional forgetting is easier after two ""shots"" than one.","Ericson_orig","r",0.227960364129573,0.00952380952380952
+"Intentional forgetting is easier after two ""shots"" than one.","Fehr_orig","r",0.0194244956568418,0.00952380952380952
+"How does bilingualism improve executive control? A comparison of active and reactive inhibition mechanisms.","Friedman_orig","r",0.222982920488814,0.0344827586206897
+"How does bilingualism improve executive control? A comparison of active and reactive inhibition mechanisms.","Fudenberg_orig","r",0.0647516900439762,0.0344827586206897
+"Priming addition facts with semantic relations.","Huck_orig","r",0.381180652550176,0.0217391304347826
+"Priming addition facts with semantic relations.","Ifcher_orig","r",0.29232618593634,0.0217391304347826
+"Learning correct responses and errors in the Hebb repetition effect: two faces of the same coin.","Kessler_orig","r",0.363303690199693,0.0166666666666667
+"Learning correct responses and errors in the Hebb repetition effect: two faces of the same coin.","Kirchler_orig","r",0.280456144360303,0.0166666666666667
+"Contextual effects on reading aloud: Evidence for pathway control.","Kogan_orig","r",0.162367653957866,0.0588235294117647
+"Contextual effects on reading aloud: Evidence for pathway control.","Kuziemko_orig","r",0.145077808249329,0.0588235294117647
+"On the additive effects of stimulus quality and word frequency in lexical decision: Evidence for opposing interactive influences revealed by RT distributional analyses.","Abeler_orig","r",0.397804631884721,0.0147058823529412
+"On the additive effects of stimulus quality and word frequency in lexical decision: Evidence for opposing interactive influences revealed by RT distributional analyses.","Ambrus_orig","r",0.399561810599662,0.0147058823529412
+"Semantic interference in a delayed naming task: Evidence for the response exclusion hypothesis.","Bartling_orig","r",0.356099200575972,0.0113636363636364
+"Semantic interference in a delayed naming task: Evidence for the response exclusion hypothesis.","Charness_orig","r",0.103630490542844,0.0113636363636364
+"Multidimensional visual statistical learning.","Chen_orig","r",0.945679455083732,0.0833333333333333
+"Multidimensional visual statistical learning.","deClippel_orig","r",0.874998612661069,0.0833333333333333
+"Accounting for occurrences: A new view of the use of contingency information in causal judgment.","Duffy_orig","r",0.730493922145522,0.0285714285714286
+"Accounting for occurrences: A new view of the use of contingency information in causal judgment.","Dulleck_orig","r",0.523916497045395,0.0285714285714286
+"Multiple roles for time in short-term memory: Evidence from serial recall of order and timing.","Ericson_orig","r",0.571980598502644,0.027027027027027
+"Multiple roles for time in short-term memory: Evidence from serial recall of order and timing.","Fehr_orig","r",0.327197057137755,0.027027027027027
+"An attention-based associative account of adjacent and nonadjacent dependency learning.","Friedman_orig","r",0.895136292560066,0.0476190476190476
+"An attention-based associative account of adjacent and nonadjacent dependency learning.","Fudenberg_orig","r",0.832022572221689,0.0476190476190476
+"Orienting attention in visual working memory reduces interference from memory probes.","Huck_orig","r",0.620072140594967,0.0666666666666667
+"Orienting attention in visual working memory reduces interference from memory probes.","Ifcher_orig","r",0.365206268595273,0.0666666666666667
+"Decision making and learning while taking sequential risks.","Kessler_orig","r",0.384507676875194,0.00666666666666667
+"Decision making and learning while taking sequential risks.","Kirchler_orig","r",0.102062072805603,0.00666666666666667
+"The rejection of moral rebels: Resenting those who do the right thing.","Kogan_orig","r",0.362314568656241,0.0138888888888889
+"The rejection of moral rebels: Resenting those who do the right thing.","Kuziemko_orig","r",0.16247858884867,0.0138888888888889
+"Why do implicit and explicit attitude tests diverge? The role of structural fit.","Abeler_orig","r",0.367924620459263,0.00564971751412429
+"Why do implicit and explicit attitude tests diverge? The role of structural fit.","Ambrus_orig","r",0.151382853963031,0.00564971751412429
+"The developmental psychometrics of big five self-reports: Acquiescence, factor structure, coherence, and differentiation from ages 10 to 20.","Bartling_orig","r",0.022546192531379,2.19624310654195e-06
+"The developmental psychometrics of big five self-reports: Acquiescence, factor structure, coherence, and differentiation from ages 10 to 20.","Charness_orig","r",0.0238460558679042,2.19624310654195e-06
+"Terror management and adults' attachment to their parents: The safe haven remains.","Chen_orig","r",0.229432826442352,0.0050761421319797
+"Terror management and adults' attachment to their parents: The safe haven remains.","deClippel_orig","r",-0.0523380189858188,0.0050761421319797
+"Increasing and decreasing motor and cognitive output: A model of general action and inaction goals.","Duffy_orig","r",0.398127096417791,0.0117647058823529
+"Increasing and decreasing motor and cognitive output: A model of general action and inaction goals.","Dulleck_orig","r",-0.0304949873644914,0.0117647058823529
+"Increasing and decreasing motor and cognitive output: A model of general action and inaction goals.","Ericson_orig","r",0.211141100838117,0.00980392156862745
+"Increasing and decreasing motor and cognitive output: A model of general action and inaction goals.","Fehr_orig","r",0.156303691857083,0.00980392156862745
+"Affective incoherence: When affective concepts and embodied reactions clash.","Friedman_orig","r",0.208715672093056,0.00909090909090909
+"Affective incoherence: When affective concepts and embodied reactions clash.","Fudenberg_orig","r",0.0943002047242516,0.00909090909090909
+"Individual differences in the regulation of intergroup bias: The role of conflict monitoring and neural signals for control.","Huck_orig","r",0.396705896912039,0.0138888888888889
+"Individual differences in the regulation of intergroup bias: The role of conflict monitoring and neural signals for control.","Ifcher_orig","r",0.0768516200278652,0.0138888888888889
+"Left frontal cortical activation and spreading of alternatives: Tests of the action-based model of dissonance.","Kessler_orig","r",0.234033485657996,0.0147058823529412
+"Left frontal cortical activation and spreading of alternatives: Tests of the action-based model of dissonance.","Kirchler_orig","r",0.0662266601626609,0.0147058823529412
+"A social functional approach to emotions in bargaining: when communicating anger pays and when it backfires.","Kogan_orig","r",0.399054301120861,0.0125
+"A social functional approach to emotions in bargaining: when communicating anger pays and when it backfires.","Kuziemko_orig","r",-0.0421650745796795,0.0125
+"Walking on eggshells: How expressing relationship insecurities perpetuates them.","Abeler_orig","r",0.168875882264062,0.0036101083032491
+"Walking on eggshells: How expressing relationship insecurities perpetuates them.","Ambrus_orig","r",0.0367683101769055,0.0036101083032491
+"Poignancy: Mixed emotional experience in the face of meaningful endings.","Bartling_orig","r",0.223306089724669,0.0045662100456621
+"Poignancy: Mixed emotional experience in the face of meaningful endings.","Charness_orig","r",-0.00471938103724945,0.0045662100456621
+"1/f noise and effort on implicit measures of bias.","Chen_orig","r",0.281194479704791,0.00689655172413793
+"1/f noise and effort on implicit measures of bias.","deClippel_orig","r",0.0739316991417272,0.00689655172413793
+"The effect of global versus local processing styles on assimilation versus contrast in social judgment.","Duffy_orig","r",0.454384970010148,0.0147058823529412
+"The effect of global versus local processing styles on assimilation versus contrast in social judgment.","Dulleck_orig","r",0.114349602276968,0.0147058823529412
+"Not so innocent: Does seeing one's own capacity for wrongdoing predict forgiveness?","Ericson_orig","r",0.462187795505302,0.00757575757575758
+"Not so innocent: Does seeing one's own capacity for wrongdoing predict forgiveness?","Fehr_orig","r",0.0117217018177724,0.00757575757575758
+"Why people are reluctant to tempt fate.","Friedman_orig","r",0.188035056711107,0.00448430493273543
+"Why people are reluctant to tempt fate.","Fudenberg_orig","r",0.00300149701344736,0.00448430493273543
+"On the relative independence of thinking biases and cognitive ability.","Huck_orig","r",0.225897217190119,0.00574712643678161
+"On the relative independence of thinking biases and cognitive ability.","Ifcher_orig","r",0.0734857299440754,0.00574712643678161
+"Opening the mind to close it: Considering a message in light of important values increases message processing and later resistance to change.","Kessler_orig","r",0.210706953837397,0.00403225806451613
+"Opening the mind to close it: Considering a message in light of important values increases message processing and later resistance to change.","Kirchler_orig","r",0.044525220365058,0.00403225806451613
+"Distinguishing between silent and vocal minorities: Not all deviants feel marginal.","Kogan_orig","r",0.334517515861865,0.00854700854700855
+"Distinguishing between silent and vocal minorities: Not all deviants feel marginal.","Kuziemko_orig","r",0.202732554054082,0.00854700854700855
+"The effects of an implemental mind-set on attitude strength.","Abeler_orig","r",0.266063935058371,0.0149253731343284
+"The effects of an implemental mind-set on attitude strength.","Ambrus_orig","r",0.156664646344502,0.0149253731343284
+"A needs-based model of reconciliation: Satisfying the differential emotional needs of victim and perpetrator as a key to promoting reconciliation.","Bartling_orig","r",0.275008386572745,0.0072463768115942
+"A needs-based model of reconciliation: Satisfying the differential emotional needs of victim and perpetrator as a key to promoting reconciliation.","Charness_orig","r",-0.101989411675437,0.0072463768115942
+"The face of success: inferences from chief executive officers' appearance predict company profits.","Chen_orig","r",0.309519604203112,0.0212765957446809
+"The face of success: inferences from chief executive officers' appearance predict company profits.","deClippel_orig","r",0.2768638226551,0.0212765957446809
+"Selective exposure and information quantity: How different information quantities moderate decision makers' preference for consistent and inconsistent information.","Duffy_orig","r",0.553916296490002,0.00680272108843537
+"Selective exposure and information quantity: How different information quantities moderate decision makers' preference for consistent and inconsistent information.","Dulleck_orig","r",0.221095810338853,0.00680272108843537
+"Self-regulation and selective exposure: The impact of depleted self-regulation resources on confirmatory information processing.","Ericson_orig","r",0.215279491482967,0.0072992700729927
+"Self-regulation and selective exposure: The impact of depleted self-regulation resources on confirmatory information processing.","Fehr_orig","r",0.119372369949725,0.0072992700729927
+"The space between us: Stereotype threat and distance in interracial contexts.","Friedman_orig","r",0.418373377644792,0.0208333333333333
+"The space between us: Stereotype threat and distance in interracial contexts.","Fudenberg_orig","r",0.013046191117014,0.0208333333333333
+"Sex differences in mate preferences revisited: Do people know what they initially desire in a romantic partner?","Huck_orig","r",0.140738547101889,0.00332225913621262
+"Sex differences in mate preferences revisited: Do people know what they initially desire in a romantic partner?","Ifcher_orig","r",0.0294131791904262,0.00332225913621262
+"Balancing connectedness and self-protection goals in close relationships: A levels-of-processing perspective on risk regulation.","Kessler_orig","r",0.328823222570441,0.0136986301369863
+"Balancing connectedness and self-protection goals in close relationships: A levels-of-processing perspective on risk regulation.","Kirchler_orig","r",-0.135931069224414,0.0136986301369863
+"Self-handicapping, excuse making, and counterfactual thinking: Consequences for self-esteem and future motivation.","Kogan_orig","r",0.358977418835944,0.0172413793103448
+"Self-handicapping, excuse making, and counterfactual thinking: Consequences for self-esteem and future motivation.","Kuziemko_orig","r",0.298247895841039,0.0172413793103448
+"Social identity contingencies: How diversity cues signal threat or safety for African Americans in mainstream institutions.","Abeler_orig","r",0.398044963704019,0.000672494956287828
+"Social identity contingencies: How diversity cues signal threat or safety for African Americans in mainstream institutions.","Ambrus_orig","r",-0.0369521557380355,0.000672494956287828
+"Effects of fluency on psychological distance and mental construal (or why New York is a large city, but New York is a civilized jungle).","Bartling_orig","r",0.128088292454287,0.000874890638670166
+"Effects of fluency on psychological distance and mental construal (or why New York is a large city, but New York is a civilized jungle).","Charness_orig","r",0.0183785849799619,0.000874890638670166
+"More than meets the eye: the role of language in binding and maintaining feature conjunctions.","Chen_orig","r",0.402099816773692,0.0227272727272727
+"More than meets the eye: the role of language in binding and maintaining feature conjunctions.","deClippel_orig","r",-0.226727712667986,0.0227272727272727
+"Nonconscious goal pursuit in novel environments: The case of implicit learning.","Duffy_orig","r",0.226106188572231,0.00645161290322581
+"Nonconscious goal pursuit in novel environments: The case of implicit learning.","Dulleck_orig","r",0.105329585238058,0.00645161290322581
+"Perceptual mechanisms that characterize gender differences in decoding women's sexual intent","Ericson_orig","r",0.624750856813491,0.00709219858156028
+"Perceptual mechanisms that characterize gender differences in decoding women's sexual intent","Fehr_orig","r",0.0914164977721764,0.00709219858156028
+"Precision of the anchor influences the amount of adjustment.","Friedman_orig","r",0.34669477755082,0.00854700854700855
+"Precision of the anchor influences the amount of adjustment.","Fudenberg_orig","r",0.229721666607801,0.00854700854700855
+"Action dynamics reveal parallel competition in decision making","Huck_orig","r",0.869438514085779,0.0208333333333333
+"Action dynamics reveal parallel competition in decision making","Ifcher_orig","r",0.973880109255998,0.0208333333333333
+"Prescribed optimism: Is it right to be wrong about the future?","Kessler_orig","r",0.831260365276445,0.00574712643678161
+"Prescribed optimism: Is it right to be wrong about the future?","Kirchler_orig","r",1.00457484452595,0.00574712643678161
+"Age-related changes in the episodic simulation of future events","Kogan_orig","r",0.648550826829565,0.0344827586206897
+"Age-related changes in the episodic simulation of future events","Kuziemko_orig","r",0.780041330582545,0.0344827586206897
+"Preschoolers' perspective taking in word learning: do they blindly follow eye gaze?","Abeler_orig","r",0.551707796113811,0.2
+"Preschoolers' perspective taking in word learning: do they blindly follow eye gaze?","Ambrus_orig","r",-0.484935913612849,0.2
+"Measuring the crowd within: Probabilistic representations within individuals.","Bartling_orig","r",0.296077402194826,0.0072992700729927
+"Measuring the crowd within: Probabilistic representations within individuals.","Charness_orig","r",0.334688430685667,0.0072992700729927
+"Temporal selection is suppressed, delayed, and diffused during the attentional blink.","Chen_orig","r",0.131535509743525,0.111111111111111
+"Temporal selection is suppressed, delayed, and diffused during the attentional blink.","deClippel_orig","r",0.121107792678052,0.111111111111111
+"Toward a physiology of dual-process reasoning and judgment: lemonade, willpower, and expensive rule-based analysis.","Duffy_orig","r",0.217031412373752,0.00613496932515337
+"Toward a physiology of dual-process reasoning and judgment: lemonade, willpower, and expensive rule-based analysis.","Dulleck_orig","r",-0.0489573144713753,0.00613496932515337
+"Errors Are Aversive: Defensive Motivation and the Error-Related Negativity","Ericson_orig","r",0.400059650056057,0.025
+"Errors Are Aversive: Defensive Motivation and the Error-Related Negativity","Fehr_orig","r",0.255412811882995,0.025
+"The sunny side of fairness: Preference for fairness activates reward circuitry (and disregarding unfairness activates self-control circuitry)","Friedman_orig","r",1.2622359039858,0.0476190476190476
+"The sunny side of fairness: Preference for fairness activates reward circuitry (and disregarding unfairness activates self-control circuitry)","Fudenberg_orig","r",1.18492314412419,0.0476190476190476
+"The representation of simple ensemble visual features outside the focus of attention","Huck_orig","r",0.911580609250947,0.0714285714285714
+"The representation of simple ensemble visual features outside the focus of attention","Ifcher_orig","r",1.60847594653146,0.0714285714285714
+"Loving those who justify inequality: the effects of system threat on attraction to women who embody benevolent sexist ideals.","Kessler_orig","r",0.405048559767843,0.0149253731343284
+"Loving those who justify inequality: the effects of system threat on attraction to women who embody benevolent sexist ideals.","Kirchler_orig","r",-0.0342929956428472,0.0149253731343284
+"A motion aftereffect from still photographs depicting motion","Kogan_orig","r",0.83912881221931,0.0434782608695652
+"A motion aftereffect from still photographs depicting motion","Kuziemko_orig","r",0.58640880552693,0.0434782608695652
+"The threat of appearing prejudiced and race-based attentional biases.","Abeler_orig","r",0.390481398198824,0.0158730158730159
+"The threat of appearing prejudiced and race-based attentional biases.","Ambrus_orig","r",0.0176767489061405,0.0158730158730159
+"Where do we look during potentially offensive behavior?","Bartling_orig","r",0.252158936395347,0.037037037037037
+"Where do we look during potentially offensive behavior?","Charness_orig","r",0.181360494878753,0.037037037037037
+"Adaptive memory: The comparative value of survival processing.","Chen_orig","r",0.479262324352725,0.0285714285714286
+"Adaptive memory: The comparative value of survival processing.","deClippel_orig","r",0.451783336020072,0.0285714285714286
+"Is happiness having what you want, wanting what you have, or both?","Duffy_orig","r",0.213138445861106,0.00425531914893617
+"Is happiness having what you want, wanting what you have, or both?","Dulleck_orig","r",0.549546123796944,0.00425531914893617
+"Implicit attitude generalization occurs immediately; explicit attitude generalization takes time","Ericson_orig","r",0.00464005329997545,0.000278241513633834
+"Implicit attitude generalization occurs immediately; explicit attitude generalization takes time","Fehr_orig","r",0.10628949138422,0.000278241513633834
+"The value of believing in free will: Encouraging a belief in determinism increases cheating.","Friedman_orig","r",0.546841417850272,0.0181818181818182
+"The value of believing in free will: Encouraging a belief in determinism increases cheating.","Fudenberg_orig","r",0.102714869812966,0.0181818181818182
+"Auditory change detection: simple sounds are not memorized better than complex sounds","Huck_orig","r",0.544469283070039,0.5
+"Auditory change detection: simple sounds are not memorized better than complex sounds","Ifcher_orig","r",0.556198279242192,0.5
+"Keeping one's distance: The influence of spatial distance cues on affect and evaluation.","Kessler_orig","r",0.238180507391454,0.00819672131147541
+"Keeping one's distance: The influence of spatial distance cues on affect and evaluation.","Kirchler_orig","r",0.0442952283539177,0.00819672131147541
+"Hedonic and instrumental motives in anger regulation.","Kogan_orig","r",0.68290665629042,0.0117647058823529
+"Hedonic and instrumental motives in anger regulation.","Kuziemko_orig","r",0.708784059252991,0.0117647058823529
+"Creating social connection through inferential reproduction: Loneliness and perceived agency in gadgets, gods, and greyhounds.","Abeler_orig","r",0.174716536811263,0.0133333333333333
+"Creating social connection through inferential reproduction: Loneliness and perceived agency in gadgets, gods, and greyhounds.","Ambrus_orig","r",0.0617856577111544,0.0133333333333333
+"ñIn_Group Loveî and ñOut_Group Hateî as Motives for Individual Participation in Intergroup Conflict: A New Game Paradigm","Bartling_orig","r",1.01702492443777,0.00854700854700855
+"ñIn_Group Loveî and ñOut_Group Hateî as Motives for Individual Participation in Intergroup Conflict: A New Game Paradigm","Charness_orig","r",0.780480766803962,0.00854700854700855
+"A word-order constraint on phonological activation","Chen_orig","r",0.775221776719086,0.111111111111111
+"A word-order constraint on phonological activation","deClippel_orig","r",0.545423705409234,0.111111111111111
+"The Best Men Are Already Taken: Female Preference for Single Versus Attached Males Depends on Conception Risk","Duffy_orig","r",0.190949992796085,0.00384615384615385
+"The Best Men Are Already Taken: Female Preference for Single Versus Attached Males Depends on Conception Risk","Dulleck_orig","r",-0.0301814559621975,0.00384615384615385
+"The Best Men Are Already Taken: Female Preference for Single Versus Attached Males Depends on Conception Risk","Ericson_orig","r",0.190949992796085,0.00317460317460317
+"The Best Men Are Already Taken: Female Preference for Single Versus Attached Males Depends on Conception Risk","Fehr_orig","r",0.0182854486872587,0.00317460317460317
+"Sensitivity to object viewpoint and action instructions during search for targets in the lower visual field","Friedman_orig","r",0.91293165300265,0.0625
+"Sensitivity to object viewpoint and action instructions during search for targets in the lower visual field","Fudenberg_orig","r",0.210572424096054,0.0625
+"With a clean conscience: Cleanliness reduces the severity of moral judgments.","Huck_orig","r",0.423661125491187,0.00813008130081301
+"With a clean conscience: Cleanliness reduces the severity of moral judgments.","Ifcher_orig","r",0.00283980563384237,0.00813008130081301
+"Extremal edge: a powerful cue to depth perception and figure-ground organization","Kessler_orig","r",1.29162832504362,0.2
+"Extremal edge: a powerful cue to depth perception and figure-ground organization","Kirchler_orig","r",0.120655671934318,0.2
+"What Do Cross_National Comparisons of Personality Traits Tell Us? The Case of Conscientiousness","Kogan_orig","r",0.459896681212679,0.0769230769230769
+"What Do Cross_National Comparisons of Personality Traits Tell Us? The Case of Conscientiousness","Kuziemko_orig","r",0.110446915790097,0.0769230769230769
+"Personality dominance and preferential use of the vertical dimension of space","Abeler_orig","r",0.320545409301946,0.0144927536231884
+"Personality dominance and preferential use of the vertical dimension of space","Ambrus_orig","r",-0.0340131104279282,0.0144927536231884
+"Conflict-triggered goal shielding: Response conflicts attenuate background monitoring for prospective memory cues.","Bartling_orig","r",0.393981877130233,0.0108695652173913
+"Conflict-triggered goal shielding: Response conflicts attenuate background monitoring for prospective memory cues.","Charness_orig","r",0.437218946739661,0.0108695652173913
+"Detecting the snake in the grass: attention to fear-relevant stimuli by adults and young children.","Chen_orig","r",0.527466797836033,0.0222222222222222
+"Detecting the snake in the grass: attention to fear-relevant stimuli by adults and young children.","deClippel_orig","r",0.179748763345337,0.0222222222222222
+"The value heuristic in judgments of relative frequency.","Duffy_orig","r",0.291797237670132,0.0208333333333333
+"The value heuristic in judgments of relative frequency.","Dulleck_orig","r",-0.177289012352195,0.0208333333333333
+"Head up, foot down: Object words orient attention to the objects' typical location.","Ericson_orig","r",0.685792015328455,0.0526315789473684
+"Head up, foot down: Object words orient attention to the objects' typical location.","Fehr_orig","r",0.259835474573725,0.0526315789473684
