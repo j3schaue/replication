@@ -1,11 +1,15 @@
-mdh_constvar = function(k, alpha=.05, power=0.8, h0replication=TRUE, lambda0=0, step=0.001, maxratio=4){
+mdh_constvar = function(k, alpha=.05, power=0.8, fixed=TRUE, h0replication=TRUE, lambda0=0, tau0=0, step=0.001, maxratio=4){
   
   if(h0replication){
-    lambda = seq(lambda0/(k-1), max(maxratio, maxratio*lambda0/(k-1)), by=step)*(k-1)
-    calpha = qchisq(1-alpha, df=k-1, ncp=lambda0)
-    p0 = 1 - pchisq(calpha, df=k-1, ncp=lambda)
-    # print(calpha); print(k); print(lambda0)
-    return(min(lambda[which(abs(p0 - power) == min(abs(p0 - power)))])/(k-1))
+    if(fixed){
+      lambda = seq(lambda0/(k-1), max(maxratio, maxratio*lambda0/(k-1)), by=step)*(k-1)
+      calpha = qchisq(1-alpha, df=k-1, ncp=lambda0)
+      p0 = 1 - pchisq(calpha, df=k-1, ncp=lambda)
+      return(min(lambda[which(abs(p0 - power) == min(abs(p0 - power)))])/(k-1))
+    } else {
+      tau = seq(tau0, maxratio*tau0, by=step)
+      
+    }
   } else {
     if(lambda0==0){
       print('Error: must specify lambda0 > 0.')

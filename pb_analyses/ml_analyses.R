@@ -54,3 +54,27 @@ fetab = fetab[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p
 write.csv(fetab, "./results/qtest_fixed_manylabs.csv")
 
 
+# ###--- Random Effects Analyses
+# redata = lapply(tau0s, FUN=function(tau0)
+#   setNames(data.frame(
+#     matrix(unlist(lapply(seq_along(experiments), FUN=function(i) 
+#       combineResults(t=filter(data, experiment==experiments[i])$d,
+#                      v=filter(data, experiment==experiments[i])$vd,
+#                      lambda0=(ks[i]-1)*tau0, 
+#                      fixed=FALSE,
+#                      maxratio=100)
+#     )
+#     ), ncol=5, byrow = T)
+#   ), c("k", "Q", paste0("calpha", round(tau0*100, 0)), 
+#        paste0("p", round(tau0*100, 0)), paste0("mdh", round(tau0*100, 0)))
+#   )
+# )
+# 
+# 
+# rdataout = Reduce(left_join, redata)
+# rdataout$experiment = experiments
+# rdataout = rdataout[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
+#                       "mdh67")]
+# 
+# write.csv(rdataout, "./results/qtest_random_ppir.csv", row.names=F)
+# round(rdataout$p0, 3)
