@@ -2,6 +2,9 @@
 ###---------------------------------------------------------------###
 ### REGISTERED REPLICATION REPORTS (ALOGNA) cleaning
 ###   raw data csv's modified from Workbooks on OSF
+### Outcomes are cell counts by group, and ES is risk difference
+### There are two main outcomes, correct ID rates and false ID rates.
+### We focus only on correct ID rates.
 ###---------------------------------------------------------------###
 ###---------------------------------------------------------------###
 
