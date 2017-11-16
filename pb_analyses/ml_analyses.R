@@ -18,7 +18,14 @@ combineResults = function(t=NULL, v=NULL, h0replication=TRUE, fixed=TRUE, alpha=
 }
 
 ###------------------------------------------------------------###
-### Many Labs
+### Many Labs Comparison
+###------------------------------------------------------------###
+
+
+
+
+###------------------------------------------------------------###
+### Many Labs pregistered
 ###------------------------------------------------------------###
 ## Read in data
 data = read.csv("../data/manylabs.csv") %>% filter(is.finite(g)) # drop infinite estimates: Collin--are these just missing values?

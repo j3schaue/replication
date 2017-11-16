@@ -6,8 +6,9 @@
 
 library(dplyr); library(tidyr)
 
-setwd("~/Documents/replication/replication/data/raw/ppir/") #path on Jake's machine
-# setwd("./data/raw_ppir") # relative path
+# set the working directory to src so we can use relative paths
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+setwd("../raw/ppir")
 
 #---------------------------------------------#
 ## Sample Sizes by University

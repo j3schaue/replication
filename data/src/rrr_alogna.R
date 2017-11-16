@@ -9,8 +9,10 @@
 ###---------------------------------------------------------------###
 
 library(dplyr); library(tidyr); library(ggplot2)
-setwd("~/Documents/replication/replication/data/raw/rrr_alogna/") # jakes' path
-# setwd("./data/raw_rrr_alogna/") # relative path
+
+# set the working directory to src so we can use relative paths
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+setwd("../raw/rrr_alogna")
 
 ###---Raw data
 rr1 = read.csv("Table1_mod.csv") # RR1 experiments
@@ -68,3 +70,4 @@ rr$site[grepl('ORIGINAL', rr$site)] = "Original"
 write.csv(rr, "../../rrr_alogna.csv", row.names=F)
 
 rr %>% group_by(experiment) %>% count()
+

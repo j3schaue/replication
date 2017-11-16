@@ -6,10 +6,9 @@
 ###-----------------------------------------------------------###
 ###-----------------------------------------------------------###
 
-setwd("~/Documents/replication/replication/data/raw/rpe/") #path on Jake's machine
-# setwd("./data/raw_camerer") # relative path
-list.files()
-
+# set the working directory to src so we can use relative paths
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+setwd("../raw/rpe")
 
 source("S1pvalsetc.R") # lists of p-values from the paper
 orig = read.csv("S1origes.csv") # partial table copied from paper PDF
@@ -72,3 +71,4 @@ df
 write.csv(df, "../../rpe.csv", row.names=F)
 
 # write.csv(df %>% select(experiment, site, es, z, vz, replicated), "../camerer.csv", row.names=F)
+
