@@ -9,29 +9,34 @@
 ###---------------------------------------------------------------###
 
 library(dplyr); library(tidyr); library(ggplot2)
-setwd("~/Documents/replication/replication/data/raw_rrr_alogna/") # jakes' path
+setwd("~/Documents/replication/replication/data/raw/rrr_alogna/") # jakes' path
 # setwd("./data/raw_rrr_alogna/") # relative path
 
-rr1 = read.csv("Table1_mod.csv")
-rr2 = read.csv("Table2_mod.csv")
-names(rr1) = c("authors", "nv", "cv", "fidv", "npv", 
+###---Raw data
+rr1 = read.csv("Table1_mod.csv") # RR1 experiments
+rr2 = read.csv("Table2_mod.csv") # RR2 experiments
+
+# rename data frames
+names(rr1) = c("site", "nv", "cv", "fidv", "npv", 
                           "nc", "cc", "fidc", "npc")
 names(rr2) = names(rr1)
 
-rr1$authors = as.character(rr1$authors)
-rr2$authors = as.character(rr2$authors)
+# re-structure data
+rr1$site = as.character(rr1$site)
+rr2$site = as.character(rr2$site)
 
+###---Code effect sizes (or and risk difference---which is what is reported)
 # log OR
-rr1$log_orc = log(
+rr1$log_or = log(
               ((rr1$cv/rr1$nv)/((rr1$nv - rr1$cv)/rr1$nv))/
               ((rr1$cc/rr1$nc)/((rr1$nc - rr1$cc)/rr1$nc)))
-rr1$vlog_orc = 1/(rr1$cv) + 1/(rr1$nv - rr1$cv) + 
+rr1$vlog_or = 1/(rr1$cv) + 1/(rr1$nv - rr1$cv) + 
                1/(rr1$cc) + 1/(rr1$nc - rr1$cc)
 
-rr2$log_orc = log(
+rr2$log_or = log(
   ((rr2$cv/rr2$nv)/((rr2$nv - rr2$cv)/rr2$nv))/
     ((rr2$cc/rr2$nc)/((rr2$nc - rr2$cc)/rr2$nc)))
-rr2$vlog_orc = 1/(rr2$cv) + 1/(rr2$nv - rr2$cv) + 
+rr2$vlog_or = 1/(rr2$cv) + 1/(rr2$nv - rr2$cv) + 
   1/(rr2$cc) + 1/(rr2$nc - rr2$cc)
 
 # risk difference
@@ -41,18 +46,25 @@ rr1$vrd = rr1$cv*(rr1$nv - rr1$cv)/rr1$nv^3 + rr1$cc*(rr1$nc - rr1$cc)/rr1$nc^3
 rr2$rd = rr2$cv/rr2$nv - rr2$cc/rr2$nc
 rr2$vrd = rr2$cv*(rr2$nv - rr2$cv)/rr2$nv^3 + rr2$cc*(rr2$nc - rr2$cc)/rr2$nc^3
 
+###---Code experiment before merging
+rr1$experiment = "RR1"
+rr2$experiment = "RR2"
 
+# merge data
+rr = rbind(rr1, rr2)[c("experiment", "site", "nv", "cv", "fidv", "npv", 
+                       "nc", "cc", "fidc", "npc",
+                       "log_or", "vlog_or", "rd", "vrd")]
 
-# rr1$exp = 1:nrow(rr1)
-# ggplot(rr1) + geom_point(aes(x=rd, y=exp)) + 
-#   geom_segment(aes(x=rd + 2*sqrt(vrd) , xend=rd - 2*sqrt(vrd), y=exp, yend=exp))
+# mark effect size
+rr$es = 'rd'
+
+# clean up site names
+rr$site = sapply(as.character(rr$site), FUN=function(x) 
+  gsub("Shannon McCoy", "Shannon K. McCoy", strsplit(x, ",")[[1]][1]))
+rr$site[grepl('MTURK', rr$site)] = "MTURK"
+rr$site[grepl('ORIGINAL', rr$site)] = "Original"
 
 # Write to file
-write.csv(rr1, "../rrr_alogna_rr1_full.csv", row.names=F)
-write.csv(rr2, "../rrr_alogna_rr2_full.csv", row.names=F)
+write.csv(rr, "../../rrr_alogna.csv", row.names=F)
 
-write.csv(select(rr1, authors, rd, vrd, logor=log_orc, vlogor=vlog_orc), 
-          "../rrr_alogna_rr1.csv", row.names=F)
-write.csv(select(rr2, authors, rd, vrd, logor=log_orc, vlogor=vlog_orc),
-          "../rrr_alogna_rr2.csv", row.names=F)
-
+rr %>% group_by(experiment) %>% count()

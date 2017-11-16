@@ -1,37 +1,37 @@
-"experiment","site","es","z","vz"
-"Abeler et al.","Abeler_orig","r",0.181982688600706,0.00854700854700855
-"Ambrus and Greiner","Ambrus_orig","r",0.320545409301946,0.0087719298245614
-"Bartling et al.","Bartling_orig","r",0.907644983319124,0.00469483568075117
-"Charness and Dufwenberg","Charness_orig","r",0.400059650056057,0.00628930817610063
-"Chen and Chen","Chen_orig","r",1.2211735176846,0.0144927536231884
-"de Clippel et al.","deClippel_orig","r",0.120581028408444,0.00645161290322581
-"Duffy and Puzzello","Duffy_orig","r",0.996215082345103,0.0196078431372549
-"Dulleck et al.","Dulleck_orig","r",0.907644983319124,0.00606060606060606
-"Ericson and Fuster","Ericson_orig","r",0.21317134656486,0.00917431192660551
-"Fehr et al.","Fehr_orig","r",0.484700278594052,0.0175438596491228
-"Friedman and Oprea","Friedman_orig","r",0.758173744684044,0.0133333333333333
-"Fudenberg et al.","Fudenberg_orig","r",0.309519604203112,0.00826446280991736
-"Huck et al.","Huck_orig","r",1.1881364043926,0.00854700854700855
-"Ifcher and Zarghamee","Ifcher_orig","r",0.287682072451781,0.0181818181818182
-"Kessler and Roth","Kessler_orig","r",0.536060336610567,0.00350877192982456
-"Kirchler et al","Kirchler_orig","r",0.792813631870191,0.00854700854700855
-"Kogan et al.","Kogan_orig","r",0.331647108705132,0.00813008130081301
-"Kuziemko et al.","Kuziemko_orig","r",0.287682072451781,0.0256410256410256
-"Abeler et al.","Abeler_rep","r",0.0801713250375897,0.00317460317460317
-"Ambrus and Greiner","Ambrus_rep","r",0.234189466759367,0.00282485875706215
-"Bartling et al.","Bartling_rep","r",0.792813631870191,0.00280112044817927
-"Charness and Dufwenberg","Charness_rep","r",0.37688590118819,0.00383141762452107
-"Chen and Chen","Chen_rep","r",0.171666663500579,0.00606060606060606
-"de Clippel et al.","deClippel_rep","r",0.2768638226551,0.0065359477124183
-"Duffy and Puzzello","Duffy_rep","r",0.120581028408444,0.010752688172043
-"Dulleck et al.","Dulleck_rep","r",0.928727364246725,0.008
-"Ericson and Fuster","Ericson_rep","r",0.120581028408444,0.00386100386100386
-"Fehr et al.","Fehr_rep","r",0.320545409301946,0.0101010101010101
-"Friedman and Oprea","Friedman_rep","r",0.472230804420426,0.027027027027027
-"Fudenberg et al.","Fudenberg_rep","r",0.342828254415394,0.008
-"Huck et al.","Huck_rep","r",0.388423099718296,0.00636942675159236
-"Ifcher and Zarghamee","Ifcher_rep","r",0.0100003333533347,0.0078125
-"Kessler and Roth","Kessler_rep","r",0.354092528962243,0.0222222222222222
-"Kirchler et al","Kirchler_rep","r",0.590145159841189,0.00460829493087558
-"Kogan et al.","Kogan_rep","r",0.309519604203112,0.0114942528735632
-"Kuziemko et al.","Kuziemko_rep","r",0.120581028408444,0.00709219858156028
+"experiment","ref","replicated","replicate","n","r","z","vz","site","es"
+"Abeler et al.",33,"No",0,120,0.18,0.181982688600706,0.00854700854700855,"Abeler_orig","r"
+"Ambrus and Greiner",34,"Yes",0,117,0.31,0.320545409301946,0.0087719298245614,"Ambrus_orig","r"
+"Bartling et al.",35,"Yes",0,216,0.72,0.907644983319124,0.00469483568075117,"Bartling_orig","r"
+"Charness and Dufwenberg",36,"Yes",0,162,0.38,0.400059650056057,0.00628930817610063,"Charness_orig","r"
+"Chen and Chen",37,"No",0,72,0.84,1.2211735176846,0.0144927536231884,"Chen_orig","r"
+"de Clippel et al.",38,"Yes",0,158,0.12,0.120581028408444,0.00645161290322581,"deClippel_orig","r"
+"Duffy and Puzzello",39,"No",0,54,0.76,0.996215082345103,0.0196078431372549,"Duffy_orig","r"
+"Dulleck et al.",40,"Yes",0,168,0.72,0.907644983319124,0.00606060606060606,"Dulleck_orig","r"
+"Ericson and Fuster",41,"No",0,112,0.21,0.21317134656486,0.00917431192660551,"Ericson_orig","r"
+"Fehr et al.",42,"Yes",0,60,0.45,0.484700278594052,0.0175438596491228,"Fehr_orig","r"
+"Friedman and Oprea",43,"Yes",0,78,0.64,0.758173744684044,0.0133333333333333,"Friedman_orig","r"
+"Fudenberg et al.",44,"Yes",0,124,0.3,0.309519604203112,0.00826446280991736,"Fudenberg_orig","r"
+"Huck et al.",45,"No",0,120,0.83,1.1881364043926,0.00854700854700855,"Huck_orig","r"
+"Ifcher and Zarghamee",46,"No",0,58,0.28,0.287682072451781,0.0181818181818182,"Ifcher_orig","r"
+"Kessler and Roth",47,"Yes",0,288,0.49,0.536060336610567,0.00350877192982456,"Kessler_orig","r"
+"Kirchler et al",48,"Yes",0,120,0.66,0.792813631870191,0.00854700854700855,"Kirchler_orig","r"
+"Kogan et al.",49,"Yes",0,126,0.32,0.331647108705132,0.00813008130081301,"Kogan_orig","r"
+"Kuziemko et al.",50,"No",0,42,0.28,0.287682072451781,0.0256410256410256,"Kuziemko_orig","r"
+"Abeler et al.",33,"No",1,318,0.08,0.0801713250375897,0.00317460317460317,"Abeler_rep","r"
+"Ambrus and Greiner",34,"Yes",1,357,0.23,0.234189466759367,0.00282485875706215,"Ambrus_rep","r"
+"Bartling et al.",35,"Yes",1,360,0.66,0.792813631870191,0.00280112044817927,"Bartling_rep","r"
+"Charness and Dufwenberg",36,"Yes",1,264,0.36,0.37688590118819,0.00383141762452107,"Charness_rep","r"
+"Chen and Chen",37,"No",1,168,0.17,0.171666663500579,0.00606060606060606,"Chen_rep","r"
+"de Clippel et al.",38,"Yes",1,156,0.27,0.2768638226551,0.0065359477124183,"deClippel_rep","r"
+"Duffy and Puzzello",39,"No",1,96,0.12,0.120581028408444,0.010752688172043,"Duffy_rep","r"
+"Dulleck et al.",40,"Yes",1,128,0.73,0.928727364246725,0.008,"Dulleck_rep","r"
+"Ericson and Fuster",41,"No",1,262,0.12,0.120581028408444,0.00386100386100386,"Ericson_rep","r"
+"Fehr et al.",42,"Yes",1,102,0.31,0.320545409301946,0.0101010101010101,"Fehr_rep","r"
+"Friedman and Oprea",43,"Yes",1,40,0.44,0.472230804420426,0.027027027027027,"Friedman_rep","r"
+"Fudenberg et al.",44,"Yes",1,128,0.33,0.342828254415394,0.008,"Fudenberg_rep","r"
+"Huck et al.",45,"No",1,160,0.37,0.388423099718296,0.00636942675159236,"Huck_rep","r"
+"Ifcher and Zarghamee",46,"No",1,131,0.01,0.0100003333533347,0.0078125,"Ifcher_rep","r"
+"Kessler and Roth",47,"Yes",1,48,0.34,0.354092528962243,0.0222222222222222,"Kessler_rep","r"
+"Kirchler et al",48,"Yes",1,220,0.53,0.590145159841189,0.00460829493087558,"Kirchler_rep","r"
+"Kogan et al.",49,"Yes",1,90,0.3,0.309519604203112,0.0114942528735632,"Kogan_rep","r"
+"Kuziemko et al.",50,"No",1,144,0.12,0.120581028408444,0.00709219858156028,"Kuziemko_rep","r"
