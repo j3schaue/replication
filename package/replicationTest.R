@@ -152,6 +152,11 @@ powerRepTest = function(k, v, fixed=TRUE, h0replication=TRUE, alpha=.05, lambda=
 # powerRepTest(k=20, lambda=2/3, lambda0=1/4) # approximate, fixed
 # powerRepTest(k=20, h0replication=FALSE, lambda=0, lambda0=1/4) # approximate, fixed, equivalence
 
+combineResults = function(t=NULL, v=NULL, h0replication=TRUE, fixed=TRUE, alpha=.05, lambda0=0, tau0=0, power=0.8, step=.001, maxratio=100){
+  qtest = replicationTest(t=t, v=v, h0replication=h0replication, fixed=fixed, alpha=alpha, lambda0=lambda0, tau0=tau0)
+  qtest[["mdh"]] = mdh_constvar(k=length(t), alpha=alpha, power=power, h0replication=h0replication, lambda0=lambda0, step=step, maxratio=maxratio)
+  return(qtest[c("k", "Q", "calpha", "p", "mdh")])
+}
 
 ###--------------------------------------------###
 ### MDH/MAH

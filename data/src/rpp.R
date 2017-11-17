@@ -19,8 +19,9 @@ arp = rp %>%
          r=T_r..O., n=N..O., rrep=T_r..R., nrep=N..R., 
          pvalo = T_pval_USE..O., pvalr = T_pval_USE..R., 
          stat=T_Test.Statistic..R., df1=T_df1..O.,
-         rep1=Replicate..R., cirep=O.within.CI.R, 
+         replicated=Replicate..R., cirep=O.within.CI.R, 
          meta=Meta.analysis.significant) %>%
+  mutate(replicated=tolower(as.character(replicated))) %>%
   filter((stat=='F' & df1==1) | stat=='t' | stat=='r') # get the meta-analytic subset
 
 dim(arp)
@@ -49,18 +50,16 @@ out = df %>%
   rename(experiment = num) %>% 
   mutate(replicate = ifelse(replicate==1, "_rep", "orig")) %>%
   unite(site, experiment, replicate, sep="_") %>% 
-  cbind(experiment=df$num) 
+  cbind(experiment=df$num) %>%
+  select(experiment, site, n, r, z, vz, replicated, cirep, 
+         meta, stat, pvalo, pvalr, exp_name)
 
 head(out)
 dim(out)
 
 #---denote ES type
-out$es = "r"
+out$es = "z"
 
 #---Write to file
-# reorder df
-write.csv(out[, c('experiment', 'exp_name', 'site', 'es', 
-                  'stat', 'df1', 'n', 'r', 'z', 'vz', 'rep1',
-                  'cirep', 'meta', 'pvalo', 'pvalr')], 
-          "../rpp.csv")
+write.csv(out, "../rpp.csv")
 

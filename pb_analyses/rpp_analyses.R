@@ -6,9 +6,10 @@
 ###------------------------------------------------------------###
 ###------------------------------------------------------------###
 
+# set the working directory to src so we can use relative paths
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
 library(dplyr)
-setwd("~/Documents/replication/replication/pb_analyses/") #jakes path
-# setwd("./pb_analyses") # relative path
 source("../package/replicationTest.R")
 source("../package/mdh.R")
 combineResults = function(t=NULL, v=NULL, h0replication=TRUE, fixed=TRUE, alpha=.05, lambda0=0, tau0=0, power=0.8, step=.001, maxratio=100){
@@ -24,14 +25,8 @@ combineResults = function(t=NULL, v=NULL, h0replication=TRUE, fixed=TRUE, alpha=
 data = read.csv("../data/rpp.csv")
 
 experiments = unique(data$experiment)
-# for(ee in experiments){
-#   dd = filter(data, experiment==ee)
-#   n = nrow(dd)
-#   show(replicationTest(t=dd$z, v=dd$vz))
-#   show(mdh_constvar(k=n, maxratio = 100))
-# }
-
 ks=rep(2, length(experiments))
+tau0s = c(0, 1/4, 1/3, 2/3) # plausible ratios for tau0
 
 fedata = lapply(tau0s, FUN=function(tau0)
   setNames(data.frame(
@@ -51,7 +46,10 @@ fedata = lapply(tau0s, FUN=function(tau0)
 dataout = Reduce(left_join, fedata)
 dataout$experiment = experiments
 dataout = dataout[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
-                  "mdh67")]
+                  "mdh67")] %>%
+          left_join(., select(data, experiment, replicated, cirep, meta, es, exp_name)) %>%
+          distinct()
+
 
 write.csv(dataout, "./results/qtest_fixed_rpp.csv", row.names=F)
-round(camout$p0, 3)
+round(dataout$p0, 3)

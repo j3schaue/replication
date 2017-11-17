@@ -65,6 +65,7 @@ rr$site = sapply(as.character(rr$site), FUN=function(x)
   gsub("Shannon McCoy", "Shannon K. McCoy", strsplit(x, ",")[[1]][1]))
 rr$site[grepl('MTURK', rr$site)] = "MTURK"
 rr$site[grepl('ORIGINAL', rr$site)] = "Original"
+rr$replicated = 'yes'
 
 # Write to file
 write.csv(rr, "../../rrr_alogna.csv", row.names=F)

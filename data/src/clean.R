@@ -311,13 +311,14 @@ dfs = rbind(do.call(rbind,
               lapply(list(af, a1, a2, a3, a4, fp, gl, gf, iat, ic, mag, mp, qa, r, s, sc),
              FUN=function(x) dplyr::select(x, experiment, site, t, v, es))),
       origs %>% select(experiment, site, t=d, v=vd, es=orig_es)) %>%
+      left_join(., select(origs, experiment, replicated)) %>%
   arrange(as.character(experiment), as.character(site))
 
 ######################
 ###Writing CSV file###
 ######################
 
-write.csv(df,  "../manylabs_comp.csv", row.names=F) 
+write.csv(dfs,  "../manylabs_comp.csv", row.names=F) 
 
 
 ##################################################################

@@ -6,24 +6,20 @@
 ###------------------------------------------------------------###
 ###------------------------------------------------------------###
 
+# set the working directory to src so we can use relative paths
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
 library(dplyr)
-setwd("~/Documents/replication/replication/pb_analyses/") #jakes path
-# setwd("./pb_analyses") # relative path
 source("../package/replicationTest.R")
 source("../package/mdh.R")
-combineResults = function(t=NULL, v=NULL, h0replication=TRUE, fixed=TRUE, alpha=.05, lambda0=0, tau0=0, power=0.8, step=.001, maxratio=100){
-  qtest = replicationTest(t=t, v=v, h0replication=h0replication, fixed=fixed, alpha=alpha, lambda0=lambda0, tau0=tau0)
-  qtest[["mdh"]] = mdh_constvar(k=length(t), alpha=alpha, power=power, h0replication=h0replication, lambda0=lambda0, step=step, maxratio=maxratio)
-  return(qtest[c("k", "Q", "calpha", "p", "mdh")])
-}
 
-
-###------------------------------------------------------------###
-### PPIR
-###------------------------------------------------------------###
-data = read.csv("../data/ppir.csv")
-
+# Get data
+df = read.csv("../data/ppir.csv")
 experiments = unique(data$experiment)
+
+###------------------------------------------------------------###
+### PPIR Meta-analytic
+###------------------------------------------------------------###
 ks = data %>% select(-n) %>% group_by(lab) %>% tally() %>% select(n)
 ks = ks$n
 
