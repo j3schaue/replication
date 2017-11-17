@@ -30,8 +30,8 @@ for(mm in methods){
     lambda0 = rr
     setNames(data.frame(matrix(unlist(
       lapply(unique(df$experiment), FUN=function(expt){
-        replicates = df %>% filter(experiment==expt & site!='Original' & !is.infinite(rd))
-        orig = df %>% filter(experiment==expt & site=='Original' & !is.na(rd))
+        replicates = df %>% filter(experiment==expt & site!='original' & !is.infinite(rd))
+        orig = df %>% filter(experiment==expt & site=='original' & !is.na(rd))
         if(nrow(orig) == 1){
           tmp = rma.uni(yi=replicates$rd, vi=replicates$vrd, method='FE')
           combineResults(t=c(tmp$beta, orig$rd), 

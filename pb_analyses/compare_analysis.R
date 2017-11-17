@@ -25,12 +25,12 @@ agree = setNames(
     matrix(unlist(
           lapply(strlambdas, FUN=function(pp)
             sapply(dfs, FUN=function(df){
-            reps = as.integer(gsub("'", "", tolower(df$replicated)) == 'yes')
-            mean(reps == as.integer(df[[paste0('p', pp)]] > .05), na.rm=T)
+              mean(df$replicated == as.integer(df[[paste0('p', pp)]] > .05), na.rm=T)
           })
 )), ncol=length(dfs), byrow=T)), names(dfs))
 
 agree$lambda0 = lambda0s
+agree
 
 # original studies say that findings don't replicate, 
 # but the Q test is inconclusive
@@ -39,9 +39,7 @@ falsepos = setNames(
     matrix(unlist(
       lapply(strlambdas, FUN=function(pp)
         sapply(dfs, FUN=function(df){
-          reps = as.integer(gsub("'", "", tolower(as.character(df$replicated)))
-                                 == 'yes')
-          mean((reps == 0 & df[[paste0('p', pp)]] > .05), na.rm=T)
+          mean((df$replicated == 0 & df[[paste0('p', pp)]] > .05), na.rm=T)
         })
       )), ncol=length(dfs), byrow=T)), names(dfs))
 
@@ -55,23 +53,25 @@ falseneg = setNames(
     matrix(unlist(
       lapply(strlambdas, FUN=function(pp)
         sapply(dfs, FUN=function(df){
-          reps = as.integer(gsub("'", "", tolower(as.character(df$replicated)))
-                            == 'yes')
-          mean((reps == 1 & df[[paste0('p', pp)]] < .05), na.rm=T)
+          mean((df$replicated == 1 & df[[paste0('p', pp)]] < .05), na.rm=T)
         })
       )), ncol=length(dfs), byrow=T)), names(dfs))
 
 falseneg$lambda0 = lambda0s
 falseneg
 
-disagrees = lapply(dfs, FUN=function(df){
-          df[which(as.integer(gsub("'", "", tolower(as.character(df$replicated))) == 'yes') ==
-            as.integer(df$p0 < 0.05)), ]
-})
-for(i in 1:length(disagrees)){
-  print(ncol(disagrees[[i]]))
-  if(nrow(disagrees[[i]]) > 0){
-    disagrees[[i]]$paper = names(disagrees)[i] 
+for(pp in strlambdas){
+  assign(paste0("disagrees", pp),
+         lapply(dfs, FUN=function(df){
+            df[which(df$replicated == as.integer(df[[paste0("p", pp)]] < 0.05)), ]
+         })
+  )
+}
+  
+for(i in 1:length(disagrees0)){
+  print(ncol(disagrees0[[i]]))
+  if(nrow(disagrees0[[i]]) > 0){
+    disagrees0[[i]]$paper = names(disagrees0)[i] 
   }
 }
-disagrees[[2]][, c("p0", "replicated")]
+disagrees0$rpe[, c("p0", "replicated")]

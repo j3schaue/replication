@@ -1,0 +1,17 @@
+fullname,experiment,n,nt,nc,orig_es,replicated
+Allowed/Forbidden,Allowedforbidden,,,,d,1
+Anchoring - Babies Born,Anchoring4,156,103,53,d,1
+Anchoring - Chicago,Anchoring2,156,103,53,d,1
+Anchoring - Distance to NYC,Anchoring1,156,103,53,d,1
+Anchoring - Mt. Everest,Anchoring3,156,103,53,d,1
+Currency Priming,Moneypriming,30,15,15,d,0
+Flag Priming,Flagpriming,66,33,33,d,0
+Gain vs loss framing,Gainloss,307,152,155,logor,1
+Imagined contact,Imaginedcontact,33,24,9,d,0
+Low vs high category scales,Scales,132,68,64,rd,1
+Norm of reciprocity,Reciprocity,,,,d,1
+Quote Attribution,Quote Attribution,99,,,None,1
+Relations between I and E math attitudes,IAT,243,,,z,1
+Retrospective gambler fallacy,Gamblersfallacy,59,,,d,1
+Sex differences in implicit math attitudes,Mathartgender,79,40,39,d,1
+Sunk Costs,Sunkcosts,213,,,d,1

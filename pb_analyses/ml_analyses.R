@@ -16,7 +16,7 @@ source("../package/mdh.R")
 ###------------------------------------------------------------###
 ### Many Labs Comparison
 ###------------------------------------------------------------###
-df = read.csv("../data/manylabs_comp.csv")
+df = read.csv("../data/manylabs_comparison.csv")
 
 #---Fixed effects meta-analyses
 library(metafor)

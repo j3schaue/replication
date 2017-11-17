@@ -62,10 +62,10 @@ rr$es = 'rd'
 
 # clean up site names
 rr$site = sapply(as.character(rr$site), FUN=function(x) 
-  gsub("Shannon McCoy", "Shannon K. McCoy", strsplit(x, ",")[[1]][1]))
-rr$site[grepl('MTURK', rr$site)] = "MTURK"
-rr$site[grepl('ORIGINAL', rr$site)] = "Original"
-rr$replicated = 'yes'
+  tolower(gsub("Shannon McCoy", "Shannon K. McCoy", strsplit(x, ",")[[1]][1])))
+rr$site[grepl('mturk', rr$site)] = "mturk"
+rr$site[grepl('original', rr$site)] = "original"
+rr$replicated = 1 # authors say both studies replicated.
 
 # Write to file
 write.csv(rr, "../../rrr_alogna.csv", row.names=F)

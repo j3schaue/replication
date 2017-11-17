@@ -6,7 +6,7 @@ library(xlsx)
 
 # set the working directory to src so we can use relative paths
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
-setwd("../raw/")
+setwd("../raw/manylabs/")
 
 ######################################################
 ### Loading and organizing data for 16 experiments ###
@@ -65,7 +65,10 @@ origs[origs$experiment=="IAT", c("d", "vd")] =
   c(0.5 * log((1 + rr)/(1 - rr)), 
     vz = 1/(n-3))
 
+
+###################################################
 #----REPLICATE RESULTS
+###################################################
 af <- read.xlsx("manylabs.xlsx", "Allowed_forbidden")
 af<- af[3:(nrow(af) - 1), 1:(ncol(af) - 2)] #Removing summary rows and notes
 names(af) = c("site", "NAllowYes", "NAllowNo", "NForbidYes", "NForbidNo", "NExcluded", "TestStatistics", "ESmd") #Renaming the variables
@@ -318,7 +321,7 @@ dfs = rbind(do.call(rbind,
 ###Writing CSV file###
 ######################
 
-write.csv(dfs,  "../manylabs_comp.csv", row.names=F) 
+write.csv(dfs,  "../../manylabs_comparison.csv", row.names=F) 
 
 
 ##################################################################

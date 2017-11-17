@@ -63,7 +63,10 @@ df$site = paste0(nms, reps) # site = name_replicate format
 df$experiment = gsub("[[:blank:]]*\\([[:alnum:]]*[[:blank:]]+[[:alnum:]]*\\)", "", df$experiment)
 
 # denote ES type
-df$es = "r"
+df$es = "z"
+
+# standardize replcated column
+df$replicated = as.integer(df$replicated == 'Yes')
 
 str(df)
 df

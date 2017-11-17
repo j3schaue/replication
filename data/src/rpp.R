@@ -52,7 +52,8 @@ out = df %>%
   unite(site, experiment, replicate, sep="_") %>% 
   cbind(experiment=df$num) %>%
   select(experiment, site, n, r, z, vz, replicated, cirep, 
-         meta, stat, pvalo, pvalr, exp_name)
+         meta, stat, pvalo, pvalr, exp_name) %>%
+  mutate(replicated = as.integer(replicated == 'yes'))
 
 head(out)
 dim(out)

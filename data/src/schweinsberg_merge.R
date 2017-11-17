@@ -125,6 +125,9 @@ out$es = "smd"
 replicated_df = read.csv('replication_det.csv')
 out = left_join(out, replicated_df)
 
+#---Standardize 'replicated' column
+out$replicated = as.integer(out$replicated == 'Yes')
+
 #---Write to file
 write.csv(out, "../../ppir.csv", row.names=F)
 

@@ -14,14 +14,15 @@ source("../package/replicationTest.R")
 source("../package/mdh.R")
 
 # Get data
-df = read.csv("../data/ppir.csv")
+data = read.csv("../data/ppir.csv")
 experiments = unique(data$experiment)
 
 ###------------------------------------------------------------###
 ### PPIR Meta-analytic
 ###------------------------------------------------------------###
-ks = data %>% select(-n) %>% group_by(lab) %>% tally() %>% select(n)
+ks = data %>% select(-n) %>% group_by(experiment) %>% tally() %>% select(n)
 ks = ks$n
+tau0s = c(0, 1/4, 1/3, 2/3)
 
 fedata = lapply(tau0s, FUN=function(tau0)
   setNames(data.frame(
@@ -41,7 +42,9 @@ fedata = lapply(tau0s, FUN=function(tau0)
 dataout = Reduce(left_join, fedata)
 dataout$experiment = experiments
 dataout = dataout[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
-                  "mdh67")]
+                  "mdh67")] %>% 
+          left_join(., select(data, experiment, replicated)) %>% 
+          distinct()
 
 write.csv(dataout, "./results/qtest_fixed_ppir.csv", row.names=F)
 round(dataout$p0, 3)
