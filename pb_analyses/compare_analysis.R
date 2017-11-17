@@ -19,6 +19,7 @@ prop_replicated = setNames(data.frame(matrix(unlist(lapply(strlambdas, FUN=funct
 )), ncol = length(dfs), byrow=T)), names(dfs))
 
 prop_replicated$lambda0 = lambda0s
+prop_replicated
 
 agree = setNames(
   data.frame(

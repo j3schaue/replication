@@ -20,19 +20,15 @@ source("../package/mdh.R")
 cam = read.csv("../data/rpe.csv")
 
 experiments = unique(cam$experiment)
-for(ee in experiments){
-  dd = filter(cam, experiment==ee)
-  show(replicationTest(t=dd$z, v=dd$vz))
-}
-
 ks=rep(2, length(experiments))
+tau0s = c(0, 1/4, 1/3, 2/3)
 
 fecam = lapply(tau0s, FUN=function(tau0)
   setNames(data.frame(
     matrix(unlist(lapply(seq_along(experiments), FUN=function(i) 
       combineResults(t=filter(cam, experiment==experiments[i])$z,
                      v=filter(cam, experiment==experiments[i])$vz,
-                     lambda0=(ks[i]-1)*tau0, 
+                     lambda0=(ks[i]-1)*tau0,
                      maxratio=100)
     )
     ), ncol=5, byrow = T)
@@ -41,6 +37,7 @@ fecam = lapply(tau0s, FUN=function(tau0)
   )
 )
 
+fetab[[1]]
 
 camout = Reduce(left_join, fecam)
 camout$experiment = experiments

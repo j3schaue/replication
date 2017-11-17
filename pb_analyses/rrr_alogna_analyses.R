@@ -48,8 +48,8 @@ for(mm in methods){
   
   comptab = Reduce(left_join, comp)
   comptab$experiment = unique(df$experiment)
-  comptab = comptab[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
-                      "mdh67")] %>% 
+  comptab = comptab[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",
+                      "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", "mdh67")] %>% 
     left_join(., select(df, experiment, replicated)) %>% distinct()
   
   write.csv(comptab, paste0("./results/comparison_alogna_", mm, ".csv"), row.names=F)
