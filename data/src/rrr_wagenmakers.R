@@ -2,6 +2,9 @@
 ## for the analysis of the real data, however, the core
 ## analysis will not change. 
 
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+setwd("../raw/rrr_wagenmakers/")
+
 ##@@ CLEAR WORKSPACE @@##
 
 rm(list = ls())
@@ -29,7 +32,7 @@ library(dplyr)
 
 ##@@ load Josine Verhagen's Replication Bayes Factor Functions @@##
 
-source("Repfunctionspack.R")
+source("Analysis_R_Scripts//Repfunctionspack.R")
 
 ##@@ function to convert column to numeric @@##
 
@@ -377,7 +380,8 @@ resultDataFrame <- mutate(resultDataFrame,
                           vg = SEg^2,
                           vd = SEd^2,
                           es = "md",
-                          replicated = "0",
+                          replicated = 0,
                           experiment = "Wagenmakers")
+resultDataFrame$site = gsub("[0-9]+_", "", gsub("_Data", "", resultDataFrame$site))
 
-write.csv(resultDataFrame, "rrr_wagenmakers.csv", row.names = F)
+write.csv(resultDataFrame, "../../rrr_wagenmakers.csv", row.names = F)

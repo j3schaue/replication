@@ -5,7 +5,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 dfs = list(
   rpp = read.csv("./results/qtest_fixed_rpp.csv"),
   rpe = read.csv("./results/qtest_fixed_rpe.csv"),
-  manlabsf = read.csv("./results/comparison_manylabs_FE.csv"),
+  manylabsf = read.csv("./results/comparison_manylabs_FE.csv"),
   manylabsr = read.csv("./results/comparison_manylabs_DL.csv"),
   alognaf = read.csv("./results/comparison_alogna_FE.csv"),
   alognar = read.csv("./results/comparison_alogna_DL.csv")
@@ -75,4 +75,45 @@ for(i in 1:length(disagrees0)){
     disagrees0[[i]]$paper = names(disagrees0)[i] 
   }
 }
-disagrees0$rpe[, c("p0", "replicated")]
+
+###---------------------------------------------###
+# Where do we disagree and why?
+###---------------------------------------------###
+library(metafor); library(tidyr); library(dplyr)
+
+###---RPP
+rpp = read.csv("../data/rpp.csv") %>% select(-exp_name, -X)
+disagrees0$rpp %>% select(experiment, k, Q, calpha0, p0, replicated)
+rpp$site = gsub("([0-9])", "", gsub("_", "", rpp$site))
+head(rpp)
+rppz = rpp %>% select(experiment, site, z, pvalo, pvalr) %>%
+  spread(site, z) %>% rename(z = orig, zrep=rep)
+rpp_comp = rpp %>% select(experiment, site, vz) %>%
+  spread(site, vz) %>% rename(v = orig, vrep=rep) %>%
+  left_join(rppz) %>%
+  left_join(disagrees0$rpp %>% select(experiment, Q, calpha0, p0, replicated, cirep, meta), .) %>%
+  mutate(rep_pval = as.integer((pvalo <.05 & pvalr < .05) | (pvalo > .05 & pvalr > .05)))
+rpp_comp %>% mutate(pd = abs(z - zrep)/z, qtest = as.integer(p0 > .05)) %>% 
+  select(experiment, p0, qtest, replicated, cirep, meta, rep_pval, pd)
+
+###---RPP
+rpe = read.csv("../data/rpe.csv") %>% select(-site, -es, -n, -r, -ref) %>% 
+  left_join(disagrees0$rpe %>% select(experiment, k, Q, calpha0, p0, replicated), .) %>%
+  mutate(stat = z/sqrt(vz))
+rpe
+
+###---Many Labs
+ml = read.csv("../data/manylabs_comparison.csv")
+ml_orig = filter(ml, site=='original') %>% select(experiment, t, v, es, replicated)
+ml_reps = data.frame(experiment=NULL, trep=NULL, vrep=NULL, es=NULL, replicated=NULL)
+for(ee in unique(ml$experiment)){
+  dd = filter(ml, site != 'original' & experiment == ee & !is.infinite(t))
+  meta = rma.uni(yi=dd$t, vi=dd$v, method='FE')
+  toadd = data.frame(experiment=ee, trep=meta$beta, vrep=meta$se^2, es=unique(dd$es), replicated=unique(dd$replicated))
+  ml_reps = rbind(ml_reps, toadd)
+}
+ml_compare = left_join(ml_reps, ml_orig)
+
+disagrees0$manylabsf %>% select(experiment, k, Q, calpha0, p0, replicated) %>%
+  left_join(ml_compare) %>%
+  mutate(stat = abs(t)/sqrt(v), statrep = abs(trep)/sqrt(vrep))

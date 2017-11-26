@@ -1,19 +1,20 @@
 library(dplyr)
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 #Loading raw data
-im <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/rrr_eerland/imagery.csv")
+im <- read.csv("../raw/rrr_eerland/Forest plots R/imagery.csv")
 im["experiment"] <- "Imagery"
 im["es"] <- "d"
 im["replicated"] <- "0"
 im <- rename(im, site = Author)
 
-ia <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/rrr_eerland/Intention_attribution.csv")
+ia <- read.csv("../raw/rrr_eerland/Forest plots R/Intention_attribution.csv")
 ia["experiment"] <- "Intention_attribution"
 ia["es"] <- "d"
 ia["replicated"] <- "0"
 ia <- rename(ia, site = Author)
 
-intent <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/rrr_eerland/Intentionality.csv")
+intent <- read.csv("../raw/rrr_eerland/Forest plots R/Intentionality.csv")
 intent["experiment"] <- "Intentionality"
 intent["es"] <- "d"
 intent["replicated"] <- "0"
@@ -37,6 +38,7 @@ intent <- mutate(intent,
 #Combining experiments
 df <- bind_rows(im, ia, intent)
 df$site <- gsub('H & A EXPERIMENT 3', 'original', df$site)
+df$site[grepl('ONLINE', df$site)] = 'online'
 
 #Writing CSV file
-write.csv(df, "rrr_eerland.csv", row.names=F)
+write.csv(df, "../rrr_eerland.csv", row.names=F)

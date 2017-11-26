@@ -56,23 +56,23 @@ for(mm in methods){
 ### Many Labs pregistered
 ###------------------------------------------------------------###
 ## Read in data
-data = read.csv("../data/manylabs.csv") %>% filter(is.finite(g)) # drop infinite estimates: Collin--are these just missing values?
+data = read.csv("../data/manylabs_replicates.csv") %>% filter(is.finite(g)) # drop infinite estimates: Collin--are these just missing values?
 names(data)[names(data) == "es.measurement"] = "es" # simplify names
 
 ## Set parameters for analysis
-experiments = unique(data$Experiment) # unique experiment names
+experiments = unique(data$experiment) # unique experiment names
 ks = sapply(experiments, # # of trials per experiment
-            FUN=function(ee) count(filter(data, Experiment==ee))$n)
+            FUN=function(ee) count(filter(data, experiment==ee))$n)
 tau0s = c(0, 1/4, 1/3, 2/3) # plausible ratios for tau0
 lambda0s = (ks-1)*tau0s  # convert to lambda0
-vbars = sapply(experiments, FUN=function(ee) mean(filter(data, Experiment==ee)$vg)) # avg sampling variances
+vbars = sapply(experiments, FUN=function(ee) mean(filter(data, experiment==ee)$vg)) # avg sampling variances
 
 
 fe = lapply(tau0s, FUN=function(tau0)
   setNames(data.frame(
     matrix(unlist(lapply(seq_along(experiments), FUN=function(i) 
-      combineResults(t=filter(data, Experiment==experiments[i])$g,
-                  v=filter(data, Experiment==experiments[i])$vg,
+      combineResults(t=filter(data, experiment==experiments[i])$g,
+                  v=filter(data, experiment==experiments[i])$vg,
                   lambda0=(ks[i]-1)*tau0, 
                   maxratio=100)
       )
@@ -88,6 +88,29 @@ fetab = fetab[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p
                 "mdh67")]
 write.csv(fetab, "./results/qtest_fixed_manylabs.csv")
 
+
+###---Quick thing for Larry
+foo = read.csv("./results/qtest_fixed_manylabs.csv")
+bar = foo %>% 
+  mutate(exact_replication = as.integer(p0 > .05), 
+         approximate_replication = as.integer(p25 > .05)) %>% 
+  select(experiment, k, Q, exact_replication, approximate_replication, mdh_exact = mdh0, mdh_approximate = mdh25)
+
+bar$power_exact = sapply(experiments, FUN=function(ee){
+      dd = data %>% filter(experiment==ee, is.finite(g))
+      k = nrow(dd)
+      powerRepTest(k=k, v=dd$vg, lambda=k-1, lambda0=0)
+    }
+)
+
+bar$power_approximate = sapply(experiments, FUN=function(ee){
+  dd = data %>% filter(experiment==ee, is.finite(g))
+  k = nrow(dd)
+  powerRepTest(k=k, v=dd$vg, lambda=k-1, lambda0=(k-1)/4)
+}
+)
+
+write.csv(bar, "../../paper_psych-methods/manylabs.csv")
 
 # ###--- Random Effects Analyses
 # redata = lapply(tau0s, FUN=function(tau0)
