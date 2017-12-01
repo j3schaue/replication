@@ -54,7 +54,8 @@ for(mm in methods){# loop through methods
           # run a Q-test and get the MDH
           combineResults(t=c(tmp$beta, orig$rd), 
                          v=c(tmp$se^2, orig$vrd),
-                         lambda0=lambda0)
+                         lambda0=lambda0, 
+                         maxratio=20)
         } else { list(k=NA, Q=NA, calpha=NA, p=NA, mdh=NA) }
       })), 
       ncol=5, byrow=T)), c('k', 'Q', # set the names of the DF
@@ -87,7 +88,6 @@ experiments = unique(df$experiment) # unique experiment names
 ks = sapply(experiments, # # of trials per experiment
             FUN=function(ee) count(filter(df, experiment==ee))$n)
 tau0s = c(0, 1/4, 1/3, 2/3) # plausible ratios for tau0
-lambda0s = (ks-1)*tau0s  # convert to lambda0
 vbars = sapply(experiments, FUN=function(ee) mean(dplyr::filter(df, experiment==ee)$vrd)) # avg sampling variances
 
 ###----Include original study-----------------------------------
@@ -99,7 +99,7 @@ fe = lapply(tau0s, FUN=function(tau0) # loop through null hypotheses lambda0 = 0
       combineResults(t=filter(df, experiment==experiments[i])$rd,
                      v=filter(df, experiment==experiments[i])$vrd,
                      lambda0=(ks[i]-1)*tau0, 
-                     maxratio=100)
+                     maxratio=20)
     )
     ), ncol=5, byrow = T)
   ), c("k", "Q", paste0("calpha", round(tau0*100, 0)), # name the columns
@@ -114,7 +114,9 @@ fetab$vbar = vbars
 fetab$paper = "alogna"
 
 fetab = fetab[c("paper", "experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
-                "mdh67", "vbar")]
+                "mdh67", "vbar")] %>%
+  left_join(., distinct(dplyr::select(df, experiment, replicated)))
+
 fetab
 write.csv(fetab, "./results/qtest_fixed_rrr-alogna_include.csv", row.names=F)
 
@@ -128,7 +130,7 @@ fe = lapply(tau0s, FUN=function(tau0) # loop through null hypotheses lambda0 = 0
       combineResults(t=filter(df, experiment==experiments[i] & site!='original')$rd,
                      v=filter(df, experiment==experiments[i] & site!='original')$vrd,
                      lambda0=(ks[i]-1)*tau0, 
-                     maxratio=100)
+                     maxratio=20)
     )
     ), ncol=5, byrow = T)
   ), c("k", "Q", paste0("calpha", round(tau0*100, 0)), 
@@ -143,7 +145,9 @@ fetab$vbar = vbars
 fetab$paper = "alogna"
 
 fetab = fetab[c("paper", "experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
-                "mdh67", "vbar")]
+                "mdh67", "vbar")] %>%
+  left_join(., distinct(dplyr::select(df, experiment, replicated)))
+
 fetab
 write.csv(fetab, "./results/qtest_fixed_rrr-alogna_exclude.csv", row.names=F)
 

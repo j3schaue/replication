@@ -56,7 +56,8 @@ for(mm in methods){# loop through methods
           # run a Q-test and get the MDH
           combineResults(t=c(tmp$beta, orig$d), 
                          v=c(tmp$se^2, orig$vd),
-                         lambda0=lambda0)
+                         lambda0=lambda0,
+                         maxratio=20)
         } else { list(k=NA, Q=NA, calpha=NA, p=NA, mdh=NA) }
       })), 
       ncol=5, byrow=T)), c('k', 'Q', # set the names of the data.frame 'comp'
@@ -102,7 +103,7 @@ fe = lapply(tau0s, FUN=function(tau0) # loop through null hypotheses lambda0 = 0
       combineResults(t=filter(df, experiment==experiments[i])$d,
                      v=filter(df, experiment==experiments[i])$vd,
                      lambda0=(ks[i]-1)*tau0, 
-                     maxratio=100)
+                     maxratio=20)
     )
     ), ncol=5, byrow = T)
   ), c("k", "Q", paste0("calpha", round(tau0*100, 0)), # name the columns
@@ -118,7 +119,9 @@ fetab$paper = 'eerland'
 
 # reorder df and write to file
 fetab = fetab[c("paper", "experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
-                "mdh67", "vbar")]
+                "mdh67", "vbar")] %>%
+  left_join(., distinct(dplyr::select(df, experiment, replicated)))
+
 fetab
 write.csv(fetab, "./results/qtest_fixed_rrr-eerland_include.csv", row.names=F)
 
@@ -132,7 +135,7 @@ fe = lapply(tau0s, FUN=function(tau0) # loop through null hypotheses lambda0 = 0
       combineResults(t=filter(df, experiment==experiments[i] & site!='original')$d,
                      v=filter(df, experiment==experiments[i] & site!='original')$vd,
                      lambda0=(ks[i]-1)*tau0, 
-                     maxratio=100)
+                     maxratio=20)
     )
     ), ncol=5, byrow = T)
   ), c("k", "Q", paste0("calpha", round(tau0*100, 0)), 
@@ -148,7 +151,9 @@ fetab$paper = 'eerland'
 
 # reorder df and write to file
 fetab = fetab[c("paper", "experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
-                "mdh67", "vbar")]
+                "mdh67", "vbar")] %>%
+  left_join(., distinct(dplyr::select(df, experiment, replicated)))
+
 fetab
 write.csv(fetab, "./results/qtest_fixed_rrr-eerland_exclude.csv", row.names=F)
 
