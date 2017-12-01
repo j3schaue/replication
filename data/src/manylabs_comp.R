@@ -57,271 +57,281 @@ origs[origs$experiment=="Gainloss", c("d", "vd")] =
 data = round(c(64*c(1-.625, .625), 68*c(.162, 1-.162)), 0)
 origs[origs$experiment=="Scales", c("d", "vd")] = 
   c(data[1]/(data[1] + data[2]) - data[3]/(data[3] + data[4]),
-  data[1]*data[2]/(data[1] + data[2])^3 + data[3]*data[4]/(data[3] + data[4])^2)
+    data[1]*data[2]/(data[1] + data[2])^3 + data[3]*data[4]/(data[3] + data[4])^2)
 
 # recode IAT correlations
-n = 213; rr = .42
+n = 243; rr = .42
 origs[origs$experiment=="IAT", c("d", "vd")] = 
   c(0.5 * log((1 + rr)/(1 - rr)), 
-    vz = 1/(n-3))
+    1/(n-3))
 
+# Allow/forbidden original
+# https://github.com/ManyLabsOpenScience/ManyLabs1/blob/master/Manylabs_OriginalstudiesESCI.R
+N = 1300 # estimate from the clever Many Labs folks!
+Nnot_allow = round(N * .62) # 806
+Nallow = round(N * .21, 0) # 273
+Nforbid = round(N * .46) # 598
+Nnot_forbid = round(N * .39) # 507
+origs[origs$experiment=='Allowedforbidden', c('d', 'vd')] = 
+  c(log(Nnot_allow*Nnot_forbid / (Nallow * Nforbid)),
+    1/Nnot_allow + 1/Nallow + 1/Nnot_forbid + 1/Nforbid)
+  
 
 ###################################################
 #----REPLICATE RESULTS
 ###################################################
+
+###----Allow/Forbid
 af <- read.xlsx("manylabs.xlsx", "Allowed_forbidden")
 af<- af[3:(nrow(af) - 1), 1:(ncol(af) - 2)] #Removing summary rows and notes
-names(af) = c("site", "NAllowYes", "NAllowNo", "NForbidYes", "NForbidNo", "NExcluded", "TestStatistics", "ESmd") #Renaming the variables
+names(af) = c("site", "allow", "notallow", "forbid", "notforbid", "excluded", "TestStatistics", "ESmd") #Renaming the variables
 af["experiment"] <- "Allowedforbidden" #Adding experiment names
-af["es"] <- "md" #Adding original effect size measurements
+af["es"] <- "logor" #Adding original effect size measurements
+# Convert logOR to d to compare with original experiment
+af <- mutate(.data = af,
+             t = log((notallow*notforbid)/(allow*forbid)), 
+             v = 1/allow + 1/notallow + 1/forbid + 1/notforbid, 
+             es = rep('logor', nrow(af)))
 
+
+###----Anchoring 1
 a1 <- read.xlsx("manylabs.xlsx", "Anchoring1")
 a1<- a1[3:nrow(a1), 1:(ncol(a1) - 2)]
 names(a1) = c("site", "NHigh", "NControl", "NExcluded", "MeanHigh", "MeanControl", "SDHigh", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
 a1["experiment"] <- "Anchoring1"
-a1["es"] <- "md"
+a1 <- mutate(.data = a1,
+             J = 1 - 3/(4*dfev - 1), 
+             t = (MeanHigh - MeanControl)/
+               sqrt(((NHigh - 1) * SDHigh^2 + 
+                       (NControl - 1) * SDControl^2)/
+                      (NHigh + NControl - 2)),
+             v = (NHigh + NControl) / (NHigh * NControl) + t^2/(2 * (NHigh + NControl)),
+             es = rep('d', nrow(a1)))
 
+
+###----Anchoring 2
 a2 <- read.xlsx("manylabs.xlsx", "Anchoring2")
 a2<- a2[3:nrow(a2), 1:(ncol(a2) - 2)]
 names(a2) = c("site", "NHigh", "NControl", "NExcluded", "MeanHigh", "MeanControl", "SDHigh", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
 a2["experiment"] <- "Anchoring2"
-a2["es"] <- "md"
+a2 <- mutate(.data = a2,
+             J = 1 - 3/(4*dfev - 1), 
+             t = (MeanHigh - MeanControl)/
+               sqrt(((NHigh - 1) * SDHigh^2 + 
+                       (NControl - 1) * SDControl^2)/
+                      (NHigh + NControl - 2)), 
+             v = (NHigh + NControl) / (NHigh * NControl) + t^2/(2 * (NHigh + NControl)),
+             es = rep('d', nrow(a1)))
 
+
+
+###----Anchoring 3
 a3 <- read.xlsx("manylabs.xlsx", "Anchoring3")
 a3<- a3[3:nrow(a3), 1:(ncol(a3) - 2)]
 names(a3) = c("site", "NHigh", "NControl", "NExcluded", "MeanHigh", "MeanControl", "SDHigh", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
 a3["experiment"] <- "Anchoring3"
-a3["es"] <- "md"
+a3 <- mutate(.data = a3,
+             J = 1 - 3/(4*dfev - 1), 
+             t = (MeanHigh - MeanControl)/
+               sqrt(((NHigh - 1) * SDHigh^2 + 
+                       (NControl - 1) * SDControl^2)/
+                      (NHigh + NControl - 2)), 
+             v = (NHigh + NControl) / (NHigh * NControl) + t^2/(2 * (NHigh + NControl)), 
+             es = rep('d', nrow(a1)))
 
+
+
+###----Anchoring 4
 a4 <- read.xlsx("manylabs.xlsx", "Anchoring4")
 a4<- a4[3:nrow(a4), 1:(ncol(a4) - 2)]
 names(a4) = c("site", "NHigh", "NControl", "NExcluded", "MeanHigh", "MeanControl", "SDHigh", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
 a4["experiment"] <- "Anchoring4"
-a4["es"] <- "md"
+a4 <- mutate(.data = a4, 
+             J = 1 - 3/(4*dfev - 1), 
+             t = (MeanHigh - MeanControl)/
+               sqrt(((NHigh - 1) * SDHigh^2 + 
+                       (NControl - 1) * SDControl^2)/
+                      (NHigh + NControl - 2)), 
+             v = (NHigh + NControl) / (NHigh * NControl) + t^2/(2 * (NHigh + NControl)), 
+             es = rep('d', nrow(a1)))
 
+
+
+###----Flag Priming
 fp <- read.xlsx("manylabs.xlsx", "Flag Priming")
 fp<- fp[4:nrow(fp), 1:(ncol(fp) - 2)]
 names(fp) = c("site", "NFlag", "NControl", "NExcluded", "MeanFlag", "MeanControl", "SDFlag", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
 fp["experiment"] <- "Flagpriming"
-fp["es"] <- "md"
+fp <- mutate(.data = fp, 
+             J = 1 - 3/(4*dfev - 1), 
+             t = (MeanFlag - MeanControl)/
+               sqrt(((NFlag - 1) * SDFlag^2 + 
+                       (NControl - 1) * SDControl^2)/ 
+                      (NFlag + NControl - 2)), 
+             v = (NFlag + NControl) / (NFlag * NControl) + t^2/(2 * (NFlag + NControl)), 
+             es = rep('d', nrow(a1)))
 
+
+
+###----Gain/Loss
 gl <- read.xlsx("manylabs.xlsx", "Gain_Loss")
 gl<- gl[3:nrow(gl), 1:(ncol(gl) - 2)]
 names(gl) = c("site", "NGainNorisk", "NLossNorisk", "NGainRisk", "NLossRisk", "NExcluded", "TestStatistics", "ESmd")
 gl["experiment"] <- "Gainloss"
 gl["es"] <- "md"
-
-gf <- read.xlsx("manylabs.xlsx", "Gambler's Fallacy")
-gf<- gf[3:nrow(gf), 1:(ncol(gf) - 2)]
-names(gf) = c("site", "NThree6", "NControl", "NExcluded", "MeanThree6", "MeanControl", "SDThree6", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
-gf["experiment"] <- "Gamblersfallacy"
-gf["es"] <- "md"
-
-iat <- read.xlsx("manylabs.xlsx", "IAT correlation")
-iat<- iat[3:nrow(iat), 1:(ncol(iat) - 3)]
-names(iat) = c("site", "N" ,"NExcluded", "r")
-iat["experiment"] <- "IAT"
-iat["es"] <- "corr"
-
-ic <- read.xlsx("manylabs.xlsx", "Imagined Contact")
-ic<- ic[3:nrow(ic), 1:(ncol(ic) - 2)]
-names(ic) = c("site", "NContact", "NControl", "NExcluded", "MeanContact", "MeanControl", "SDContact", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
-ic["experiment"] <- "Imaginedcontact"
-ic["es"] <- "md"
-
-mag <- read.xlsx("manylabs.xlsx", "Math_Art Gender")
-mag<- mag[3:nrow(mag), 1:(ncol(mag) - 2)]
-names(mag) = c("site", "NFemale", "NControl", "NExcluded", "MeanFemale", "MeanControl", "SDFemale", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
-mag$tev <- as.numeric(mag$tev)
-mag["experiment"] <- "Mathartgender"
-mag["es"] <- "md"
-
-mp <- read.xlsx("manylabs.xlsx", "Money Priming")
-mp<- mp[3:nrow(mp), 1:(ncol(mp) - 2)]
-names(mp) = c("site", "NMoney", "NControl", "NExcluded", "MeanMoney", "MeanControl", "SDMoney", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
-mp["experiment"] <- "Moneypriming"
-mp["es"] <- "md"
-
-qa <- read.xlsx("manylabs.xlsx", "Quote Attribution")
-qa<- qa[3:nrow(qa), 1:(ncol(qa) - 2)]
-names(qa) = c("site", "NLiked", "NControl", "NExcluded", "MeanLiked", "MeanControl", "SDLiked", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
-qa["experiment"] <- "Quote Attribution"
-qa["es"] <- "md"
-
-r <- read.xlsx("manylabs.xlsx", "Reciprocity")
-r<- r[3:nrow(r), 1:(ncol(r) - 2)]
-names(r) = c("site", "NFirstYes", "NSecondYes", "NFirstNo", "NSecondNo", "NExcluded", "TestStatistics", "ESmd")
-r["experiment"] <- "Reciprocity"
-r["es"] <- "md"
-
-s <- read.xlsx("manylabs.xlsx", "Scales")
-s<- s[3:nrow(s), 1:(ncol(s) - 2)]
-names(s) = c("site", "NLowLess", "NHighLess", "NLowMore", "NHighMore", "NExcluded", "TestStatistics", "ESmd")
-s["experiment"] <- "Scales"
-s["es"] <- "md"
-
-sc <- read.xlsx("manylabs.xlsx", "Sunk Costs")
-sc<- sc[3:nrow(sc), 1:(ncol(sc) - 2)]
-names(sc) = c("site", "NPaid", "NFree", "NExcluded", "MeanPaid", "MeanFree", "SDPaid", "SDFree", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
-sc["experiment"] <- "Sunkcosts"
-sc["es"] <- "md"
-
-#############################################################################
-###For experiments with categorical results, generate log odds ratio first###
-#############################################################################
-
-# Convert logOR to d to compare with original experiment
-af <- mutate(.data = af,
-             t = sqrt(3)/pi * log((NAllowYes*NForbidNo)/(NAllowNo*NForbidYes)), 
-             v = 3/pi^2 * (1/NAllowNo + 1/NAllowYes + 1/NForbidYes + 1/NForbidNo), 
-             es = rep('d', nrow(af)))
-
-
 gl <- mutate(.data = gl,
              t = log((NGainNorisk*NLossRisk)/(NGainRisk*NLossNorisk)), 
              v = 1/NGainRisk + 1/NGainNorisk + 1/NLossRisk + 1/NLossNorisk,
              es = rep('logor', nrow(gl)))
 
+
+###----Gambler's Fallacy
+gf <- read.xlsx("manylabs.xlsx", "Gambler's Fallacy")
+gf<- gf[3:nrow(gf), 1:(ncol(gf) - 2)]
+names(gf) = c("site", "NThree6", "NControl", "NExcluded", "MeanThree6", "MeanControl", "SDThree6", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
+gf["experiment"] <- "Gamblersfallacy"
+gf <- mutate(.data = gf, 
+             J = 1 - 3/(4*dfev - 1), 
+             t = (MeanThree6 - MeanControl)/sqrt(((NThree6 - 1) * SDThree6^2 +
+                                                    (NControl - 1) * SDControl^2)/
+                                                   (NThree6 + NControl - 2)), 
+             v = (NThree6 + NControl) / (NThree6 * NControl) + t^2/(2 * (NThree6 + NControl)), 
+             es = rep('d', nrow(a1)))
+
+
+
+###----IAT Correlation
+iat <- read.xlsx("manylabs.xlsx", "IAT correlation")
+iat<- iat[3:nrow(iat), 1:(ncol(iat) - 3)]
+names(iat) = c("site", "N" ,"NExcluded", "r")
+iat["experiment"] <- "IAT"
+iat <- mutate(.data = iat,
+              t = .5*log((1+r)/(1-r)), #Fisher's Z
+              v = 1/(N-3), 
+              es = rep('z', nrow(iat)))
+
+
+###----Imagined Contact
+ic <- read.xlsx("manylabs.xlsx", "Imagined Contact")
+ic<- ic[3:nrow(ic), 1:(ncol(ic) - 2)]
+names(ic) = c("site", "NContact", "NControl", "NExcluded", "MeanContact", "MeanControl", "SDContact", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
+ic["experiment"] <- "Imaginedcontact"
+ic <- mutate(.data = ic, 
+             J = 1 - 3/(4*dfev - 1), 
+             t = (MeanContact - MeanControl)/
+               sqrt(((NContact - 1) * SDContact^2 + 
+                       (NControl - 1) * SDControl^2)/
+                      (NContact + NControl - 2)), 
+             v = (NContact + NControl) / (NContact * NControl) + t^2/(2 * (NContact + NControl)), 
+             es = rep('d', nrow(a1)))
+
+
+
+###----Math/Gender
+mag <- read.xlsx("manylabs.xlsx", "Math_Art Gender")
+mag<- mag[3:nrow(mag), 1:(ncol(mag) - 2)]
+names(mag) = c("site", "NFemale", "NControl", "NExcluded", "MeanFemale", "MeanControl", "SDFemale", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
+mag$tev <- as.numeric(mag$tev)
+mag["experiment"] <- "Mathartgender"
+mag <- mutate(.data = mag, 
+              J = 1 - 3/(4*dfev - 1), 
+              t = (MeanFemale - MeanControl)/
+                sqrt(((NFemale - 1) * SDFemale^2 + 
+                        (NControl - 1) * SDControl^2)/
+                       (NFemale + NControl - 2)), 
+              v = (NFemale + NControl) / (NFemale * NControl) + t^2/(2 * (NFemale + NControl)), 
+              es = rep('d', nrow(a1)))
+
+
+
+###----Currency Priming
+mp <- read.xlsx("manylabs.xlsx", "Money Priming")
+mp<- mp[3:nrow(mp), 1:(ncol(mp) - 2)]
+names(mp) = c("site", "NMoney", "NControl", "NExcluded", "MeanMoney", "MeanControl", "SDMoney", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
+mp["experiment"] <- "Moneypriming"
+mp <- mutate(.data = mp, 
+             J = 1 - 3/(4*dfev - 1), 
+             t = (MeanMoney - MeanControl)/
+               sqrt(((NMoney - 1) * SDMoney^2 + 
+                       (NControl - 1) * SDControl^2)/
+                      (NMoney + NControl - 2)), 
+             v = (NMoney + NControl) / (NMoney * NControl) + t^2/(2 * (NMoney + NControl)), 
+             es = rep('d', nrow(a1)))
+
+
+
+###----Quote Attribution
+qa <- read.xlsx("manylabs.xlsx", "Quote Attribution")
+qa<- qa[3:nrow(qa), 1:(ncol(qa) - 2)]
+names(qa) = c("site", "NLiked", "NControl", "NExcluded", "MeanLiked", "MeanControl", "SDLiked", "SDControl", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
+qa["experiment"] <- "Quote Attribution"
+qa <- mutate(.data = qa, 
+             J = 1 - 3/(4*dfev - 1), 
+             t = (MeanLiked - MeanControl)/sqrt(((NLiked - 1) * SDLiked^2 + 
+                                                   (NControl - 1) * SDControl^2)/
+                                                  (NLiked + NControl - 2)), 
+             v = (NLiked + NControl) / (NLiked * NControl) + t^2/(2 * (NLiked + NControl)), 
+             es = rep('d', nrow(a1)))
+
+
+
+###----Reciprocity
+r <- read.xlsx("manylabs.xlsx", "Reciprocity")
+r<- r[3:nrow(r), 1:(ncol(r) - 2)]
+names(r) = c("site", "NFirstYes", "NSecondYes", "NFirstNo", "NSecondNo", "NExcluded", "TestStatistics", "ESmd")
+r["experiment"] <- "Reciprocity"
 # Convert to d to comapre with original experiment
 r <- mutate(.data = r,
             t = sqrt(3)/pi * log((NSecondYes*NFirstNo)/(NSecondNo*NFirstYes)), 
             v = 3/pi^2 * (1/NSecondYes + 1/NSecondNo + 1/NFirstYes + 1/NFirstNo),
             es = rep('d', nrow(r)))
 
+###----Scales
+s <- read.xlsx("manylabs.xlsx", "Scales")
+s<- s[3:nrow(s), 1:(ncol(s) - 2)]
+names(s) = c("site", "NLowLess", "NHighLess", "NLowMore", "NHighMore", "NExcluded", "TestStatistics", "ESmd")
+s["experiment"] <- "Scales"
+# Convert to RD to compare with original experiment
 s <- mutate(.data = s,
             t = NHighMore/(NHighMore + NHighLess) - NLowMore/(NLowLess + NLowMore), 
             v = NHighMore*NHighLess/(NHighMore + NHighLess)^3 + 
-                  NLowMore*NLowLess/(NLowLess + NLowMore)^3,
+              NLowMore*NLowLess/(NLowLess + NLowMore)^3,
             es = rep('rd', nrow(s)))
 
 
-#####################################################################################
-###For experiments with continuous results, generate the mean difference (d) first###
-#####################################################################################
-
-a1 <- mutate(.data = a1,
-             J = 1 - 3/(4*dfev - 1), 
-             t = (MeanHigh - MeanControl)/
-               sqrt(((NHigh - 1) * SDHigh^2 + 
-                       (NControl - 1) * SDControl^2)/
-                          (NHigh + NControl - 2)),
-             v = (NHigh + NControl) / (NHigh * NControl) + t^2/(2 * (NHigh + NControl)),
-             es = rep('d', nrow(a1)))
-
-a2 <- mutate(.data = a2,
-             J = 1 - 3/(4*dfev - 1), 
-             t = (MeanHigh - MeanControl)/
-                      sqrt(((NHigh - 1) * SDHigh^2 + 
-                              (NControl - 1) * SDControl^2)/
-                                (NHigh + NControl - 2)), 
-             v = (NHigh + NControl) / (NHigh * NControl) + t^2/(2 * (NHigh + NControl)),
-             es = rep('d', nrow(a1)))
-             
-
-a3 <- mutate(.data = a3,
-             J = 1 - 3/(4*dfev - 1), 
-             t = (MeanHigh - MeanControl)/
-                    sqrt(((NHigh - 1) * SDHigh^2 + 
-                            (NControl - 1) * SDControl^2)/
-                              (NHigh + NControl - 2)), 
-             v = (NHigh + NControl) / (NHigh * NControl) + t^2/(2 * (NHigh + NControl)), 
-             es = rep('d', nrow(a1)))
-
-a4 <- mutate(.data = a4, 
-             J = 1 - 3/(4*dfev - 1), 
-             t = (MeanHigh - MeanControl)/
-                    sqrt(((NHigh - 1) * SDHigh^2 + 
-                            (NControl - 1) * SDControl^2)/
-                              (NHigh + NControl - 2)), 
-             v = (NHigh + NControl) / (NHigh * NControl) + t^2/(2 * (NHigh + NControl)), 
-             es = rep('d', nrow(a1)))
-
-fp <- mutate(.data = fp, 
-             J = 1 - 3/(4*dfev - 1), 
-             t = (MeanFlag - MeanControl)/
-                    sqrt(((NFlag - 1) * SDFlag^2 + 
-                            (NControl - 1) * SDControl^2)/ 
-                              (NFlag + NControl - 2)), 
-             v = (NFlag + NControl) / (NFlag * NControl) + t^2/(2 * (NFlag + NControl)), 
-             es = rep('d', nrow(a1)))
-
-gf <- mutate(.data = gf, 
-             J = 1 - 3/(4*dfev - 1), 
-             t = (MeanThree6 - MeanControl)/sqrt(((NThree6 - 1) * SDThree6^2 +
-                                                    (NControl - 1) * SDControl^2)/
-                                                      (NThree6 + NControl - 2)), 
-             v = (NThree6 + NControl) / (NThree6 * NControl) + t^2/(2 * (NThree6 + NControl)), 
-             es = rep('d', nrow(a1)))
-
-ic <- mutate(.data = ic, 
-             J = 1 - 3/(4*dfev - 1), 
-             t = (MeanContact - MeanControl)/
-                    sqrt(((NContact - 1) * SDContact^2 + 
-                            (NControl - 1) * SDControl^2)/
-                              (NContact + NControl - 2)), 
-             v = (NContact + NControl) / (NContact * NControl) + t^2/(2 * (NContact + NControl)), 
-             es = rep('d', nrow(a1)))
-
-
-mag <- mutate(.data = mag, 
-             J = 1 - 3/(4*dfev - 1), 
-             t = (MeanFemale - MeanControl)/
-                    sqrt(((NFemale - 1) * SDFemale^2 + 
-                            (NControl - 1) * SDControl^2)/
-                              (NFemale + NControl - 2)), 
-             v = (NFemale + NControl) / (NFemale * NControl) + t^2/(2 * (NFemale + NControl)), 
-             es = rep('d', nrow(a1)))
-
-mp <- mutate(.data = mp, 
-             J = 1 - 3/(4*dfev - 1), 
-             t = (MeanMoney - MeanControl)/
-                    sqrt(((NMoney - 1) * SDMoney^2 + 
-                            (NControl - 1) * SDControl^2)/
-                              (NMoney + NControl - 2)), 
-             v = (NMoney + NControl) / (NMoney * NControl) + t^2/(2 * (NMoney + NControl)), 
-             es = rep('d', nrow(a1)))
-
-qa <- mutate(.data = qa, 
-             J = 1 - 3/(4*dfev - 1), 
-             t = (MeanLiked - MeanControl)/sqrt(((NLiked - 1) * SDLiked^2 + 
-                                                   (NControl - 1) * SDControl^2)/
-                                                      (NLiked + NControl - 2)), 
-             v = (NLiked + NControl) / (NLiked * NControl) + t^2/(2 * (NLiked + NControl)), 
-             es = rep('d', nrow(a1)))
-
+###----Sunk Costs
+sc <- read.xlsx("manylabs.xlsx", "Sunk Costs")
+sc<- sc[3:nrow(sc), 1:(ncol(sc) - 2)]
+names(sc) = c("site", "NPaid", "NFree", "NExcluded", "MeanPaid", "MeanFree", "SDPaid", "SDFree", "tev", "tuev", "dfev", "dfuev", "ESuev", "ESmd")
+sc["experiment"] <- "Sunkcosts"
 sc <- mutate(.data = sc, 
              J = 1 - 3/(4*dfev - 1), 
              t = (MeanPaid - MeanFree)/
-                    sqrt(((NPaid - 1) * SDPaid^2 + 
-                            (NFree - 1) * SDFree^2)/
-                              (NPaid + NFree - 2)), 
+               sqrt(((NPaid - 1) * SDPaid^2 + 
+                       (NFree - 1) * SDFree^2)/
+                      (NPaid + NFree - 2)), 
              v = (NPaid + NFree) / (NPaid * NFree) + t^2/(2 * (NPaid + NFree)), 
              es = rep('d', nrow(a1)))
 
-################################
-###Coverting from Correlation###
-################################
 
-iat <- mutate(.data = iat,
-              t = .5*log((1+r)/(1-r)), #Fisher's Z
-              v = 1/(N-3), 
-              es = rep('z', nrow(iat)))
 
-#########################################
-###Selecting standardized effect sizes###
-#########################################
+###-------------------------------------------------------------------------------###
+### Save Clean Data
+###-------------------------------------------------------------------------------###
+
+df_list = list(af, a1, a2, a3, a4, fp, gl, gf, iat, ic, mag, mp, qa, r, s, sc)
 dfs = rbind(do.call(rbind,
-              lapply(list(af, a1, a2, a3, a4, fp, gl, gf, iat, ic, mag, mp, qa, r, s, sc),
-             FUN=function(x) dplyr::select(x, experiment, site, t, v, es))),
-      origs %>% select(experiment, site, t=d, v=vd, es=orig_es)) %>%
-      left_join(., select(origs, experiment, replicated)) %>%
+                    lapply(df_list,
+                           FUN=function(x) dplyr::select(x, experiment, site, t, v, es))),
+            origs %>% select(experiment, site, t=d, v=vd, es=orig_es)) %>%
+  left_join(., select(origs, experiment, replicated)) %>%
   arrange(as.character(experiment), as.character(site))
 
-######################
-###Writing CSV file###
-######################
+names(df_list) = unique(dfs$experiment)
+saveRDS(dfs, "../../manylabs_raw.RDS")
 
-write.csv(dfs,  "../../manylabs_comparison.csv", row.names=F) 
+write.csv(dfs, "../../manylabs_comp.csv", row.names=F)
+
 
 
 ##################################################################

@@ -1,3 +1,6 @@
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+setwd("../raw/rrr_cheung")
+
 library(dplyr)
 
 #Convert Function
@@ -106,7 +109,7 @@ means <- function(model,alpha=.05,weighted=TRUE){ # model is an lm object, alpha
 include <- 0
 
 #Read Data
-ay <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Aykutoglu_Data.csv")
+ay <- read.csv("./Data/Aykutoglu_Data.csv")
 ay <- ay[-(1:2),] # delete first two irrelevant rows
 ayExclude <- convert(ay$Exclude) # exclusion criteria
 ay <- ay[which(ayExclude %in% include),] # include specified observations
@@ -128,7 +131,7 @@ ayLoyalty.raw <- with(ay,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,Q2
 ayLoyalty.data <- apply(ayLoyalty.raw,2,convert) # convert Loyalty items
 ayLoyalty <- apply(ayLoyalty.data,1,mean) # average Loyalty across all items
 
-bredow <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Bredow_data.csv")
+bredow <- read.csv("./Data/Bredow_data.csv")
 bredow <- bredow[-(1:2),]
 bExclude <- convert(bredow$Exclude)
 bredow <- bredow[which(bExclude %in% include),]
@@ -150,7 +153,7 @@ bLoyalty.raw <- with(bredow,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3
 bLoyalty.data <- apply(bLoyalty.raw,2,convert)
 bLoyalty <- apply(bLoyalty.data,1,mean)
 
-cap <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Caprariello_data.csv")
+cap <- read.csv("./Data/Caprariello_data.csv")
 cap <- cap[-(1:2),]
 capExclude <- convert(cap$Exclude)
 cap <- cap[which(capExclude %in% include),]
@@ -172,7 +175,7 @@ capLoyalty.raw <- with(cap,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,
 capLoyalty.data <- apply(capLoyalty.raw,2,convert)
 capLoyalty <- apply(capLoyalty.data,1,mean)
 
-carcedo <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Carcedo_data.csv")
+carcedo <- read.csv("./Data/Carcedo_data.csv")
 carcedo <- carcedo[-(1:2),]
 carExclude <- convert(carcedo$Exclude)
 carcedo <- carcedo[which(carExclude %in% include),]
@@ -194,7 +197,7 @@ carLoyalty.raw <- with(carcedo,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.
 carLoyalty.data <- apply(carLoyalty.raw,2,convert)
 carLoyalty <- apply(carLoyalty.data,1,mean)
 
-carson <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Carson_data.csv")
+carson <- read.csv("./Data/Carson_data.csv")
 carson <- carson[-(1:2),]
 carExclude <- convert(carson$Exclude)
 carson <- carson[which(carExclude %in% include),]
@@ -216,7 +219,7 @@ carsLoyalty.raw <- with(carson,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.
 carsLoyalty.data <- apply(carsLoyalty.raw,2,convert)
 carsLoyalty <- apply(carsLoyalty.data,1,mean)
 
-cheung <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Cheung_data.csv")
+cheung <- read.csv("./Data/Cheung_data.csv")
 cheung <- cheung[-(1:2),] 
 chExclude <- convert(cheung$Exclude) 
 cheung <- cheung[which(chExclude %in% include),]
@@ -238,7 +241,7 @@ chLoyalty.raw <- with(cheung,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_
 chLoyalty.data <- apply(chLoyalty.raw,2,convert)
 chLoyalty <- apply(chLoyalty.data,1,mean)
 
-cobb <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Cobb_data.csv")
+cobb <- read.csv("./Data/Cobb_data.csv")
 cobb <- cobb[-(1:2),]
 coExclude <- convert(cobb$Exclude)
 cobb <- cobb[which(coExclude %in% include),]
@@ -260,7 +263,7 @@ coLoyalty.raw <- with(cobb,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,
 coLoyalty.data <- apply(coLoyalty.raw,2,convert)
 coLoyalty <- apply(coLoyalty.data,1,mean)
 
-collin <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Collins_Data.csv")
+collin <- read.csv("./Data/Collins_Data.csv")
 collin <- collin[-(1:2),]
 collinExclude <- convert(collin$Exclude)
 collin <- collin[which(collinExclude %in% include),]
@@ -282,7 +285,7 @@ collinLoyalty.raw <- with(collin,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q
 collinLoyalty.data <- apply(collinLoyalty.raw,2,convert)
 collinLoyalty <- apply(collinLoyalty.data,1,mean)
 
-dido <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Didonato_data.csv")
+dido <- read.csv("./Data/Didonato_data.csv")
 dido <- dido[-(1:2),]
 dExclude <- convert(dido$Exclude)
 dido <- dido[which(dExclude %in% include),]
@@ -304,7 +307,7 @@ dLoyalty.raw <- with(dido,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,Q
 dLoyalty.data <- apply(dLoyalty.raw,2,convert)
 dLoyalty <- apply(dLoyalty.data,1,mean)
 
-fug <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Fuglestad_data.csv")
+fug <- read.csv("./Data/Fuglestad_data.csv")
 fug <- fug[-(1:2),]
 fExclude <- convert(fug$Exclude)
 fug <- fug[which(fExclude %in% include),]
@@ -326,7 +329,7 @@ fLoyalty.raw <- with(fug,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,Q2
 fLoyalty.data <- apply(fLoyalty.raw,2,convert)
 fLoyalty <- apply(fLoyalty.data,1,mean)
 
-hop <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Hoplock_data.csv")
+hop <- read.csv("./Data/Hoplock_data.csv")
 hop <- hop[-(1:2),]
 hExclude <- convert(hop$Exclude)
 hop <- hop[which(hExclude %in% include),]
@@ -348,7 +351,7 @@ hLoyalty.raw <- with(hop,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,Q2
 hLoyalty.data <- apply(hLoyalty.raw,2,convert)
 hLoyalty <- apply(hLoyalty.data,1,mean)
 
-sinclair <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Sinclair_data.csv")
+sinclair <- read.csv("./Data/Sinclair_data.csv")
 sinclair <- sinclair[-(1:2),]
 siExclude <- convert(sinclair$Exclude)
 sinclair <- sinclair[which(siExclude %in% include),]
@@ -370,7 +373,7 @@ siLoyalty.raw <- with(sinclair,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.
 siLoyalty.data <- apply(siLoyalty.raw,2,convert)
 siLoyalty <- apply(siLoyalty.data,1,mean)
 
-such <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Sucharyna_data.csv")
+such <- read.csv("./Data/Sucharyna_data.csv")
 such <- such[-(1:2),]
 suExclude <- convert(such$Exclude)
 such <- such[which(suExclude %in% include),]
@@ -392,7 +395,7 @@ suLoyalty.raw <- with(such,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,
 suLoyalty.data <- apply(suLoyalty.raw,2,convert)
 suLoyalty <- apply(suLoyalty.data,1,mean)
 
-tid <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Tidwell_data.csv")
+tid <- read.csv("./Data/Tidwell_data.csv")
 tid <- tid[-(1:2),]
 tExclude <- convert(tid$Exclude)
 tid <- tid[which(tExclude %in% include),]
@@ -414,7 +417,7 @@ tLoyalty.raw <- with(tid,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,Q2
 tLoyalty.data <- apply(tLoyalty.raw,2,convert)
 tLoyalty <- apply(tLoyalty.data,1,mean)
 
-vranka <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Vranka_data.csv")
+vranka <- read.csv("./Data/Vranka_data.csv")
 vranka <- vranka[-(1:2),]
 vExclude <- convert(vranka$Exclude)
 vranka <- vranka[which(vExclude %in% include),]
@@ -436,7 +439,7 @@ vLoyalty.raw <- with(vranka,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3
 vLoyalty.data <- apply(vLoyalty.raw,2,convert)
 vLoyalty <- apply(vLoyalty.data,1,mean)
 
-yong <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/Cheung/Yong_data.csv")
+yong <- read.csv("./Data/Yong_data.csv")
 yong <- yong[-(1:2),]
 yExclude <- convert(yong$Exclude)
 yong <- yong[which(yExclude %in% include),]

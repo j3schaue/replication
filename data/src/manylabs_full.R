@@ -21,7 +21,7 @@ tmp$ub = sapply(as.character(tmp$ci), FUN=function(x)
   as.numeric(strsplit(x, ", ")[[1]][2]))
 tmp$d[tmp$d=='na'] = NA
 tmp$d = as.numeric(as.character(tmp$d))
-tmp$vd_est = ((abs(tmp$d - tmp$lb) +  abs(tmp$d - tmp$ub))/(2*1.96))^2
+tmp$vd_est = ((tmp$ub - tmp$lb)/(2*1.96))^2
 tmp$site = 'original'
 tmp$experiment = sapply(tmp$experiment, FUN=function(x) 
   filter(exps, fullname==as.character(x))$experiment)
@@ -38,9 +38,11 @@ origs$vd = (origs$nt + origs$nc)/(origs$nt * origs$nc) +
   origs$d^2/(2*(origs$nt + origs$nc))
 origs$vd[is.na(origs$vd)] = 4/origs[is.na(origs$vd),]$n + 
   origs[is.na(origs$vd),]$d^2/(2*origs[is.na(origs$vd),]$n)
+origs$vv = 4/origs$n + origs$d^2/(2*origs$n)
 
 # Compare with estimates from the provided CIs
 round(abs(origs$vd_est - origs$vd), 3)
+round(abs(origs$vd_est - origs$vv), 3)
 
 # If we can't verify variances, then we just use the one backed out from 
 # the CI the ManyLabs investigators provided

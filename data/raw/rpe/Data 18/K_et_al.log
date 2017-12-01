@@ -1,0 +1,598 @@
+--------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/ad.3103/Dropbox/Research/Prediction markets/Harvard Replications/Kuziemko/analysis/t
+> o_send/K_et_al.log
+  log type:  text
+ opened on:  28 Oct 2015, 18:18:26
+
+. set seed 1 //Set seed for comparability
+
+. 
+. /* START */
+. use K_et_al_data.dta, clear
+
+. 
+. * drop practice round
+. drop if round==1
+(144 observations deleted)
+
+. 
+. *The dependent variable is 1 if the participant has chosen to give money to a player with lower rank a
+> nd 0 otherwise.
+. generate givetolower = 0
+
+. replace givetolower=1 if decision=="give to lower rank"
+(783 real changes made)
+
+. 
+. * Give to lower should depend on choice to give to lower in choice set, not lower relative rank.
+. * So rank 1 giving to 2 is not givetolower.
+. replace givetolower=0 if rank==1 & choice==2
+(16 real changes made)
+
+. * However when the person placed last gives to the 5th ranked it is givetolower.
+. replace givetolower=1 if rank==6 & choice==5
+(162 real changes made)
+
+. 
+. *Main indep variable
+. gen secondfromlast = 0
+
+. replace secondfromlast=1 if rank==5
+(192 real changes made)
+
+. 
+. * Dummies for first/last place
+. gen lastplace = 0
+
+. replace lastplace=1 if rank==6
+(192 real changes made)
+
+. gen firstplace = 0
+
+. replace firstplace=1 if rank==1
+(192 real changes made)
+
+. 
+. * There should be no missing data but test just in case
+. replace givetolower=. if decision=="NULL"
+(0 real changes made)
+
+. replace givetolower=. if missing(decision)
+(0 real changes made)
+
+. replace secondfromlast=. if missing(rank)
+(0 real changes made)
+
+. replace lastplace=. if missing(rank)
+(0 real changes made)
+
+. replace firstplace=. if missing(rank)
+(0 real changes made)
+
+. 
+. keep player_id game_id round rank choice givetolower secondfromlast firstplace lastplace
+
+. 
+. * Also create second or third from last for robustness checks
+. generate secondorthird_fromlast = secondfromlast
+
+. replace secondorthird_fromlast = 1 if rank==4
+(192 real changes made)
+
+. 
+. /* RUN ANALYSIS */
+. 
+. * GRAPH (Figure 4)
+. * "ib5" to use rank 5 as base indicator
+. probit givetolower ib5.rank, cluster(player_id)
+
+Iteration 0:   log pseudolikelihood = -566.05525  
+Iteration 1:   log pseudolikelihood = -551.84481  
+Iteration 2:   log pseudolikelihood = -551.70324  
+Iteration 3:   log pseudolikelihood = -551.70323  
+
+Probit regression                               Number of obs     =      1,152
+                                                Wald chi2(5)      =      25.11
+                                                Prob > chi2       =     0.0001
+Log pseudolikelihood = -551.70323               Pseudo R2         =     0.0254
+
+                            (Std. Err. adjusted for 144 clusters in player_id)
+------------------------------------------------------------------------------
+             |               Robust
+ givetolower |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        rank |
+          1  |   .5150349   .1602956     3.21   0.001     .2008613    .8292085
+          2  |  -.1434448   .1607222    -0.89   0.372    -.4584545    .1715648
+          3  |  -.2097702    .142354    -1.47   0.141    -.4887789    .0692386
+          4  |  -.1603157    .149684    -1.07   0.284     -.453691    .1330596
+          6  |    .142031   .1666698     0.85   0.394    -.1846358    .4686977
+             |
+       _cons |   .8679592   .1216752     7.13   0.000     .6294801    1.106438
+------------------------------------------------------------------------------
+
+. margins rank, atmeans
+
+Adjusted predictions                            Number of obs     =      1,152
+Model VCE    : Robust
+
+Expression   : Pr(givetolower), predict()
+at           : 1.rank          =    .1666667 (mean)
+               2.rank          =    .1666667 (mean)
+               3.rank          =    .1666667 (mean)
+               4.rank          =    .1666667 (mean)
+               5.rank          =    .1666667 (mean)
+               6.rank          =    .1666667 (mean)
+
+------------------------------------------------------------------------------
+             |            Delta-method
+             |     Margin   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+        rank |
+          1  |   .9166667   .0192725    47.56   0.000     .8788933      .95444
+          2  |    .765625   .0392731    19.49   0.000     .6886511    .8425989
+          3  |   .7447917   .0357557    20.83   0.000     .6747118    .8148715
+          4  |   .7604167   .0370584    20.52   0.000     .6877835    .8330498
+          5  |   .8072917   .0333061    24.24   0.000     .7420129    .8725704
+          6  |     .84375   .0291156    28.98   0.000     .7866845    .9008155
+------------------------------------------------------------------------------
+
+. 
+. * REGRESSIONS
+. 
+. * for regression 1 in table II
+. eststo clear
+
+. probit givetolower secondfromlast firstplace lastplace i.game_id i.round, cluster(player_id)
+
+Iteration 0:   log pseudolikelihood = -566.05525  
+Iteration 1:   log pseudolikelihood = -511.98834  
+Iteration 2:   log pseudolikelihood = -510.48833  
+Iteration 3:   log pseudolikelihood =  -510.4734  
+Iteration 4:   log pseudolikelihood =  -510.4734  
+
+Probit regression                               Number of obs     =      1,152
+                                                Wald chi2(33)     =      78.66
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood =  -510.4734               Pseudo R2         =     0.0982
+
+                              (Std. Err. adjusted for 144 clusters in player_id)
+--------------------------------------------------------------------------------
+               |               Robust
+   givetolower |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+---------------+----------------------------------------------------------------
+secondfromlast |   .1814686    .126043     1.44   0.150    -.0655712    .4285084
+    firstplace |   .7225779   .1460971     4.95   0.000     .4362329    1.008923
+     lastplace |   .3078059   .1360323     2.26   0.024     .0411876    .5744243
+               |
+       game_id |
+          137  |   .3738761   .5836412     0.64   0.522    -.7700396    1.517792
+          138  |  -1.093766   .5090645    -2.15   0.032    -2.091514   -.0960178
+          139  |  -.9645497    .535019    -1.80   0.071    -2.013168    .0840682
+          140  |  -.1279315   .5413124    -0.24   0.813    -1.188884    .9330214
+          141  |  -.9361185   .5473559    -1.71   0.087    -2.008916    .1366793
+          142  |   -.403989    .695611    -0.58   0.561    -1.767361    .9593835
+          143  |  -1.204081   .5454806    -2.21   0.027    -2.273203   -.1349586
+          144  |  -.8791433   .5014605    -1.75   0.080    -1.861988    .1037012
+          145  |  -1.150005   .5142654    -2.24   0.025    -2.157947   -.1420638
+          150  |   -1.08563   .5213199    -2.08   0.037    -2.107398   -.0638616
+          151  |  -.7450887   .5323746    -1.40   0.162    -1.788524    .2983464
+          152  |  -1.204486   .5973399    -2.02   0.044    -2.375251   -.0337216
+          153  |  -.7128715   .6090326    -1.17   0.242    -1.906554    .4808105
+          154  |   -.410112   .5677174    -0.72   0.470    -1.522818    .7025938
+          156  |  -.5251951   .5823294    -0.90   0.367     -1.66654    .6161494
+          157  |   -.950514   .5178064    -1.84   0.066    -1.965396     .064368
+          158  |  -.9572384   .6899004    -1.39   0.165    -2.309418    .3949417
+          159  |  -.5423344   .5781631    -0.94   0.348    -1.675513    .5908443
+          160  |  -.8133242   .6262057    -1.30   0.194    -2.040665    .4140164
+          161  |  -.6274362   .5222195    -1.20   0.230    -1.650968    .3960953
+          162  |  -.5398555   .5639331    -0.96   0.338    -1.645144    .5654331
+          163  |  -1.562847   .5260637    -2.97   0.003    -2.593913    -.531781
+          164  |  -1.009959   .5369148    -1.88   0.060    -2.062292    .0423751
+               |
+         round |
+            3  |  -.0936419   .1716551    -0.55   0.585    -.4300796    .2427959
+            4  |  -.2363986   .1643694    -1.44   0.150    -.5585567    .0857596
+            5  |   .0270575   .1789606     0.15   0.880    -.3236988    .3778138
+            6  |  -.3151852    .161302    -1.95   0.051    -.6313313    .0009609
+            7  |  -.1553238   .1688189    -0.92   0.358    -.4862027    .1755552
+            8  |  -.0253111   .1605078    -0.16   0.875    -.3399007    .2892784
+            9  |  -.3646341   .1631157    -2.24   0.025    -.6843349   -.0449333
+               |
+         _cons |   1.670456   .4857354     3.44   0.001     .7184318     2.62248
+--------------------------------------------------------------------------------
+
+. eststo reg1: margins, atmeans dydx(*) post
+
+Conditional marginal effects                    Number of obs     =      1,152
+Model VCE    : Robust
+
+Expression   : Pr(givetolower), predict()
+dy/dx w.r.t. : secondfromlast firstplace lastplace 137.game_id 138.game_id 139.game_id 140.game_id
+               141.game_id 142.game_id 143.game_id 144.game_id 145.game_id 150.game_id 151.game_id
+               152.game_id 153.game_id 154.game_id 156.game_id 157.game_id 158.game_id 159.game_id
+               160.game_id 161.game_id 162.game_id 163.game_id 164.game_id 3.round 4.round 5.round
+               6.round 7.round 8.round 9.round
+at           : secondfrom~t    =    .1666667 (mean)
+               firstplace      =    .1666667 (mean)
+               lastplace       =    .1666667 (mean)
+               136.game_id     =    .0416667 (mean)
+               137.game_id     =    .0416667 (mean)
+               138.game_id     =    .0416667 (mean)
+               139.game_id     =    .0416667 (mean)
+               140.game_id     =    .0416667 (mean)
+               141.game_id     =    .0416667 (mean)
+               142.game_id     =    .0416667 (mean)
+               143.game_id     =    .0416667 (mean)
+               144.game_id     =    .0416667 (mean)
+               145.game_id     =    .0416667 (mean)
+               150.game_id     =    .0416667 (mean)
+               151.game_id     =    .0416667 (mean)
+               152.game_id     =    .0416667 (mean)
+               153.game_id     =    .0416667 (mean)
+               154.game_id     =    .0416667 (mean)
+               156.game_id     =    .0416667 (mean)
+               157.game_id     =    .0416667 (mean)
+               158.game_id     =    .0416667 (mean)
+               159.game_id     =    .0416667 (mean)
+               160.game_id     =    .0416667 (mean)
+               161.game_id     =    .0416667 (mean)
+               162.game_id     =    .0416667 (mean)
+               163.game_id     =    .0416667 (mean)
+               164.game_id     =    .0416667 (mean)
+               2.round         =        .125 (mean)
+               3.round         =        .125 (mean)
+               4.round         =        .125 (mean)
+               5.round         =        .125 (mean)
+               6.round         =        .125 (mean)
+               7.round         =        .125 (mean)
+               8.round         =        .125 (mean)
+               9.round         =        .125 (mean)
+
+--------------------------------------------------------------------------------
+               |            Delta-method
+               |      dy/dx   Std. Err.      z    P>|z|     [95% Conf. Interval]
+---------------+----------------------------------------------------------------
+secondfromlast |   .0450525   .0316098     1.43   0.154    -.0169015    .1070066
+    firstplace |   .1793917   .0378132     4.74   0.000     .1052792    .2535042
+     lastplace |   .0764178   .0338986     2.25   0.024     .0099778    .1428578
+               |
+       game_id |
+          137  |   .0242578   .0436892     0.56   0.579    -.0613715    .1098872
+          138  |  -.2212062   .0876793    -2.52   0.012    -.3930544    -.049358
+          139  |  -.1808115   .0951194    -1.90   0.057     -.367242     .005619
+          140  |  -.0128188   .0524974    -0.24   0.807    -.1157118    .0900742
+          141  |  -.1724224   .0994437    -1.73   0.083    -.3673284    .0224836
+          142  |  -.0508319   .0967259    -0.53   0.599    -.2404112    .1387474
+          143  |   -.258431   .1138371    -2.27   0.023    -.4815476   -.0353145
+          144  |  -.1561748   .0741032    -2.11   0.035    -.3014144   -.0109351
+          145  |  -.2398874   .0931171    -2.58   0.010    -.4223936   -.0573811
+          150  |  -.2185569   .0944485    -2.31   0.021    -.4036725   -.0334414
+          151  |  -.1209877   .0804197    -1.50   0.132    -.2786074    .0366319
+          152  |  -.2585721   .1424966    -1.81   0.070    -.5378604    .0207161
+          153  |  -.1131767   .1058464    -1.07   0.285    -.3206318    .0942784
+          154  |  -.0518541   .0709724    -0.73   0.465    -.1909574    .0872492
+          156  |  -.0726356   .0826605    -0.88   0.380    -.2346472    .0893761
+          157  |  -.1766469   .0856043    -2.06   0.039    -.3444282   -.0088656
+          158  |  -.1786365   .1605277    -1.11   0.266     -.493265    .1359919
+          159  |  -.0759909   .0822758    -0.92   0.356    -.2372485    .0852668
+          160  |  -.1383595   .1216313    -1.14   0.255    -.3767525    .1000334
+          161  |  -.0936771   .0709833    -1.32   0.187    -.2328018    .0454476
+          162  |  -.0755013   .0785343    -0.96   0.336    -.2294257    .0784231
+          163  |  -.3927211   .1136858    -3.45   0.001    -.6155412   -.1699009
+          164  |  -.1945901   .0990036    -1.97   0.049    -.3886336   -.0005467
+               |
+         round |
+            3  |  -.0210179   .0383393    -0.55   0.584    -.0961616    .0541258
+            4  |  -.0571326   .0392343    -1.46   0.145    -.1340305    .0197653
+            5  |   .0056818   .0376309     0.15   0.880    -.0680734    .0794369
+            6  |  -.0791512   .0399333    -1.98   0.047    -.1574191   -.0008834
+            7  |  -.0360189   .0389693    -0.92   0.355    -.1123972    .0403595
+            8  |  -.0054732   .0346426    -0.16   0.874    -.0733715    .0624251
+            9  |  -.0937094   .0413944    -2.26   0.024     -.174841   -.0125779
+--------------------------------------------------------------------------------
+Note: dy/dx for factor levels is the discrete change from the base level.
+
+. 
+. * same with LPM to avoid incidental-parameters problem
+. * eststo reg2: qui regress givetolower secondfromlast firstplace lastplace i.game_id i.round, robust c
+> luster(player_id)
+. 
+. * regression 2 in table II
+. probit givetolower secondorthird_fromlast firstplace lastplace i.game_id i.round, cluster(player_id)
+
+Iteration 0:   log pseudolikelihood = -566.05525  
+Iteration 1:   log pseudolikelihood = -512.56911  
+Iteration 2:   log pseudolikelihood = -511.06883  
+Iteration 3:   log pseudolikelihood = -511.05398  
+Iteration 4:   log pseudolikelihood = -511.05397  
+
+Probit regression                               Number of obs     =      1,152
+                                                Wald chi2(33)     =      79.58
+                                                Prob > chi2       =     0.0000
+Log pseudolikelihood = -511.05397               Pseudo R2         =     0.0972
+
+                                      (Std. Err. adjusted for 144 clusters in player_id)
+----------------------------------------------------------------------------------------
+                       |               Robust
+           givetolower |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-----------------------+----------------------------------------------------------------
+secondorthird_fromlast |   .1053177    .106081     0.99   0.321    -.1025972    .3132326
+            firstplace |   .7310559   .1490348     4.91   0.000      .438953    1.023159
+             lastplace |   .3162732   .1399137     2.26   0.024     .0420474     .590499
+                       |
+               game_id |
+                  137  |   .3690315   .5772389     0.64   0.523     -.762336    1.500399
+                  138  |  -1.099656   .5062892    -2.17   0.030    -2.091964   -.1073474
+                  139  |  -.9698996   .5303471    -1.83   0.067    -2.009361    .0695617
+                  140  |  -.1291803   .5390262    -0.24   0.811    -1.185652    .9272916
+                  141  |  -.9398827   .5415759    -1.74   0.083    -2.001352    .1215865
+                  142  |  -.4071804   .6898912    -0.59   0.555    -1.759342    .9449815
+                  143  |  -1.209774   .5436417    -2.23   0.026    -2.275292   -.1442555
+                  144  |  -.8831777   .4986338    -1.77   0.077    -1.860482    .0941265
+                  145  |  -1.154735   .5065429    -2.28   0.023    -2.147541   -.1619295
+                  150  |  -1.091088    .518101    -2.11   0.035    -2.106547   -.0756288
+                  151  |  -.7482718   .5286856    -1.42   0.157    -1.784477     .287933
+                  152  |  -1.209775   .5936044    -2.04   0.042    -2.373218   -.0463319
+                  153  |  -.7196256   .6072729    -1.19   0.236    -1.909859    .4706074
+                  154  |  -.4128727   .5586911    -0.74   0.460    -1.507887    .6821417
+                  156  |  -.5294467   .5787524    -0.91   0.360    -1.663781    .6048872
+                  157  |  -.9566199   .5124894    -1.87   0.062    -1.961081    .0478409
+                  158  |  -.9645689   .6860064    -1.41   0.160    -2.309117    .3799789
+                  159  |  -.5495882     .57401    -0.96   0.338    -1.674627    .5754507
+                  160  |  -.8192681   .6249893    -1.31   0.190    -2.044225    .4056885
+                  161  |  -.6340587   .5210212    -1.22   0.224    -1.655241    .3871241
+                  162  |  -.5471425   .5605825    -0.98   0.329    -1.645864     .551579
+                  163  |   -1.56742   .5218103    -3.00   0.003    -2.590149   -.5446902
+                  164  |  -1.016247   .5297379    -1.92   0.055    -2.054514    .0220199
+                       |
+                 round |
+                    3  |  -.0936405   .1724108    -0.54   0.587    -.4315595    .2442785
+                    4  |  -.2339206   .1637316    -1.43   0.153    -.5548286    .0869875
+                    5  |   .0275665   .1790636     0.15   0.878    -.3233917    .3785248
+                    6  |  -.3136284   .1615195    -1.94   0.052    -.6302008    .0029441
+                    7  |  -.1534544   .1695178    -0.91   0.365    -.4857032    .1787944
+                    8  |  -.0228794   .1606726    -0.14   0.887     -.337792    .2920332
+                    9  |  -.3612322   .1634191    -2.21   0.027    -.6815278   -.0409367
+                       |
+                 _cons |   1.665587   .4814743     3.46   0.001     .7219153     2.60926
+----------------------------------------------------------------------------------------
+
+. eststo reg3: margins, atmeans dydx(*) post
+
+Conditional marginal effects                    Number of obs     =      1,152
+Model VCE    : Robust
+
+Expression   : Pr(givetolower), predict()
+dy/dx w.r.t. : secondorthird_fromlast firstplace lastplace 137.game_id 138.game_id 139.game_id
+               140.game_id 141.game_id 142.game_id 143.game_id 144.game_id 145.game_id 150.game_id
+               151.game_id 152.game_id 153.game_id 154.game_id 156.game_id 157.game_id 158.game_id
+               159.game_id 160.game_id 161.game_id 162.game_id 163.game_id 164.game_id 3.round 4.round
+               5.round 6.round 7.round 8.round 9.round
+at           : secondorth~t    =    .3333333 (mean)
+               firstplace      =    .1666667 (mean)
+               lastplace       =    .1666667 (mean)
+               136.game_id     =    .0416667 (mean)
+               137.game_id     =    .0416667 (mean)
+               138.game_id     =    .0416667 (mean)
+               139.game_id     =    .0416667 (mean)
+               140.game_id     =    .0416667 (mean)
+               141.game_id     =    .0416667 (mean)
+               142.game_id     =    .0416667 (mean)
+               143.game_id     =    .0416667 (mean)
+               144.game_id     =    .0416667 (mean)
+               145.game_id     =    .0416667 (mean)
+               150.game_id     =    .0416667 (mean)
+               151.game_id     =    .0416667 (mean)
+               152.game_id     =    .0416667 (mean)
+               153.game_id     =    .0416667 (mean)
+               154.game_id     =    .0416667 (mean)
+               156.game_id     =    .0416667 (mean)
+               157.game_id     =    .0416667 (mean)
+               158.game_id     =    .0416667 (mean)
+               159.game_id     =    .0416667 (mean)
+               160.game_id     =    .0416667 (mean)
+               161.game_id     =    .0416667 (mean)
+               162.game_id     =    .0416667 (mean)
+               163.game_id     =    .0416667 (mean)
+               164.game_id     =    .0416667 (mean)
+               2.round         =        .125 (mean)
+               3.round         =        .125 (mean)
+               4.round         =        .125 (mean)
+               5.round         =        .125 (mean)
+               6.round         =        .125 (mean)
+               7.round         =        .125 (mean)
+               8.round         =        .125 (mean)
+               9.round         =        .125 (mean)
+
+----------------------------------------------------------------------------------------
+                       |            Delta-method
+                       |      dy/dx   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-----------------------+----------------------------------------------------------------
+secondorthird_fromlast |   .0261611   .0266212     0.98   0.326    -.0260154    .0783377
+            firstplace |   .1815959   .0389465     4.66   0.000     .1052621    .2579296
+             lastplace |   .0785629   .0350581     2.24   0.025     .0098504    .1472755
+                       |
+               game_id |
+                  137  |    .023847   .0429338     0.56   0.579    -.0603016    .1079957
+                  138  |  -.2220988   .0883476    -2.51   0.012    -.3952569   -.0489408
+                  139  |  -.1814994   .0946397    -1.92   0.055    -.3669898    .0039909
+                  140  |  -.0128644   .0520618    -0.25   0.805    -.1149036    .0891749
+                  141  |  -.1726411   .0984004    -1.75   0.079    -.3655023    .0202202
+                  142  |  -.0510287   .0958352    -0.53   0.594    -.2388622    .1368048
+                  143  |  -.2592881   .1149559    -2.26   0.024    -.4845975   -.0339788
+                  144  |  -.1564764     .07457    -2.10   0.036    -.3026308   -.0103219
+                  145  |  -.2404053   .0907561    -2.65   0.008    -.4182839   -.0625267
+                  150  |  -.2193066   .0947317    -2.32   0.021    -.4049773   -.0336359
+                  151  |  -.1210899   .0802345    -1.51   0.131    -.2783466    .0361669
+                  152  |  -.2592886   .1423882    -1.82   0.069    -.5383643    .0197872
+                  153  |  -.1141403   .1063779    -1.07   0.283    -.3226373    .0943566
+                  154  |  -.0519773   .0693194    -0.75   0.453    -.1878409    .0838863
+                  156  |  -.0730059   .0823711    -0.89   0.375    -.2344502    .0884385
+                  157  |   -.177555   .0848642    -2.09   0.036    -.3438858   -.0112241
+                  158  |  -.1799113   .1604117    -1.12   0.262    -.4943123    .1344898
+                  159  |  -.0769555   .0820155    -0.94   0.348    -.2377029     .083792
+                  160  |  -.1391682   .1223424    -1.14   0.255    -.3789549    .1006185
+                  161  |  -.0945624   .0717294    -1.32   0.187    -.2351494    .0460246
+                  162  |  -.0764708   .0784846    -0.97   0.330    -.2302977    .0773561
+                  163  |  -.3931984   .1134048    -3.47   0.001    -.6154677   -.1709291
+                  164  |  -.1955782   .0971239    -2.01   0.044    -.3859375   -.0052189
+                       |
+                 round |
+                    3  |  -.0210647   .0386043    -0.55   0.585    -.0967279    .0545984
+                    4  |  -.0565819   .0390923    -1.45   0.148    -.1332014    .0200377
+                    5  |   .0058007   .0377304     0.15   0.878    -.0681494    .0797509
+                    6  |  -.0788593   .0400642    -1.97   0.049    -.1573838   -.0003349
+                    7  |  -.0356282   .0391803    -0.91   0.363    -.1124201    .0411638
+                    8  |  -.0049522   .0347167    -0.14   0.887    -.0729957    .0630914
+                    9  |  -.0928701   .0414488    -2.24   0.025    -.1741082   -.0116321
+----------------------------------------------------------------------------------------
+Note: dy/dx for factor levels is the discrete change from the base level.
+
+. 
+. esttab using K_et_altable2.rtf, replace title(Replication of Table II) label ///
+>         indicate("Game f.e. = *.game_id" "Round f.e. = *.round") ///
+>         mtitles("Probit 1" "LPM" "Probit 3") ///
+>         drop(firstplace lastplace) ///
+>         compress noconstant se starlevels(* 0.10 ** 0.05 *** 0.01)
+(note: file K_et_altable2.rtf not found)
+(output written to K_et_altable2.rtf)
+
+. 
+. esttab, replace title(Replication of Table II) label ///
+>         indicate("Game f.e. = *.game_id" "Round f.e. = *.round") ///
+>         mtitles("Probit 1" "LPM" "Probit 3") ///
+>         drop(firstplace lastplace) ///
+>         compress plain noconstant p starlevels(* 0.10 ** 0.05 *** 0.01)
+
+Replication of Table II
+                  Probit 1       LPM
+                       b/p       b/p
+secondfromlast    .0450525          
+                   .154079          
+secondorthird_~t            .0261611
+                            .3257458
+Game f.e.              Yes       Yes
+Round f.e.             Yes       Yes
+Observations          1152      1152
+
+. 
+. 
+. /* ROBUSTNESS */
+. /* TABLE 7 (APPENDIX)*/
+. 
+. eststo clear
+
+. 
+. * Robustness check with questionaire data (recreation of table 7 in appendix)
+. 
+. * Original version but with 2nd or 3rd place as explanatory var.
+. qui probit givetolower secondorthird_fromlast firstplace lastplace i.game_id i.round, cluster(player_i
+> d)
+
+. eststo reg1: qui margins, atmeans dydx(*) post
+
+. 
+. merge m:1 player_id using "K_et_al_questionaire.dta", keep(master match)
+
+    Result                           # of obs.
+    -----------------------------------------
+    not matched                             8
+        from master                         8  (_merge==1)
+        from using                          0  (_merge==2)
+
+    matched                             1,144  (_merge==3)
+    -----------------------------------------
+
+. drop if _merge==1
+(8 observations deleted)
+
+. drop if missing(male)
+(8 observations deleted)
+
+. drop if missing(black)
+(0 observations deleted)
+
+. drop if missing(hispanic)
+(0 observations deleted)
+
+. 
+. *Check change to original spec. from dropping data with no questionaire answers
+. qui probit givetolower secondorthird_fromlast firstplace lastplace i.game_id i.round, cluster(player_i
+> d)
+
+. eststo reg2: qui margins, atmeans dydx(*) post
+
+. 
+. *Add demographic controls
+. qui probit givetolower secondorthird_fromlast male black hispanic age political_views religiosity firs
+> tplace lastplace i.game_id i.round, cluster(player_id)
+
+. eststo reg3: qui margins, atmeans dydx(*) post
+
+. 
+. *with political views interaction
+. *qui probit givetolower i.secondorthird_fromlast##c.political_views male black hispanic age religiosit
+> y firstplace lastplace i.game_id i.round, cluster(player_id)
+. *eststo reg4: qui margins, atmeans dydx(*) post
+. 
+. *with religiosity interaction
+. *qui probit givetolower i.secondorthird_fromlast##c.religiosity male black hispanic age political_view
+> s firstplace lastplace i.game_id i.round, cluster(player_id)
+. *eststo reg5: qui margins, atmeans dydx(*) post
+. 
+. *LPM
+. eststo reg6: qui regress givetolower secondorthird_fromlast male black hispanic age political_views re
+> ligiosity firstplace lastplace i.game_id i.round i.player_id, cluster(player_id)
+
+. 
+. esttab using K_et_altable7.rtf, replace title(Replication of Appendix Table 7) label ///
+>         indicate("Game f.e. = *.game_id" "Round f.e. = *.round" "Indiv. f.e. = *.player_id") ///
+>         mtitles("Probit 1" "Probit 2" "Probit 3" "LPM") ///
+>         compress noconstant se starlevels(* 0.10 ** 0.05 *** 0.01)
+(note: file K_et_altable7.rtf not found)
+(output written to K_et_altable7.rtf)
+
+.         
+. esttab, replace title(Replication of Appendix Table 7) label ///
+>         indicate("Game f.e. = *.game_id" "Round f.e. = *.round" "Indiv. f.e. = *.player_id") ///
+>         mtitles("Probit 1" "Probit 2" "Probit 3" "LPM") ///
+>         compress plain noconstant p starlevels(* 0.10 ** 0.05 *** 0.01) 
+
+Replication of Appendix Table 7
+                  Probit 1  Probit 2  Probit 3       LPM
+                       b/p       b/p       b/p       b/p
+secondorthird_~t  .0261611  .0290005   .029787  .0427337
+                  .3257458  .2812172  .2714672  .2016407
+firstplace        .1815959  .1900362  .1845586  .1447798
+                  3.12e-06  1.33e-06  1.73e-06  .0002975
+lastplace         .0785629  .0745328  .0778362  .1154596
+                  .0250301   .033963  .0220968  .0082524
+male                                 -.0806565 -.5814747
+                                      .0238776  3.12e-84
+black                                 .0020542  .2175538
+                                      .9756873  2.74e-35
+hispanic                             -.0844331  .1546554
+                                      .2311594  1.09e-14
+age                                   .0002683  .1310634
+                                      .9747734  1.22e-80
+political_views                       .0253688  .0270574
+                                      .0556603  2.66e-11
+religiosity                          -.0063566  .0518193
+                                       .692494  6.35e-11
+Game f.e.              Yes       Yes       Yes       Yes
+Round f.e.             Yes       Yes       Yes       Yes
+Indiv. f.e.             No        No        No       Yes
+Observations          1152      1136      1136      1136
+
+. */
+. 
+. /* END */
+. log close
+      name:  <unnamed>
+       log:  /Users/ad.3103/Dropbox/Research/Prediction markets/Harvard Replications/Kuziemko/analysis/t
+> o_send/K_et_al.log
+  log type:  text
+ closed on:  28 Oct 2015, 18:18:36
+--------------------------------------------------------------------------------------------------------
