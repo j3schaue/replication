@@ -69,7 +69,8 @@ for(mm in methods){# loop through methods
   comptab$experiment = unique(df$experiment)
   comptab = comptab[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",
                       "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", "mdh67")] %>% 
-    left_join(., select(df, experiment, replicated)) %>% distinct()
+    left_join(., dplyr::select(df, experiment, replicated)) %>% distinct()
+  comptab$paper = "alogna"
   
   write.csv(comptab, paste0("./results/comparison_alogna_", mm, ".csv"), row.names=F)
 }
@@ -110,10 +111,12 @@ fe = lapply(tau0s, FUN=function(tau0) # loop through null hypotheses lambda0 = 0
 fetab = Reduce(left_join, fe)
 fetab$experiment = experiments
 fetab$vbar = vbars
-fetab = fetab[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
+fetab$paper = "alogna"
+
+fetab = fetab[c("paper", "experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
                 "mdh67", "vbar")]
 fetab
-write.csv(fetab, "./results/qtest_fixed_rrr-alogna_include.csv")
+write.csv(fetab, "./results/qtest_fixed_rrr-alogna_include.csv", row.names=F)
 
 
 ###----Exclude original study-----------------------------------------------
@@ -137,10 +140,12 @@ fe = lapply(tau0s, FUN=function(tau0) # loop through null hypotheses lambda0 = 0
 fetab = Reduce(left_join, fe)
 fetab$experiment = experiments
 fetab$vbar = vbars
-fetab = fetab[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
+fetab$paper = "alogna"
+
+fetab = fetab[c("paper", "experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
                 "mdh67", "vbar")]
 fetab
-write.csv(fetab, "./results/qtest_fixed_rrr-alogna_exclude.csv")
+write.csv(fetab, "./results/qtest_fixed_rrr-alogna_exclude.csv", row.names=F)
 
 
 ###------------------------------------------------------------###
@@ -160,7 +165,9 @@ for(mm in methods){# for each method, compute tau^2 for each set of replicates
   })))
   tab$experiment = experiments
   tab$vbar = vbars
-  write.csv(select(tab, experiment, tau2=estimate, ci.lb, ci.ub), paste0('./results/rrr-alogna_vc_include_', mm,'.csv'), row.names=F)
+  tab$paper = 'alogna'
+  write.csv(dplyr::select(tab, experiment, tau2=estimate, ci.lb, ci.ub, paper), 
+            paste0('./results/rrr-alogna_vc_include_', mm,'.csv'), row.names=F)
 }
 
 ###----Exclude Original Study--------------------------------------------------
@@ -171,7 +178,9 @@ for(mm in methods){# for each method, compute tau^2 for each set of replicates
   })))
   tab$experiment = experiments
   tab$vbar = vbars
-  write.csv(select(tab, experiment, tau2=estimate, ci.lb, ci.ub), paste0('./results/rrr-alogna_vc_exclude_', mm,'.csv'), row.names=F)
+  tab$paper = 'alogna'
+  write.csv(dplyr::select(tab, experiment, tau2=estimate, ci.lb, ci.ub, paper), 
+            paste0('./results/rrr-alogna_vc_exclude_', mm,'.csv'), row.names=F)
 }
 
 

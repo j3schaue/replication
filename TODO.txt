@@ -1,12 +1,8 @@
 TO DO:
-1. Add data and cleaning scripts into 'data' directory.
-	a. scripts into ./data/src
-	b. data into ./data/
-		i. data saved as .csv tables
-2. Clean package code.
-	a. merge mdh.R and replicationTest.R
-	b. clean code/comment
-		i. compare runtime with builtin functions
-		ii. compare runtime with metafor functions
-	c. documentation
+1. Clean Cheung and Rand. 
+    a. Check for corruptions and re-run code.
+2. Get original data from PPIR experiments to add to df.
+3. Analyze Cheung, Rand, and PPIR
+4. Combine analyses
+  
 

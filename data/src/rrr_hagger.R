@@ -1,9 +1,12 @@
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+setwd("../")
+
 #Loading Library
 library(dplyr)
 
 #Cleaning Data
 #RTV
-RTV <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/rrr_hagger/RTV_incl.csv")
+RTV <- read.csv("./raw/rrr_hagger/Data Files and Analysis Files for Meta-Analysis/RTV_incl.csv")
 RTV <- select(RTV, c(Study.name, Ego.Depletion.Sample.size, Control.Sample.size, Std.diff.in.means, Std.Err, Hedges.s.g, Std.Err.1))
 RTV <- rename(RTV, site = Study.name, n = Ego.Depletion.Sample.size, m = Control.Sample.size, d = Std.diff.in.means, sed = Std.Err, g = Hedges.s.g, seg = Std.Err.1)
 RTV["experiment"] <- "RTV"
@@ -11,7 +14,7 @@ RTV["es"] <- "d"
 RTV["replicated"] <- "0"
 
 #RT
-RT <- read.csv("~/Research/Replication Research Project/Registered Replication Report RRR/rrr_hagger/RT_incl.csv")
+RT <- read.csv("./raw/rrr_hagger/Data Files and Analysis Files for Meta-Analysis/RT_incl.csv")
 RT <- select(RT, c(Study.name, Ego.Depletion.Sample.size, Control.Sample.size, Std.diff.in.means, Std.Err, Hedges.s.g, Std.Err.1))
 RT <- rename(RT, site = Study.name, n = Ego.Depletion.Sample.size, m = Control.Sample.size, d = Std.diff.in.means, sed = Std.Err, g = Hedges.s.g, seg = Std.Err.1)
 RT["experiment"] <- "RT"

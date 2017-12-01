@@ -1,3 +1,6 @@
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+setwd("../raw/rrr_rand/Data/")
+
 #Loading required library
 library(dplyr)
 
@@ -104,7 +107,7 @@ original <- read.table("Original_data.txt", header = TRUE)
 
 ac <- Rand.Analysis(Aczel_PAEX_Rand_Data.csv)
 ac <- mutate(ac, site = "Aczel")
-be <- Rand.Analysis(Bègue_PAEX_Rand_Data.csv)
+be <- Rand.Analysis(Begue_PAEX_Rand_Data.csv)
 be <- mutate(be, site = "Bègue")
 bo <- Rand.Analysis(Bouwmeester_PAEX_Rand_Data.csv)
 bo <- mutate(bo, site = "Bouwmeester")

@@ -34,7 +34,7 @@ qStat = function(t=NULL, v=NULL, data=NULL){
 ###--------------------------------------------###
 ### Hypothesis test 
 ###--------------------------------------------###
-replicationTest = function(t=NULL, v=NULL, data=NULL, h0replication=TRUE, fixed=TRUE, alpha=.05, lambda0=0, tau0=0){
+replicationTest = function(t=NULL, v=NULL, data=NULL, h0replication=TRUE, fixed=TRUE, alpha=.05, lambda0=0, tau0=0, verbose=TRUE){
   ## Takes: t, effect sizes, vector
   ##        v, variances, vector
   ##        data, data frame containing columns t and v
@@ -92,17 +92,19 @@ replicationTest = function(t=NULL, v=NULL, data=NULL, h0replication=TRUE, fixed=
     out = list(k=k, Q=Q, calpha=calpha, p=pval, g=g, h=h, alpha=alpha, reject=reject)
   }
   
-  print(cat(
-        paste0("The test statistic is Q=", round(Q, digits=3)),
-        paste0("The critical value is ", round(calpha, digits=3)),
-        paste0("The test ", ifelse(reject, "rejects", "fails to reject"), " the null hypothesis (p=", round(pval, digits=3), ")."),
-        paste0("-----------------------------"),
-        paste0("Data: ", k, " studies"),
-        paste0("Null hypothesis: ", ifelse(h0replication, "Studies replicate", "Studies do not replicate")),
-        paste0("Studies treated as ", ifelse(fixed, "fixed.", "random.")),
-        paste0("Testing for ", ifelse(tau0==0 & lambda0==0, "exact ", "approximate "), "replication."),
-        sep="\n"
-        ))
+  if(verbose){
+    print(cat(
+          paste0("The test statistic is Q=", round(Q, digits=3)),
+          paste0("The critical value is ", round(calpha, digits=3)),
+          paste0("The test ", ifelse(reject, "rejects", "fails to reject"), " the null hypothesis (p=", round(pval, digits=3), ")."),
+          paste0("-----------------------------"),
+          paste0("Data: ", k, " studies"),
+          paste0("Null hypothesis: ", ifelse(h0replication, "Studies replicate", "Studies do not replicate")),
+          paste0("Studies treated as ", ifelse(fixed, "fixed.", "random.")),
+          paste0("Testing for ", ifelse(tau0==0 & lambda0==0, "exact ", "approximate "), "replication."),
+          sep="\n"
+          ))
+  }
   
   return(out)
 }

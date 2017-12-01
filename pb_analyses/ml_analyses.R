@@ -73,7 +73,8 @@ for(mm in methods){# loop through methods
   # clean up order of columns and write to file
   comptab = comptab[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
                   "mdh67")] %>% 
-            left_join(., select(df, experiment, replicated)) %>% distinct()
+            left_join(., dplyr::select(df, experiment, replicated)) %>% distinct()
+  comptab$paper = 'manylabs'
   
   write.csv(comptab, paste0("./results/comparison_manylabs_", mm, ".csv"), row.names=F)
 }
@@ -87,7 +88,7 @@ for(mm in methods){# loop through methods
 
 ## Set parameters for analysis
 experiments = unique(df$experiment) # unique experiment names
-ks = sapply(experiments, # # of trials per experiment
+ks = sapply(experiments, # no. of trials per experiment
             FUN=function(ee) count(filter(df, experiment==ee))$n)
 tau0s = c(0, 1/4, 1/3, 2/3) # plausible ratios for tau0
 lambda0s = (ks-1)*tau0s  # convert to lambda0
@@ -114,9 +115,10 @@ fe = lapply(tau0s, FUN=function(tau0) # loop through null hypotheses lambda0 = 0
 fetab = Reduce(left_join, fe)
 fetab$experiment = experiments
 fetab$vbar = vbars
+fetab$paper = 'manylabs'
 
 # reorder df and write to file
-fetab = fetab[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
+fetab = fetab[c("paper", "experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
                 "mdh67", "vbar")]
 fetab
 write.csv(fetab, "./results/qtest_fixed_manylabs_include.csv")
@@ -143,9 +145,10 @@ fe = lapply(tau0s, FUN=function(tau0) # loop through null hypotheses lambda0 = 0
 fetab = Reduce(left_join, fe)
 fetab$experiment = experiments
 fetab$vbar = vbars
+fetab$paper = "manylabs"
 
 # reorder df and write to file
-fetab = fetab[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
+fetab = fetab[c("paper", "experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
                 "mdh67", "vbar")]
 fetab
 write.csv(fetab, "./results/qtest_fixed_manylabs_exclude.csv")
@@ -168,7 +171,8 @@ for(mm in methods){# for each method, compute tau^2 for each set of replicates
   })))
   tab$experiment = experiments
   tab$vbar = vbars
-  write.csv(select(tab, experiment, tau2=estimate, ci.lb, ci.ub), paste0('./results/manylabs_vc_include_', mm,'.csv'), row.names=F)
+  tab$paper = 'manylabs'
+  write.csv(dplyr::select(tab, experiment, tau2=estimate, ci.lb, ci.ub, paper), paste0('./results/manylabs_vc_include_', mm,'.csv'), row.names=F)
 }
 
 ###----Exclude Original Study--------------------------------------------------
@@ -179,7 +183,8 @@ for(mm in methods){# for each method, compute tau^2 for each set of replicates
   })))
   tab$experiment = experiments
   tab$vbar = vbars
-  write.csv(select(tab, experiment, tau2=estimate, ci.lb, ci.ub), paste0('./results/manylabs_vc_exclude_', mm,'.csv'), row.names=F)
+  tab$paper = 'manylabs'
+  write.csv(dplyr::select(tab, experiment, tau2=estimate, ci.lb, ci.ub, paper), paste0('./results/manylabs_vc_exclude_', mm,'.csv'), row.names=F)
 }
 
 # ###---Quick thing for Larry
