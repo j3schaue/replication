@@ -5,10 +5,9 @@ source("../misc.R")
 
 # List of files to load for Q-test of multiple studies
 toload = c(
-  grep("rrr", grep("FE", grep("comparison", list.files(), value=T), value=T), 
-       value=T, invert=T),
+  grep("FE", grep("comparison", list.files(), value=T), value=T),
             "comparison_rpp.csv", "comparison_rpe.csv")
-dfs = lapply(toload[-5], FUN=function(ff){
+dfs = lapply(toload[-6], FUN=function(ff){
         print(ff)
         foo = read.csv(ff) %>%
             dplyr::select(experiment, k, Q, calpha0, p0, mdh0, calpha25, 

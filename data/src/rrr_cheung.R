@@ -109,7 +109,7 @@ means <- function(model,alpha=.05,weighted=TRUE){ # model is an lm object, alpha
 include <- 0
 
 #Read Data
-ay <- read.csv("./Data/Aykutoglu_Data.csv")
+ay <- read.csv("./Data/Aykutoglu_Data.csv", fileEncoding="latin1")
 ay <- ay[-(1:2),] # delete first two irrelevant rows
 ayExclude <- convert(ay$Exclude) # exclusion criteria
 ay <- ay[which(ayExclude %in% include),] # include specified observations
@@ -131,7 +131,7 @@ ayLoyalty.raw <- with(ay,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,Q2
 ayLoyalty.data <- apply(ayLoyalty.raw,2,convert) # convert Loyalty items
 ayLoyalty <- apply(ayLoyalty.data,1,mean) # average Loyalty across all items
 
-bredow <- read.csv("./Data/Bredow_data.csv")
+bredow <- read.csv("./Data/Bredow_data.csv", fileEncoding="latin1")
 bredow <- bredow[-(1:2),]
 bExclude <- convert(bredow$Exclude)
 bredow <- bredow[which(bExclude %in% include),]
@@ -153,7 +153,7 @@ bLoyalty.raw <- with(bredow,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3
 bLoyalty.data <- apply(bLoyalty.raw,2,convert)
 bLoyalty <- apply(bLoyalty.data,1,mean)
 
-cap <- read.csv("./Data/Caprariello_data.csv")
+cap <- read.csv("./Data/Caprariello_data.csv", fileEncoding="latin1")
 cap <- cap[-(1:2),]
 capExclude <- convert(cap$Exclude)
 cap <- cap[which(capExclude %in% include),]
@@ -175,7 +175,7 @@ capLoyalty.raw <- with(cap,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,
 capLoyalty.data <- apply(capLoyalty.raw,2,convert)
 capLoyalty <- apply(capLoyalty.data,1,mean)
 
-carcedo <- read.csv("./Data/Carcedo_data.csv")
+carcedo <- read.csv("./Data/Carcedo_data.csv", fileEncoding="latin1")
 carcedo <- carcedo[-(1:2),]
 carExclude <- convert(carcedo$Exclude)
 carcedo <- carcedo[which(carExclude %in% include),]
@@ -197,7 +197,7 @@ carLoyalty.raw <- with(carcedo,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.
 carLoyalty.data <- apply(carLoyalty.raw,2,convert)
 carLoyalty <- apply(carLoyalty.data,1,mean)
 
-carson <- read.csv("./Data/Carson_data.csv")
+carson <- read.csv("./Data/Carson_data.csv", fileEncoding="latin1")
 carson <- carson[-(1:2),]
 carExclude <- convert(carson$Exclude)
 carson <- carson[which(carExclude %in% include),]
@@ -219,7 +219,7 @@ carsLoyalty.raw <- with(carson,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.
 carsLoyalty.data <- apply(carsLoyalty.raw,2,convert)
 carsLoyalty <- apply(carsLoyalty.data,1,mean)
 
-cheung <- read.csv("./Data/Cheung_data.csv")
+cheung <- read.csv("./Data/Cheung_data.csv", fileEncoding="latin1")
 cheung <- cheung[-(1:2),] 
 chExclude <- convert(cheung$Exclude) 
 cheung <- cheung[which(chExclude %in% include),]
@@ -241,7 +241,7 @@ chLoyalty.raw <- with(cheung,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_
 chLoyalty.data <- apply(chLoyalty.raw,2,convert)
 chLoyalty <- apply(chLoyalty.data,1,mean)
 
-cobb <- read.csv("./Data/Cobb_data.csv")
+cobb <- read.csv("./Data/Cobb_data.csv", fileEncoding="latin1")
 cobb <- cobb[-(1:2),]
 coExclude <- convert(cobb$Exclude)
 cobb <- cobb[which(coExclude %in% include),]
@@ -263,7 +263,7 @@ coLoyalty.raw <- with(cobb,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,
 coLoyalty.data <- apply(coLoyalty.raw,2,convert)
 coLoyalty <- apply(coLoyalty.data,1,mean)
 
-collin <- read.csv("./Data/Collins_Data.csv")
+collin <- read.csv("./Data/Collins_Data.csv", fileEncoding="latin1")
 collin <- collin[-(1:2),]
 collinExclude <- convert(collin$Exclude)
 collin <- collin[which(collinExclude %in% include),]
@@ -285,7 +285,7 @@ collinLoyalty.raw <- with(collin,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q
 collinLoyalty.data <- apply(collinLoyalty.raw,2,convert)
 collinLoyalty <- apply(collinLoyalty.data,1,mean)
 
-dido <- read.csv("./Data/Didonato_data.csv")
+dido <- read.csv("./Data/Didonato_data.csv", fileEncoding="latin1")
 dido <- dido[-(1:2),]
 dExclude <- convert(dido$Exclude)
 dido <- dido[which(dExclude %in% include),]
@@ -307,7 +307,7 @@ dLoyalty.raw <- with(dido,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,Q
 dLoyalty.data <- apply(dLoyalty.raw,2,convert)
 dLoyalty <- apply(dLoyalty.data,1,mean)
 
-fug <- read.csv("./Data/Fuglestad_data.csv")
+fug <- read.csv("./Data/Fuglestad_data.csv", fileEncoding="latin1")
 fug <- fug[-(1:2),]
 fExclude <- convert(fug$Exclude)
 fug <- fug[which(fExclude %in% include),]
@@ -329,7 +329,7 @@ fLoyalty.raw <- with(fug,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,Q2
 fLoyalty.data <- apply(fLoyalty.raw,2,convert)
 fLoyalty <- apply(fLoyalty.data,1,mean)
 
-hop <- read.csv("./Data/Hoplock_data.csv")
+hop <- read.csv("./Data/Hoplock_data.csv", fileEncoding="latin1")
 hop <- hop[-(1:2),]
 hExclude <- convert(hop$Exclude)
 hop <- hop[which(hExclude %in% include),]
@@ -351,7 +351,7 @@ hLoyalty.raw <- with(hop,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,Q2
 hLoyalty.data <- apply(hLoyalty.raw,2,convert)
 hLoyalty <- apply(hLoyalty.data,1,mean)
 
-sinclair <- read.csv("./Data/Sinclair_data.csv")
+sinclair <- read.csv("./Data/Sinclair_data.csv", fileEncoding="latin1")
 sinclair <- sinclair[-(1:2),]
 siExclude <- convert(sinclair$Exclude)
 sinclair <- sinclair[which(siExclude %in% include),]
@@ -373,7 +373,7 @@ siLoyalty.raw <- with(sinclair,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.
 siLoyalty.data <- apply(siLoyalty.raw,2,convert)
 siLoyalty <- apply(siLoyalty.data,1,mean)
 
-such <- read.csv("./Data/Sucharyna_data.csv")
+such <- read.csv("./Data/Sucharyna_data.csv", fileEncoding="latin1")
 such <- such[-(1:2),]
 suExclude <- convert(such$Exclude)
 such <- such[which(suExclude %in% include),]
@@ -395,7 +395,7 @@ suLoyalty.raw <- with(such,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,
 suLoyalty.data <- apply(suLoyalty.raw,2,convert)
 suLoyalty <- apply(suLoyalty.data,1,mean)
 
-tid <- read.csv("./Data/Tidwell_data.csv")
+tid <- read.csv("./Data/Tidwell_data.csv", fileEncoding="latin1")
 tid <- tid[-(1:2),]
 tExclude <- convert(tid$Exclude)
 tid <- tid[which(tExclude %in% include),]
@@ -417,7 +417,7 @@ tLoyalty.raw <- with(tid,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3,Q2
 tLoyalty.data <- apply(tLoyalty.raw,2,convert)
 tLoyalty <- apply(tLoyalty.data,1,mean)
 
-vranka <- read.csv("./Data/Vranka_data.csv")
+vranka <- read.csv("./Data/Vranka_data.csv", fileEncoding="latin1")
 vranka <- vranka[-(1:2),]
 vExclude <- convert(vranka$Exclude)
 vranka <- vranka[which(vExclude %in% include),]
@@ -439,7 +439,7 @@ vLoyalty.raw <- with(vranka,data.frame(Q2.2_3,Q2.3_1,Q2.4_4,Q2.5_3,Q2.6_3,Q2.7_3
 vLoyalty.data <- apply(vLoyalty.raw,2,convert)
 vLoyalty <- apply(vLoyalty.data,1,mean)
 
-yong <- read.csv("./Data/Yong_data.csv")
+yong <- read.csv("./Data/Yong_data.csv", fileEncoding="latin1")
 yong <- yong[-(1:2),]
 yExclude <- convert(yong$Exclude)
 yong <- yong[which(yExclude %in% include),]
@@ -463,131 +463,171 @@ yLoyalty <- apply(yLoyalty.data,1,mean)
 
 #Results
 #Exit
-ayExit.t <- c(means(lm(ayExit~aycond)), "Aykutoglu", "Exit", "0", "md")
-bExit.t <- c(means(lm(bExit~bcond)), "Bredow", "Exit", "0", "md")
-capExit.t <- c(means(lm(capExit~capcond)), "Caprariello", "Exit", "0", "md")
-carExit.t <- c(means(lm(carExit~carcond)), "Carcedo", "Exit", "0", "md")
-carsExit.t <- c(means(lm(carsExit~carscond)), "Carson", "Exit", "0", "md")
-chExit.t <- c(means(lm(chExit~chcond)), "Cheung", "Exit", "0", "md")
-coExit.t <- c(means(lm(coExit~cocond)), "Cobb", "Exit", "0", "md")
-collinExit.t <- c(means(lm(collinExit~collincond)), "Collins", "Exit", "0", "md")
-dExit.t <- c(means(lm(dExit~dcond)), "DiDonato", "Exit", "0", "md")
-fExit.t <- c(means(lm(fExit~fcond)), "Fuglestad", "Exit", "0", "md")
-hExit.t <- c(means(lm(hExit~hcond)), "Hoplock", "Exit", "0", "md")
-siExit.t <- c(means(lm(siExit~sicond)), "Sinclair", "Exit", "0", "md")
-suExit.t <- c(means(lm(suExit~sucond)), "Sucharyna", "Exit", "0", "md")
-tExit.t <- c(means(lm(tExit~tcond)), "Tidwell", "Exit", "0", "md")
-vExit.t <- c(means(lm(vExit~vcond)), "Vranka", "Exit", "0", "md")
-yExit.t <- c(means(lm(yExit~ycond)), "Yong", "Exit", "0", "md")
-originalexit <- data.frame(Diff = -.65, SE = 0.23, Df = 87, t = -.65/.23, p = 2*pt(abs(-.65/.23), 87, lower=FALSE), site ="original", experiment = "Exit", replicated = "0", es = "md", stringsAsFactors=FALSE)
+exits = list(
+  list(ayExit, aycond), list(bExit,  bcond), list(capExit, capcond), list(carExit, carcond), 
+  list(carsExit, carscond), list(chExit, chcond), list(coExit, cocond), list(collinExit, collincond), 
+  list(dExit,  dcond), list(fExit,  fcond), list(hExit,  hcond), list(siExit, sicond), 
+  list(suExit, sucond), list(tExit,  tcond), list(vExit,  vcond), list(yExit,  ycond))
+
+exit_es = do.call(rbind, lapply(exits, FUN=function(x){
+    tmp = data.frame(y=x[[1]], cond=x[[2]]) %>% 
+      filter(!is.na(y)) %>% group_by(cond) %>%
+      summarize(mn = mean(y), vr = var(y), n=n()) %>% arrange(as.integer(cond == 'L'))
+      d = (tmp$mn[1] - tmp$mn[2])/sqrt(sum((tmp$n-1) * tmp$vr)/(sum(tmp$n) - 2))
+    return(data.frame(
+      d = d, 
+      vd = sum(tmp$n)/prod(tmp$n) + d^2/(2*sum(tmp$n)),
+      ntrt = tmp$n[1],
+      nctrl = tmp$n[2],
+      t = d * sqrt(prod(tmp$n)/sum(tmp$n)),
+      es = "d"
+    ))
+  })) %>%
+  rbind(., data.frame(d = -.65/ sqrt(0.23^2 * (87 + 2)/4), 
+                      vd = (-.65/ sqrt(0.23^2 * (87 + 2)/4))^2 / (2*89) + 4/89,
+                      ntrt = 89/2,
+                      nctrl = 89/2,
+                      t = -.65/.23,
+                      es = 'd'
+                      ))
+exit_es$site = c("Aykutoglu", "Bredow", "Caprariello", "Carcedo", 
+                 "Carson", "Cheung", "Cobb", "Collins", "DiDonato", 
+                 "Fuglestad", "Hoplock", "Sinclair", "Sucharyna", 
+                 "Tidwell", "Vranka", "Yong", "original")
+exit_es$experiment = "Exit"
+exit_es$replicated = 0
+
+# Original data
+# diff = -.65, SE=.23, Df = 87, t = -.65/.23
+
 
 #Neglect
-ayNeglect.t <- c(means(lm(ayNeglect~aycond)), "Aykutoglu", "Neglect", "0", "md")
-bNeglect.t <- c(means(lm(bNeglect~bcond)), "Bredow", "Neglect", "0", "md")
-capNeglect.t <- c(means(lm(capNeglect~capcond)), "Caprariello", "Neglect", "0", "md")
-carNeglect.t <- c(means(lm(carNeglect~carcond)), "Carcedo", "Neglect", "0", "md")
-carsNeglect.t <- c(means(lm(carsNeglect~carscond)), "Carson", "Neglect", "0", "md")
-chNeglect.t <- c(means(lm(chNeglect~chcond)), "Cheung", "Neglect", "0", "md")
-coNeglect.t <- c(means(lm(coNeglect~cocond)), "Cobb", "Neglect", "0", "md")
-collinNeglect.t <- c(means(lm(collinNeglect~collincond)), "Collins", "Neglect", "0", "md")
-dNeglect.t <- c(means(lm(dNeglect~dcond)), "DiDonato", "Neglect", "0", "md")
-fNeglect.t <- c(means(lm(fNeglect~fcond)), "Fuglestad", "Neglect", "0", "md")
-hNeglect.t <- c(means(lm(hNeglect~hcond)), "Hoplock", "Neglect", "0", "md")
-siNeglect.t <- c(means(lm(siNeglect~sicond)), "Sinclair", "Neglect", "0", "md")
-suNeglect.t <- c(means(lm(suNeglect~sucond)), "Sucharyna", "Neglect", "0", "md")
-tNeglect.t <- c(means(lm(tNeglect~tcond)), "Tidwell", "Neglect", "0", "md")
-vNeglect.t <- c(means(lm(vNeglect~vcond)), "Vranka", "Neglect", "0", "md")
-yNeglect.t <- c(means(lm(yNeglect~ycond)), "Yong", "Neglect", "0", "md")
-originalneglect <- data.frame(Diff = -.42, SE = 0.199, Df = 87, t = -.42/.199, p = 2*pt(abs(-.42/.199), 87, lower=FALSE), site ="original", experiment = "Neglect", replicated = "0", es = "md", stringsAsFactors=FALSE)
+# Original study
+# Diff = -.42, SE = 0.199, Df = 87
+orig_neglect = list(diff=-.42, se = .199, df = 87)
+
+neglects = list(
+  list(ayNeglect, aycond), list(bNeglect,  bcond), list(capNeglect, capcond), list(carNeglect, carcond), 
+  list(carsNeglect, carscond), list(chNeglect, chcond), list(coNeglect, cocond), list(collinNeglect, collincond), 
+  list(dNeglect,  dcond), list(fNeglect,  fcond), list(hNeglect,  hcond), list(siNeglect, sicond), 
+  list(suNeglect, sucond), list(tNeglect,  tcond), list(vNeglect,  vcond), list(yNeglect,  ycond))
+
+neglect_es = do.call(rbind, lapply(neglects, FUN=function(x){
+  tmp = data.frame(y=x[[1]], cond=x[[2]]) %>% 
+    filter(!is.na(y)) %>% group_by(cond) %>%
+    summarize(mn = mean(y), vr = var(y), n=n()) %>% arrange(as.integer(cond == 'L'))
+  d = (tmp$mn[1] - tmp$mn[2])/sqrt(sum((tmp$n-1) * tmp$vr)/(sum(tmp$n) - 2))
+  return(data.frame(
+    d = d, 
+    vd = sum(tmp$n)/prod(tmp$n) + d^2/(2*sum(tmp$n)),
+    ntrt = tmp$n[1],
+    nctrl = tmp$n[2],
+    t = d * sqrt(prod(tmp$n)/sum(tmp$n)),
+    es = "d"
+  ))
+})) %>%
+  rbind(., data.frame(d = orig_neglect$diff/ sqrt(orig_neglect$se^2 * (orig_neglect$df + 2)/4), 
+                      vd = (orig_neglect$diff/ sqrt(orig_neglect$se^2 * (orig_neglect$df + 2)/4))^2 / (2 * orig_neglect$df + 4) + 4/(orig_neglect$df + 2),
+                      ntrt = (orig_neglect$df + 2)/2,
+                      nctrl = (orig_neglect$df + 2)/2,
+                      t = orig_neglect$diff/orig_neglect$se,
+                      es = 'd'
+  ))
+neglect_es$site = c("Aykutoglu", "Bredow", "Caprariello", "Carcedo", 
+                    "Carson", "Cheung", "Cobb", "Collins", "DiDonato", 
+                    "Fuglestad", "Hoplock", "Sinclair", "Sucharyna", 
+                    "Tidwell", "Vranka", "Yong", "original")
+neglect_es$experiment = "Neglect"
+neglect_es$replicated = 0
+
+forest(neglect_es$d, vi=neglect_es$vd)
+
 
 #Voice
-ayVoice.t <- c(means(lm(ayVoice~aycond)), "Aykutoglu", "Voice", "1", "md")
-bVoice.t <- c(means(lm(bVoice~bcond)), "Bredow", "Voice", "1", "md")
-capVoice.t <- c(means(lm(capVoice~capcond)), "Caprariello", "Voice", "1", "md")
-carVoice.t <- c(means(lm(carVoice~carcond)), "Carcedo", "Voice", "1", "md")
-carsVoice.t <- c(means(lm(carsVoice~carscond)), "Carson", "Voice", "1", "md")
-chVoice.t <- c(means(lm(chVoice~chcond)), "Cheung", "Voice", "1", "md")
-coVoice.t <- c(means(lm(coVoice~cocond)), "Cobb", "Voice", "1", "md")
-collinVoice.t <- c(means(lm(collinVoice~collincond)), "Collins", "Voice", "1", "md")
-dVoice.t <- c(means(lm(dVoice~dcond)), "DiDonato", "Voice", "1", "md")
-fVoice.t <- c(means(lm(fVoice~fcond)), "Fuglestad", "Voice", "1", "md")
-hVoice.t <- c(means(lm(hVoice~hcond)), "Hoplock", "Voice", "1", "md")
-siVoice.t <- c(means(lm(siVoice~sicond)), "Sinclair", "Voice", "1", "md")
-suVoice.t <- c(means(lm(suVoice~sucond)), "Sucharyna", "Voice", "1", "md")
-tVoice.t <- c(means(lm(tVoice~tcond)), "Tidwell", "Voice", "1", "md")
-vVoice.t <- c(means(lm(vVoice~vcond)), "Vranka", "Voice", "1", "md")
-yVoice.t <- c(means(lm(yVoice~ycond)), "Yong", "Voice", "1", "md")
-originalvoice <- data.frame(Diff = .46, SE = 0.2857, Df = 87, t = .46/.2857, p = 2*pt(abs(.46/.2857), 87, lower=FALSE), site ="original", experiment = "Voice", replicated = "1", es = "md", stringsAsFactors=FALSE)
+#original study
+# Diff = .46, SE = 0.2857, Df = 87
+orig_voice = list(diff=.46, se = .2857, df = 87)
+voices = list(
+  list(ayVoice, aycond), list(bVoice,  bcond), list(capVoice, capcond), list(carVoice, carcond), 
+  list(carsVoice, carscond), list(chVoice, chcond), list(coVoice, cocond), list(collinVoice, collincond), 
+  list(dVoice,  dcond), list(fVoice,  fcond), list(hVoice,  hcond), list(siVoice, sicond), 
+  list(suVoice, sucond), list(tVoice,  tcond), list(vVoice,  vcond), list(yVoice,  ycond))
+
+voice_es = do.call(rbind, lapply(voices, FUN=function(x){
+  tmp = data.frame(y=x[[1]], cond=x[[2]]) %>% 
+    filter(!is.na(y)) %>% group_by(cond) %>%
+    summarize(mn = mean(y), vr = var(y), n=n()) %>% arrange(as.integer(cond == 'L'))
+  d = (tmp$mn[1] - tmp$mn[2])/sqrt(sum((tmp$n-1) * tmp$vr)/(sum(tmp$n) - 2))
+  return(data.frame(
+    d = d, 
+    vd = sum(tmp$n)/prod(tmp$n) + d^2/(2*sum(tmp$n)),
+    ntrt = tmp$n[1],
+    nctrl = tmp$n[2],
+    t = d * sqrt(prod(tmp$n)/sum(tmp$n)),
+    es = "d"
+  ))
+})) %>%
+  rbind(., data.frame(d = orig_voice$diff/ sqrt(orig_voice$se^2 * (orig_voice$df + 2)/4), 
+                      vd = (orig_voice$diff/ sqrt(orig_voice$se^2 * (orig_voice$df + 2)/4))^2 / (2 * orig_voice$df + 4) + 4/(orig_voice$df + 2),
+                      ntrt = (orig_voice$df + 2)/2,
+                      nctrl = (orig_voice$df + 2)/2,
+                      t = orig_voice$diff/orig_voice$se,
+                      es = 'd'
+  ))
+voice_es$site = c("Aykutoglu", "Bredow", "Caprariello", "Carcedo", 
+                  "Carson", "Cheung", "Cobb", "Collins", "DiDonato", 
+                  "Fuglestad", "Hoplock", "Sinclair", "Sucharyna", 
+                  "Tidwell", "Vranka", "Yong", "original")
+voice_es$experiment = "Voice"
+voice_es$replicated = 1
+
+forest(voice_es$d, vi=voice_es$vd)
+
 
 #Loyalty
-ayLoyalty.t <- c(means(lm(ayLoyalty~aycond)), "Aykutoglu", "Loyalty", "1", "md")
-bLoyalty.t <- c(means(lm(bLoyalty~bcond)), "Bredow", "Loyalty", "1", "md")
-capLoyalty.t <- c(means(lm(capLoyalty~capcond)), "Caprariello", "Loyalty", "1", "md")
-carLoyalty.t <- c(means(lm(carLoyalty~carcond)), "Carcedo", "Loyalty", "1", "md")
-carsLoyalty.t <- c(means(lm(carsLoyalty~carscond)), "Carson", "Loyalty", "1", "md")
-chLoyalty.t <- c(means(lm(chLoyalty~chcond)), "Cheung", "Loyalty", "1", "md")
-coLoyalty.t <- c(means(lm(coLoyalty~cocond)), "Cobb", "Loyalty", "1", "md")
-collinLoyalty.t <- c(means(lm(collinLoyalty~collincond)), "Collins", "Loyalty", "1", "md")
-dLoyalty.t <- c(means(lm(dLoyalty~dcond)), "DiDonato", "Loyalty", "1", "md")
-fLoyalty.t <- c(means(lm(fLoyalty~fcond)), "Fuglestad", "Loyalty", "1", "md")
-hLoyalty.t <- c(means(lm(hLoyalty~hcond)), "Hoplock", "Loyalty", "1", "md")
-siLoyalty.t <- c(means(lm(siLoyalty~sicond)), "Sinclair", "Loyalty", "1", "md")
-suLoyalty.t <- c(means(lm(suLoyalty~sucond)), "Sucharyna", "Loyalty", "1", "md")
-tLoyalty.t <- c(means(lm(tLoyalty~tcond)), "Tidwell", "Loyalty", "1", "md")
-vLoyalty.t <- c(means(lm(vLoyalty~vcond)), "Vranka", "Loyalty", "1", "md")
-yLoyalty.t <- c(means(lm(yLoyalty~ycond)), "Yong", "Loyalty", "1", "md")
-originalloyalty <- data.frame(Diff = .29, SE = 0.26, Df = 87, t = .29/.26, p = 2*pt(abs(.29/.26), 87, lower=FALSE), site ="original", experiment = "Loyalty", replicated = "1", es = "md", stringsAsFactors=FALSE)
+#original study
+# Diff = .29, SE = 0.26, Df = 87
+orig_loyalty = list(diff=.26, se = .26, df = 87)
+loyals = list(
+  list(ayLoyalty, aycond), list(bLoyalty,  bcond), list(capLoyalty, capcond), list(carLoyalty, carcond), 
+  list(carsLoyalty, carscond), list(chLoyalty, chcond), list(coLoyalty, cocond), list(collinLoyalty, collincond), 
+  list(dLoyalty,  dcond), list(fLoyalty,  fcond), list(hLoyalty,  hcond), list(siLoyalty, sicond), 
+  list(suLoyalty, sucond), list(tLoyalty,  tcond), list(vLoyalty,  vcond), list(yLoyalty,  ycond))
 
-exitdf <- rbind.data.frame(ayExit.t, bExit.t, capExit.t, carExit.t, carsExit.t, chExit.t, coExit.t, collinExit.t, dExit.t, fExit.t, hExit.t, siExit.t, suExit.t, tExit.t, vExit.t, yExit.t, originalexit)
-colnames(exitdf) <- c("Diff", "SE", "Df", "t", "p", "site", "experiment", "replicated", "es")
-exitdf$Diff <- as.numeric(as.character(exitdf$Diff))
-exitdf$SE <- as.numeric(as.character(exitdf$SE))
-exitdf$Df <- as.numeric(as.character(exitdf$Df))
-exitdf$t <- as.numeric(as.character(exitdf$t))
-exitdf$p <- as.numeric(as.character(exitdf$p))
+loyalty_es = do.call(rbind, lapply(loyals, FUN=function(x){
+  tmp = data.frame(y=x[[1]], cond=x[[2]]) %>% 
+    filter(!is.na(y)) %>% group_by(cond) %>%
+    summarize(mn = mean(y), vr = var(y), n=n()) %>% arrange(as.integer(cond == 'L'))
+  d = (tmp$mn[1] - tmp$mn[2])/sqrt(sum((tmp$n-1) * tmp$vr)/(sum(tmp$n) - 2))
+  return(data.frame(
+    d = d, 
+    vd = sum(tmp$n)/prod(tmp$n) + d^2/(2*sum(tmp$n)),
+    ntrt = tmp$n[1],
+    nctrl = tmp$n[2],
+    t = d * sqrt(prod(tmp$n)/sum(tmp$n)),
+    es = "d"
+  ))
+})) %>%
+  rbind(., data.frame(d = orig_loyalty$diff/ sqrt(orig_loyalty$se^2 * (orig_loyalty$df + 2)/4), 
+                      vd = (orig_loyalty$diff/ sqrt(orig_loyalty$se^2 * (orig_loyalty$df + 2)/4))^2 / (2 * orig_loyalty$df + 4) + 4/(orig_loyalty$df + 2),
+                      ntrt = (orig_loyalty$df + 2)/2,
+                      nctrl = (orig_loyalty$df + 2)/2,
+                      t = orig_loyalty$diff/orig_loyalty$se,
+                      es = 'd'
+  ))
+loyalty_es$site = c("Aykutoglu", "Bredow", "Caprariello", "Carcedo", 
+                    "Carson", "Cheung", "Cobb", "Collins", "DiDonato", 
+                    "Fuglestad", "Hoplock", "Sinclair", "Sucharyna", 
+                    "Tidwell", "Vranka", "Yong", "original")
+loyalty_es$experiment = "Loyalty"
+loyalty_es$replicated = 1
 
-neglectdf <- rbind.data.frame(ayNeglect.t, bNeglect.t, capNeglect.t, carNeglect.t, carsNeglect.t, chNeglect.t, coNeglect.t, collinNeglect.t, dNeglect.t, fNeglect.t, hNeglect.t, siNeglect.t, suNeglect.t, tNeglect.t, vNeglect.t, yNeglect.t, originalneglect)
-colnames(neglectdf) <- c("Diff", "SE", "Df", "t", "p", "site", "experiment", "replicated", "es")
-neglectdf$Diff <- as.numeric(as.character(neglectdf$Diff))
-neglectdf$SE <- as.numeric(as.character(neglectdf$SE))
-neglectdf$Df <- as.numeric(as.character(neglectdf$Df))
-neglectdf$t <- as.numeric(as.character(neglectdf$t))
-neglectdf$p <- as.numeric(as.character(neglectdf$p))
+forest(loyalty_es$d, vi=loyalty_es$vd)
 
-voicedf <- rbind.data.frame(ayVoice.t, bVoice.t, capVoice.t, carVoice.t, carsVoice.t, chVoice.t, coVoice.t, collinVoice.t, dVoice.t, fVoice.t, hVoice.t, siVoice.t, suVoice.t, tVoice.t, vVoice.t, yVoice.t, originalvoice)
-colnames(voicedf) <- c("Diff", "SE", "Df", "t", "p", "site", "experiment", "replicated", "es")
-voicedf$Diff <- as.numeric(as.character(voicedf$Diff))
-voicedf$SE <- as.numeric(as.character(voicedf$SE))
-voicedf$Df <- as.numeric(as.character(voicedf$Df))
-voicedf$t <- as.numeric(as.character(voicedf$t))
-voicedf$p <- as.numeric(as.character(voicedf$p))
 
-loyaltydf <- rbind.data.frame(ayLoyalty.t, bLoyalty.t, capLoyalty.t, carLoyalty.t, carsLoyalty.t, chLoyalty.t, coLoyalty.t, collinLoyalty.t, dLoyalty.t, fLoyalty.t, hLoyalty.t, siLoyalty.t, suLoyalty.t, tLoyalty.t, vLoyalty.t, yLoyalty.t, originalloyalty)
-colnames(loyaltydf) <- c("Diff", "SE", "Df", "t", "p", "site", "experiment", "replicated", "es")
-loyaltydf$Diff <- as.numeric(as.character(loyaltydf$Diff))
-loyaltydf$SE <- as.numeric(as.character(loyaltydf$SE))
-loyaltydf$Df <- as.numeric(as.character(loyaltydf$Df))
-loyaltydf$t <- as.numeric(as.character(loyaltydf$t))
-loyaltydf$p <- as.numeric(as.character(loyaltydf$p))
+# combine dfs and write
+df <- bind_rows(exit_es, neglect_es, voice_es, loyalty_es)
 
-exitdf <- mutate(exitdf,
-                 d = 4*t/(Df+2),
-                 vd = (8+(d^2))/(2*Df+4),
-                 n = (Df+2)/2)
-neglectdf <- mutate(neglectdf,
-                 d = 4*t/(Df+2),
-                 vd = (8+(d^2))/(2*Df+4),
-                 n = (Df+2)/2)
-voicedf <- mutate(voicedf,
-                 d = 4*t/(Df+2),
-                 vd = (8+(d^2))/(2*Df+4),
-                 n = (Df+2)/2)
-loyaltydf <- mutate(loyaltydf,
-                 d = 4*t/(Df+2),
-                 vd = (8+(d^2))/(2*Df+4),
-                 n = (Df+2)/2)
-
-df <- bind_rows(exitdf, neglectdf, voicedf, loyaltydf)
-write.csv(df,  "rrr_cheung.csv", row.names=F)
+write.csv(df,  "../../rrr_cheung.csv", row.names=F)
 
 

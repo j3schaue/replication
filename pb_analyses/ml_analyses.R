@@ -12,7 +12,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(dplyr)
 source("../package/replicationTest.R")
 source("../package/mdh.R")
-
+source("./misc.R")
 
 ###------------------------------------------------------------###
 ###------------------------------------------------------------###
@@ -42,6 +42,7 @@ runComparisonAnalyses(data=df, t='t', v='v', ratios=ratios, paper='manylabs', me
 ###------------------------------------------------------------###
 
 ## Set parameters for analysis
+experiments = unique(df$experiment)
 ks = sapply(experiments, # no. of trials per experiment
             FUN=function(ee) count(filter(df, experiment==ee))$n)
 tau0s = c(0, 1/4, 1/3, 2/3) # plausible ratios for tau0
