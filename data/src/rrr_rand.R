@@ -52,7 +52,7 @@ ttest <- function(C,G){ #C = Contribution, G = Group
 }
 
 # Program
-Rand.Analysis <- function(data,type='main',exclude=0) {
+Rand.Analysis.mod <- function(data,type='main',exclude=0) {
   
   #=================#
   # Data Formatting #
@@ -92,7 +92,13 @@ Rand.Analysis <- function(data,type='main',exclude=0) {
   Condition <- factor(Condition,levels=c('TP','FD')) # designate Condition as factor object
   contrasts(Condition) <- contr.sum(2) # TP = 1, FD = -1
   Trust <- convert(data[,73]) # level of trust
-  Result <- ttest(Contribution,Condition) 
+  Result <- data.frame(
+    nt=sum(Condition=="TP")+1, nf=sum(Condition=="FD"),
+    yt=mean(Contribution[which(Condition=="TP")]),
+    yf=mean(Contribution[which(Condition=="FD")]),
+    vt=var(Contribution[which(Condition=="TP")]),
+    vf=var(Contribution[which(Condition=="FD")]))
+   
   return(Result)
   }
 
@@ -102,65 +108,77 @@ Rand.Analysis <- function(data,type='main',exclude=0) {
 #############################################################
 
 temp = list.files(pattern="*.csv")
-for (i in 1:length(temp)) assign(temp[i], read.csv(temp[i]))
+for (i in 1:length(temp)) assign(temp[i], read.csv(temp[i], fileEncoding = "latin1"))
 original <- read.table("Original_data.txt", header = TRUE)
 
-ac <- Rand.Analysis(Aczel_PAEX_Rand_Data.csv)
+ac <- Rand.Analysis.mod(Aczel_PAEX_Rand_Data.csv)
 ac <- mutate(ac, site = "Aczel")
-be <- Rand.Analysis(Begue_PAEX_Rand_Data.csv)
+be <- Rand.Analysis.mod(Begue_PAEX_Rand_Data.csv)
 be <- mutate(be, site = "Bègue")
-bo <- Rand.Analysis(Bouwmeester_PAEX_Rand_Data.csv)
+bo <- Rand.Analysis.mod(Bouwmeester_PAEX_Rand_Data.csv)
 bo <- mutate(bo, site = "Bouwmeester")
-ep <- Rand.Analysis(Espin_PAEX_Rand_Data.csv)
+ep <- Rand.Analysis.mod(Espin_PAEX_Rand_Data.csv)
 ep <- mutate(ep, site = "Espin")
-ev <- Rand.Analysis(Evans_PAEX_Rand_Data.csv)
+ev <- Rand.Analysis.mod(Evans_PAEX_Rand_Data.csv)
 ev <- mutate(ev, site = "Evans")
-fe <- Rand.Analysis(`Ferreira-Santos_PAEX_Rand_Data.csv`)
+fe <- Rand.Analysis.mod(`Ferreira-Santos_PAEX_Rand_Data.csv`)
 fe <- mutate(fe, site = "Ferreira-Santos")
-fi <- Rand.Analysis(Fiedler_PAEX_Rand_Data.csv)
+fi <- Rand.Analysis.mod(Fiedler_PAEX_Rand_Data.csv)
 fi <- mutate(fi, site = "Fiedler")
-ha <- Rand.Analysis(Hauser_PAEX_Rand_Data.csv)
+ha <- Rand.Analysis.mod(Hauser_PAEX_Rand_Data.csv)
 ha <- mutate(ha, site = "Hauser")
-he <- Rand.Analysis(Hernan_PAEX_Rand_Data.csv)
+he <- Rand.Analysis.mod(Hernan_PAEX_Rand_Data.csv)
 he <- mutate(he, site = "Hernan")
-lo <- Rand.Analysis(Lohse_PAEX_Rand_Data.csv)
+lo <- Rand.Analysis.mod(Lohse_PAEX_Rand_Data.csv)
 lo <- mutate(lo, site = "Lohse")
-mi <- Rand.Analysis(Mischkowski_PAEX_Rand_Data.csv)
+mi <- Rand.Analysis.mod(Mischkowski_PAEX_Rand_Data.csv)
 mi <- mutate(mi, site = "Mischkowski")
-ne <- Rand.Analysis(Neal_PAEX_Rand_Data.csv)
+ne <- Rand.Analysis.mod(Neal_PAEX_Rand_Data.csv)
 ne <- mutate(ne, site = "Neal")
-no <- Rand.Analysis(Novakva_PAEX_Rand_Data.csv)
+no <- Rand.Analysis.mod(Novakva_PAEX_Rand_Data.csv)
 no <- mutate(no, site = "Novakva")
-pa <- Rand.Analysis(Pagà_PAEX_Rand_Data.csv)
-pa <- mutate(pa, site = "Pagà")
-pi <- Rand.Analysis(Piovesan_PAEX_Rand_Data.csv)
+pa <- Rand.Analysis.mod(Paga_PAEX_Rand_Data.csv)
+pa <- mutate(pa, site = "Paga")
+pi <- Rand.Analysis.mod(Piovesan_PAEX_Rand_Data.csv)
 pi <- mutate(pi, site = "Piovesan")
-sa <- Rand.Analysis(Salomon_PAEX_Rand_Data.csv)
+sa <- Rand.Analysis.mod(Salomon_PAEX_Rand_Data.csv)
 sa <- mutate(sa, site = "Salomon")
-sr <- Rand.Analysis(Srinivasan_PAEX_Rand_Data.csv)
+sr <- Rand.Analysis.mod(Srinivasan_PAEX_Rand_Data.csv)
 sr <- mutate(sr, site = "Srinivasan")
-ri <- Rand.Analysis(Tinghög_PAEX_Rand_Data.csv)
-ri <- mutate(ri, site = "Tinghög")
-tr <- Rand.Analysis(Trueblood_PAEX_Rand_Data.csv)
+ri <- Rand.Analysis.mod(Tinghog_PAEX_Rand_Data.csv)
+ri <- mutate(ri, site = "Tinghog")
+tr <- Rand.Analysis.mod(Trueblood_PAEX_Rand_Data.csv)
 tr <- mutate(tr, site = "Trueblood")
-wi <- Rand.Analysis(Wills_PAEX_Rand_Data.csv)
+wi <- Rand.Analysis.mod(Wills_PAEX_Rand_Data.csv)
 wi <- mutate(wi, site = "Wills")
-wo <- Rand.Analysis(Wollbrant_PAEX_Rand_Data.csv)
+wo <- Rand.Analysis.mod(Wollbrant_PAEX_Rand_Data.csv)
 wo <- mutate(wo, site = "Wollbrant")
-or <- c(49.43, 40.85, -8.6, 5.274374, 153, -1.63, "original") #from Rand paper
 
-rrr_rand <- rbind.data.frame(ac, be, bo, ep, ev, fe, fi, ha, he, lo, mi, ne, no, pa, pi, sa, sr, ri, tr, wi, wo, or)
-colnames(rrr_rand)[colnames(rrr_rand)=="TP"] <- "control"
-colnames(rrr_rand)[colnames(rrr_rand)=="FD"] <- "treatment"
-colnames(rrr_rand)[colnames(rrr_rand)=="D"] <- "diff"
-colnames(rrr_rand)[colnames(rrr_rand)=="t.b1"] <- "t"
-rrr_rand$df <- as.numeric(rrr_rand$df)
-rrr_rand$t <- as.numeric(rrr_rand$t)
-rrr_rand <- mutate(rrr_rand,
-                   experiment = "Rand",
-                   es = "md",
-                   replicated = "0",
-                   d = 4*t/(df+2),
-                   vd = (8+(d^2))/(2*df+4))
+# original study
+oSE=5.316327 # from RRR paper
+odiff = 8.58
+ont=55; onf=98 # sample sizes from Rand (2012) supplement p. 15
+od = odiff/sqrt(oSE^2 * ont * onf/(ont + onf))
+orig = data.frame(nt=ont, nf=98, yt=NA, yf=NA, vt=NA, vf=NA, site='original',
+                  d=od,
+                  vd=(ont + onf)/(ont*onf) + od^2/(2*(onf + ont)), 
+                  es='smd')
 
-write.csv(rrr_rand, "rrr_rand.csv", row.names = F)
+# from collin. excluded
+# # original study from Rand, Greene, and Novak (2012)
+# or = data.frame(D=8.58, SE=5.316327, TP=)
+# # or <- c(D=49.43, 40.85, -8.6, 5.274374, 153, -1.63, "original") #from Rand paper
+
+# Full data frame
+rrr_rand <- rbind.data.frame(ac, be, bo, ep, ev, fe, fi, ha, he, lo, mi, ne, no, pa, pi, sa, sr, ri, tr, wi, wo) %>%
+  mutate(d = (yt- yf)/sqrt((nt*vt + nf*vf)/(nf + nt - 2)), 
+         vd = (nt + nf)/(nt * nf) + d^2/(2*(nt + nf)), 
+         es = 'smd') %>% 
+  rbind(., orig)
+
+rrr_rand$experiment = "time/delay"
+rrr_rand$replicated = 0
+
+tail(rrr_rand)
+
+write.csv(rrr_rand, "../../../rrr_rand.csv", row.names = F)

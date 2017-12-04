@@ -50,6 +50,7 @@ fulltab = do.call(rbind,
   })
 )
 
+fulltab
 write.csv(fulltab, "./aggregate/full_comparison.csv", row.names=F)
 
 
@@ -146,3 +147,4 @@ aggs_inc = reps_inc %>% group_by(paper) %>%
             lblambda = mean(lblambda),
             ublambda = mean(ublambda))
 write.csv(aggs_inc, "./aggregate/variance_rep-agg_include.csv", row.names=F)
+

@@ -275,8 +275,8 @@ ancova <- function(C,G,X){ #C = Contribution, G = Group, X = Moderator
 }
   
 # Program #
-Rand.Analysis <- function(data,type='main',exclude=0) {
-  
+Rand.Analysis.mod <- function(data,type='main',exclude=0) {
+  # Modified by JS for Psych Bulletin
   #=================#
   # Data Formatting #
   #=================#
@@ -326,7 +326,13 @@ Rand.Analysis <- function(data,type='main',exclude=0) {
     } else {
       out <- ttest(Contribution,Condition)
       Trust.m <- mean(Trust,na.rm=TRUE)
-      meta.out <- data.frame(out,Trust=Trust.m)
+      meta.out <- data.frame(
+                             nT=sum(Condition=="TP"), nF=sum(Condition=="FD"),
+                             yp=mean(Contribution[which(Condition=="TP")]),
+                             yt=mean(Contribution[which(Condition=="FD")]),
+                             vp=var(Contribution[which(Condition=="TP")]),
+                             vt=var(Contribution[which(Condition=="FD")]),
+                             Trust=Trust.m)
     }
 
   }
