@@ -12,6 +12,7 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(dplyr)
 source("../package/replicationTest.R")
 source("../package/mdh.R")
+source('misc.R')
 
 # load the data
 df = read.csv("../data/rrr_wagenmakers.csv") 
@@ -35,50 +36,8 @@ methods = c('FE', 'DL')
 # Set the null hypotheses lambda0 = 0, (k-1)/4, (k-1)/3, 2(k-1)/3
 ratios = c(0, 1/4, 1/3, 2/3)
 
-for(mm in methods){# loop through methods
-  
-  # comp is a table for each lambda0 and each experiment for a given synthetic replicate.
-  comp = lapply(ratios, FUN=function(rr){
-    
-    lambda0 = rr # set the null hypothesis
-    
-    setNames(data.frame(matrix(unlist( # store the results in a data.frame
-      lapply(unique(df$experiment), FUN=function(expt){ # loop through the experiments
-      
-      # separate out the replicates and original study
-      replicates = df %>% filter(experiment==expt & site!='original')
-      orig = df %>% filter(experiment==expt & site=='original')
-      
-      if(nrow(orig) == 1){
-        # combine the replicates
-        tmp = rma.uni(yi=replicates$d, vi=replicates$vd, method=mm)
-        
-        # run a Q-test and get the MDH
-        combineResults(t=c(tmp$beta, orig$d), 
-                     v=c(tmp$se^2, orig$vd),
-                     lambda0=lambda0, 
-                     maxratio=20)
-      } else { list(k=NA, Q=NA, calpha=NA, p=NA, mdh=NA) }
-    })), 
-    ncol=5, byrow=T)), c('k', 'Q', # set the names of the data.frame 'comp'
-                       paste0('calpha', round(100*rr, 0)), 
-                       paste0('p', round(100*rr, 0)), 
-                       paste0('mdh', round(100*rr, 0)))
-    )
-  })
-  
-  # combine all experiments
-  comptab = Reduce(left_join, comp)
-  comptab$experiment = unique(df$experiment)
-  
-  # clean up order of columns and write to file
-  comptab = comptab[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
-                  "mdh67")] %>% 
-            left_join(., dplyr::select(df, experiment, replicated)) %>% distinct()
-  comptab$paper = 'wagenmakers'
-  
-  write.csv(comptab, paste0("./results/comparison_rrr-wagenmakers_", mm, ".csv"), row.names=F)
-}
+runComparisonAnalyses(data=df, t='d', v='vd', ratios=ratios, paper='wagenmakers', methods=methods)
+
 
 
 ###------------------------------------------------------------###
@@ -88,7 +47,6 @@ for(mm in methods){# loop through methods
 ###------------------------------------------------------------###
 
 ## Set parameters for analysis
-experiments = unique(df$experiment) # unique experiment names
 ks = sapply(experiments, # # of trials per experiment
             FUN=function(ee) count(filter(df, experiment==ee))$n)
 tau0s = c(0, 1/4, 1/3, 2/3) # plausible ratios for tau0

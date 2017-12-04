@@ -12,11 +12,6 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(dplyr)
 source("../package/replicationTest.R")
 source("../package/mdh.R")
-# combineResults = function(t=NULL, v=NULL, h0replication=TRUE, fixed=TRUE, alpha=.05, lambda0=0, tau0=0, power=0.8, step=.001, maxratio=100){
-#   qtest = replicationTest(t=t, v=v, h0replication=h0replication, fixed=fixed, alpha=alpha, lambda0=lambda0, tau0=tau0)
-#   qtest[["mdh"]] = mdh_constvar(k=length(t), alpha=alpha, power=power, h0replication=h0replication, lambda0=lambda0, step=step, maxratio=maxratio)
-#   return(qtest[c("k", "Q", "calpha", "p", "mdh")])
-# }
 
 
 ###------------------------------------------------------------###
@@ -56,7 +51,8 @@ tmp = data %>%
   mutate(replicate = as.integer(grepl("_rep", site))) %>%
   group_by(experiment) %>% 
   arrange(replicate) %>%
-  summarize(vbar=mean(vz), v0=sum(abs(1 - replicate)*vz))
+  summarize(t1 = sum(abs(1 - replicate)*z), t2 = sum(abs(replicate)*z),
+            v1=sum(abs(1 - replicate)*vz), v2=sum(abs(replicate)*vz))
 
 dataout = left_join(dataout, tmp)
 
@@ -67,6 +63,6 @@ write.csv(dataout, "./results/qtest_fixed_rpp.csv", row.names=F)
 write.csv(dplyr::select(dataout, paper, experiment, k, Q, 
                         calpha0, p0, mdh0, calpha25, p25, mdh25, 
                         calpha33, p33, mdh33, calpha67, p67, mdh67, 
-                        vbar, replicated),
-          "./results/qtest_fixed_rpp_include.csv", row.names=F)
+                        t1, t2, v1, v2, replicated),
+          "./results/comparison_rpp.csv", row.names=F)
 

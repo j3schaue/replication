@@ -41,13 +41,16 @@ camout = Reduce(left_join, fecam)
 camout$experiment = experiments
 camout = camout[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",  "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", 
                   "mdh67")] %>%
-  left_join(., dplyr::select(cam, experiment, replicated, es, vbar, v0)) %>%
+  left_join(., dplyr::select(cam, experiment, replicated, es)) %>%
   distinct()
+
+tmp = cam %>% group_by(experiment) %>% arrange(replicate) %>%
+    summarize(t1 = sum(abs(1 - replicate)*z), t2 = sum(abs(replicate)*z),
+              v1=sum(abs(1 - replicate)*vz), v2=sum(abs(replicate)*vz))
+camout = left_join(camout, tmp)
+
 camout$es = 'z'
 camout$paper = 'rpe'
-tmp = cam %>% group_by(experiment) %>% arrange(replicate) %>%
-        summarize(vbar=mean(vz), v0=sum(abs(1 - replicate)*vz))
-camout = left_join(camout, tmp)
 
 # write full results
 write.csv(camout, "./results/qtest_fixed_rpe.csv", row.names=F)
@@ -56,5 +59,5 @@ write.csv(camout, "./results/qtest_fixed_rpe.csv", row.names=F)
 write.csv(dplyr::select(camout, paper, experiment, k, Q, 
                         calpha0, p0, mdh0, calpha25, p25, mdh25, 
                         calpha33, p33, mdh33, calpha67, p67, mdh67, 
-                        vbar, replicated),
-          "./results/qtest_fixed_rpe_include.csv", row.names=F)
+                        t1, t2, v1, v2, replicated),
+          "./results/comparison_rpe.csv", row.names=F)

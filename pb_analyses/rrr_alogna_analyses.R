@@ -12,10 +12,10 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(dplyr)
 source("../package/replicationTest.R")
 source("../package/mdh.R")
+source('misc.R')
 
 # Get data
 df = read.csv("../data/rrr_alogna.csv")
-experiments = unique(df$experiment)
 
 ###------------------------------------------------------------###
 ### Alogna Comparison
@@ -33,48 +33,7 @@ methods = c('FE', 'DL')
 # Set the null hypotheses lambda0 = 0, (k-1)/4, (k-1)/3, 2(k-1)/3
 ratios = c(0, 1/4, 1/3, 2/3)
 
-for(mm in methods){# loop through methods
-  
-  # comp is a table for each lambda0 and each experiment for a given synthetic replicate.
-  comp = lapply(ratios, FUN=function(rr){
-    
-    lambda0 = rr # set the null hypothesis
-    
-    setNames(data.frame(matrix(unlist( # store the results in a data.frame
-      lapply(unique(df$experiment), FUN=function(expt){ # loop through the experiments
-        
-        # separate out the replicates and original study
-        replicates = df %>% filter(experiment==expt & site!='original' & !is.infinite(rd))
-        orig = df %>% filter(experiment==expt & site=='original' & !is.na(rd))
-        
-        if(nrow(orig) == 1){
-          # combine the replicates
-          tmp = rma.uni(yi=replicates$rd, vi=replicates$vrd, method=mm)
-          
-          # run a Q-test and get the MDH
-          combineResults(t=c(tmp$beta, orig$rd), 
-                         v=c(tmp$se^2, orig$vrd),
-                         lambda0=lambda0, 
-                         maxratio=20)
-        } else { list(k=NA, Q=NA, calpha=NA, p=NA, mdh=NA) }
-      })), 
-      ncol=5, byrow=T)), c('k', 'Q', # set the names of the DF
-                           paste0('calpha', round(100*rr, 0)), 
-                           paste0('p', round(100*rr, 0)), 
-                           paste0('mdh', round(100*rr, 0)))
-    )
-  })
-  
-  # Join results, re-order, and write to file
-  comptab = Reduce(left_join, comp)
-  comptab$experiment = unique(df$experiment)
-  comptab = comptab[c("experiment", "k", "Q", "calpha0",  "p0", "mdh0", "calpha25", "p25",
-                      "mdh25", "calpha33", "p33",  "mdh33", "calpha67", "p67", "mdh67")] %>% 
-    left_join(., dplyr::select(df, experiment, replicated)) %>% distinct()
-  comptab$paper = "alogna"
-  
-  write.csv(comptab, paste0("./results/comparison_alogna_", mm, ".csv"), row.names=F)
-}
+runComparisonAnalyses(data=df, t='rd', v='vrd', ratios=ratios, paper='alogna', methods=methods)
 
 
 ###------------------------------------------------------------###
