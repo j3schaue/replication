@@ -1,6 +1,6 @@
 
-combineResults = function(t=NULL, v=NULL, h0replication=TRUE, fixed=TRUE, alpha=.05, lambda0=0, tau0=0, power=0.8, step=.001, maxratio=100){
-  qtest = replicationTest(t=t, v=v, h0replication=h0replication, fixed=fixed, alpha=alpha, lambda0=lambda0, tau0=tau0)
+combineResults = function(t=NULL, v=NULL, h0replication=TRUE, fixed=TRUE, alpha=.05, lambda0=0, tau0=0, power=0.8, step=.001, maxratio=100, verbose=FALSE){
+  qtest = replicationTest(t=t, v=v, h0replication=h0replication, fixed=fixed, alpha=alpha, lambda0=lambda0, tau0=tau0, verbose=verbose)
   qtest[["mdh"]] = mdh_constvar(k=length(t), alpha=alpha, power=power, h0replication=h0replication, lambda0=lambda0, step=step, maxratio=maxratio)
   return(qtest[c("k", "Q", "calpha", "p", "mdh")])
 }
@@ -11,7 +11,7 @@ runComparisonAnalyses = function(data, t, v, ratios, paper, methods){
   # List of experiments
   experiments = unique(data$experiment)
   
-  for(mm in methods){# loop through methods
+  out = lapply(methods, FUN=function(mm){# loop through methods
     
     # comp is a table for each experiment and lambda0 for a given synthetic replicate.
     comp = lapply(experiments, FUN=function(ee){
@@ -71,10 +71,12 @@ runComparisonAnalyses = function(data, t, v, ratios, paper, methods){
                         "calpha33", "p33",  "mdh33", 
                         "calpha67", "p67", "mdh67", 
                         "t1", "t2", "v1", "v2")] %>%
-      left_join(., select(data, experiment, replicated)) %>% distinct()
+      left_join(., dplyr::select(data, experiment, replicated)) %>% distinct()
     
-    write.csv(comptab, paste0("./results/comparison_", paper, "_", mm, ".csv"), row.names=F)
-  }
+    return(comptab)
+  })
+  names(out) = methods
+  return(out)
 }
 
 
@@ -137,4 +139,65 @@ qCI = function(Q, k, alpha=.05){
   }
   
   return(list(lblambda=lb, ublambda=ub))
+}
+
+
+qtest_results = function(data, ratios, t='t', v='v', paper, exclude=NULL, maxratio=3, verbose=F){
+  
+  ## Set parameters for analysis
+  experiments = unique(data$experiment)
+  
+  # no. of trials per experiment
+  if('n' %in% names(data)){
+    ks = sapply(experiments, 
+                FUN=function(ee) count(dplyr::select(dplyr::filter(data, experiment==ee), -n))$n)
+  } else {
+    ks = sapply(experiments, 
+                FUN=function(ee) count(dplyr::filter(data, experiment==ee))$n)
+  }
+  
+  # Exclude specific studies
+  if(!is.null(exclude)){
+    if(length(exclude) == 1){
+      data = data %>% group_by(experiment) %>% 
+        dplyr::filter_(exclude)
+    } else if(length(exclude) == 2){
+      data = data %>% group_by(experiment) %>% 
+        dplyr::filter_(exclude[1]) %>% dplyr::filter_(exclude[2])
+    }
+  }
+  
+  ## Run analyses
+  fe = lapply(ratios, FUN=function(tau0) # loop through null hypotheses lambda0 = 0, (k-1)/4, (k-1)/3, 2(k-1)/3
+    setNames(data.frame( # store results as a data frame
+      matrix(unlist(lapply(seq_along(experiments), FUN=function(i)
+        
+        # get the results of the Q-test using all of the studies (rather than aggregating replicates)
+        combineResults(t=filter(data, experiment==experiments[i])[[t]],
+                       v=filter(data, experiment==experiments[i])[[v]],
+                       lambda0=(ks[i]-1)*tau0, 
+                       maxratio=maxratio, verbose=verbose)
+      )
+      ), ncol=5, byrow = T)
+    ), c("k", "Q", paste0("calpha", round(tau0*100, 0)), # name the columns
+         paste0("p", round(tau0*100, 0)), paste0("mdh", round(tau0*100, 0)))
+    )
+  )
+  
+  # Join for all null hypotheses
+  fetab = Reduce(left_join, fe)
+  fetab$experiment = experiments
+  fetab$paper = paper
+  
+  # avg sampling variances
+  fetab$vbar = sapply(experiments, FUN=function(ee) 
+    mean(dplyr::filter(data, experiment==ee)[[v]])) 
+  
+  
+  # reorder df and write to file
+  colselect = unlist(lapply(round(ratios*100, 0), FUN=function(x) paste0(c('calpha', 'p', 'mdh'), x)))
+  fetab = fetab[c("paper", "experiment", "k", "Q", colselect, "vbar")] %>%
+    left_join(., dplyr::distinct(dplyr::select(data, experiment, replicated)))
+  
+  return(fetab)
 }

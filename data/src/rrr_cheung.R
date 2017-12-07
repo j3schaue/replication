@@ -626,7 +626,8 @@ forest(loyalty_es$d, vi=loyalty_es$vd)
 
 
 # combine dfs and write
-df <- bind_rows(exit_es, neglect_es, voice_es, loyalty_es)
+df <- bind_rows(exit_es, neglect_es, voice_es, loyalty_es) %>%
+  mutate(n = ntrt + nctrl)
 
 write.csv(df,  "../../rrr_cheung.csv", row.names=F)
 

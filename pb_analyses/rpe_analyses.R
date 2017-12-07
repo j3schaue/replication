@@ -12,6 +12,8 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(dplyr)
 source("../package/replicationTest.R")
 source("../package/mdh.R")
+paper = 'rpe'
+tes = 'z'; vr = 'vz'
 
 
 ###------------------------------------------------------------###
@@ -52,12 +54,9 @@ camout = left_join(camout, tmp)
 camout$es = 'z'
 camout$paper = 'rpe'
 
-# write full results
-write.csv(camout, "./results/qtest_fixed_rpe.csv", row.names=F)
-
 # write standard output for combination script
 write.csv(dplyr::select(camout, paper, experiment, k, Q, 
                         calpha0, p0, mdh0, calpha25, p25, mdh25, 
                         calpha33, p33, mdh33, calpha67, p67, mdh67, 
                         t1, t2, v1, v2, replicated),
-          "./results/comparison_rpe.csv", row.names=F)
+          "./results/comparison_rpe_FE.csv", row.names=F)

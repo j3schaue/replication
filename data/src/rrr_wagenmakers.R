@@ -366,13 +366,36 @@ rawMeanDiffSEEx <- extractValues(what="rawMeanDiffSE", results=results, exclusio
 
 #@@ SAVE RESULTS TO FILE @@##
 
-resultDataFrame <- data.frame(site=studyIDs, treat=meanSmileEx, control=meanPoutEx, sdtreat=sdSmileEx, sdcontrol=sdPoutEx, 
-                              ntreat=nSmileEx, ntreatexcl=nSmileExcludedEx, ncontrol=nPoutEx, ncontrolexcl=nPoutExcludedEx, 
-                              md=rawMeanDiffEx, sdmd=rawMeanDiffSEEx, t=tValueEx, df=dfEx, pvalue=pValueEx, g=gEx, SEg=gSEEx,
+resultDataFrame <- data.frame(site=studyIDs, 
+                              treat=meanSmileEx, control=meanPoutEx, 
+                              sdtreat=sdSmileEx, sdcontrol=sdPoutEx, 
+                              ntreat=nSmileEx, ntreatexcl=nSmileExcludedEx, 
+                              ncontrol=nPoutEx, ncontrolexcl=nPoutExcludedEx, 
+                              md=rawMeanDiffEx, sdmd=rawMeanDiffSEEx, 
+                              t=tValueEx, df=dfEx, pvalue=pValueEx, 
+                              g=gEx, SEg=gSEEx,
                               d=dEx, SEd = dSEEx)
-original <- c("original", 5.14, 4.32, NA, NA, 92, 1, 92, 1, .82, .4432, 1.85, 89, .03, 0.0806, .208, .081, .2097)
+
+###----Original study from Wagenmakers plot and 
+###        Stack's study 1 -----------------------------------------
+ci = c(-.05, 1.69) # wagenmakers p. 932
+md = .82 # Stack p. 772
+semd = (abs(md - ci)/1.96)[1] # back out se of md
+des = md/(semd * sqrt(31^2/62)) # convert to cohen's d
+sedes = sqrt(2/31 + des^2/124)
+g = (1 - 3/(4*60 - 1)) * des
+seg = (1 - 3/(4*60 - 1)) * sedes
+  
+original <- c("original", 5.14, 4.32, NA, NA, 31, NA, 31, NA, 
+              md, semd, 
+              NA, NA, NA, 
+              g, seg, 
+              des, sedes)
 resultDataFrame$site <- as.character(resultDataFrame$site)
 resultDataFrame <- rbind(resultDataFrame, original)
+resultDataFrame$ntreat <- as.numeric(as.character(resultDataFrame$ntreat))
+resultDataFrame$ncontrol <- as.numeric(as.character(resultDataFrame$ncontrol))
+resultDataFrame$df <- as.numeric(as.character(resultDataFrame$df))
 resultDataFrame$SEg <- as.numeric(as.character(resultDataFrame$SEg))
 resultDataFrame$SEd <- as.numeric(as.character(resultDataFrame$SEd))
 
@@ -381,7 +404,11 @@ resultDataFrame <- mutate(resultDataFrame,
                           vd = SEd^2,
                           es = "md",
                           replicated = 0,
-                          experiment = "Wagenmakers")
+                          experiment = "Wagenmakers",
+                          n = ntreat + ncontrol) %>%
+                   rename(nt = ntreat, nc = ncontrol)
 resultDataFrame$site = gsub("[0-9]+_", "", gsub("_Data", "", resultDataFrame$site))
+
+resultDataFrame
 
 write.csv(resultDataFrame, "../../rrr_wagenmakers.csv", row.names = F)

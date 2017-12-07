@@ -55,14 +55,12 @@ tmp = data %>%
             v1=sum(abs(1 - replicate)*vz), v2=sum(abs(replicate)*vz))
 
 dataout = left_join(dataout, tmp)
-
-# write full results
-write.csv(dataout, "./results/qtest_fixed_rpp.csv", row.names=F)
+dataout$experiment = as.character(dataout$experiment)
 
 # write standard output for combination script
 write.csv(dplyr::select(dataout, paper, experiment, k, Q, 
                         calpha0, p0, mdh0, calpha25, p25, mdh25, 
                         calpha33, p33, mdh33, calpha67, p67, mdh67, 
                         t1, t2, v1, v2, replicated),
-          "./results/comparison_rpp.csv", row.names=F)
+          "./results/comparison_rpp_FE.csv", row.names=F)
 

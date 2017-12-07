@@ -162,7 +162,8 @@ od = odiff/sqrt(oSE^2 * ont * onf/(ont + onf))
 orig = data.frame(nt=ont, nf=98, yt=NA, yf=NA, vt=NA, vf=NA, site='original',
                   d=od,
                   vd=(ont + onf)/(ont*onf) + od^2/(2*(onf + ont)), 
-                  es='smd')
+                  es='smd', 
+                  n = ont + 98)
 
 # from collin. excluded
 # # original study from Rand, Greene, and Novak (2012)
@@ -171,9 +172,10 @@ orig = data.frame(nt=ont, nf=98, yt=NA, yf=NA, vt=NA, vf=NA, site='original',
 
 # Full data frame
 rrr_rand <- rbind.data.frame(ac, be, bo, ep, ev, fe, fi, ha, he, lo, mi, ne, no, pa, pi, sa, sr, ri, tr, wi, wo) %>%
-  mutate(d = (yt- yf)/sqrt((nt*vt + nf*vf)/(nf + nt - 2)), 
+  mutate(d = (yt - yf)/sqrt((nt*vt + nf*vf)/(nf + nt - 2)), 
          vd = (nt + nf)/(nt * nf) + d^2/(2*(nt + nf)), 
-         es = 'smd') %>% 
+         es = 'smd', 
+         n = nt + nf) %>% 
   rbind(., orig)
 
 rrr_rand$experiment = "time/delay"

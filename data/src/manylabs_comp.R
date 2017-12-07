@@ -49,19 +49,19 @@ origs$vd[is.na(origs$vd)] = origs$vd_est[is.na(origs$vd)]
 
 # recode gain/loss
 data = round(c(152*c(.72, 1-.72), 155*c(.22, 1-.22)), 0)
-origs[origs$experiment=="Gainloss", c("d", "vd")] = 
+origs[origs$experiment =="Gainloss", c("d", "vd")] = 
     c(-log(data[1]*data[4]/(data[2]*data[3])),
       (1/data[1] + 1/data[2] + 1/data[3] + 1/data[4]))
 
 # recode scales
 data = round(c(64*c(1-.625, .625), 68*c(.162, 1-.162)), 0)
-origs[origs$experiment=="Scales", c("d", "vd")] = 
+origs[origs$experiment == "Scales", c("d", "vd")] = 
   c(data[1]/(data[1] + data[2]) - data[3]/(data[3] + data[4]),
     data[1]*data[2]/(data[1] + data[2])^3 + data[3]*data[4]/(data[3] + data[4])^2)
 
 # recode IAT correlations
 n = 243; rr = .42
-origs[origs$experiment=="IAT", c("d", "vd")] = 
+origs[origs$experiment == "IAT", c("d", "vd")] = 
   c(0.5 * log((1 + rr)/(1 - rr)), 
     1/(n-3))
 
@@ -72,10 +72,15 @@ Nnot_allow = round(N * .62) # 806
 Nallow = round(N * .21, 0) # 273
 Nforbid = round(N * .46) # 598
 Nnot_forbid = round(N * .39) # 507
-origs[origs$experiment=='Allowedforbidden', c('d', 'vd')] = 
+origs[origs$experiment == 'Allowedforbidden', c('d', 'vd')] = 
   c(log(Nnot_allow*Nnot_forbid / (Nallow * Nforbid)),
     1/Nnot_allow + 1/Nallow + 1/Nnot_forbid + 1/Nforbid)
   
+
+###---fill in NAs for NT, NC
+origs[is.na(origs$nt), c('nt', 'nc')] = origs$n[is.na(origs$nt)]/2
+origs
+
 
 ###################################################
 #----REPLICATE RESULTS
@@ -91,7 +96,9 @@ af["es"] <- "logor" #Adding original effect size measurements
 af <- mutate(.data = af,
              t = log((notallow*notforbid)/(allow*forbid)), 
              v = 1/allow + 1/notallow + 1/forbid + 1/notforbid, 
-             es = rep('logor', nrow(af)))
+             es = rep('logor', nrow(af)), 
+             nt = allow + notallow,
+             nc = forbid + notforbid)
 
 
 ###----Anchoring 1
@@ -106,7 +113,8 @@ a1 <- mutate(.data = a1,
                        (NControl - 1) * SDControl^2)/
                       (NHigh + NControl - 2)),
              v = (NHigh + NControl) / (NHigh * NControl) + t^2/(2 * (NHigh + NControl)),
-             es = rep('d', nrow(a1)))
+             es = rep('d', nrow(a1))) %>%
+      rename(nc = NControl, nt = NHigh)
 
 
 ###----Anchoring 2
@@ -121,7 +129,8 @@ a2 <- mutate(.data = a2,
                        (NControl - 1) * SDControl^2)/
                       (NHigh + NControl - 2)), 
              v = (NHigh + NControl) / (NHigh * NControl) + t^2/(2 * (NHigh + NControl)),
-             es = rep('d', nrow(a1)))
+             es = rep('d', nrow(a2))) %>%
+      rename(nc = NControl, nt = NHigh)
 
 
 
@@ -137,7 +146,8 @@ a3 <- mutate(.data = a3,
                        (NControl - 1) * SDControl^2)/
                       (NHigh + NControl - 2)), 
              v = (NHigh + NControl) / (NHigh * NControl) + t^2/(2 * (NHigh + NControl)), 
-             es = rep('d', nrow(a1)))
+             es = rep('d', nrow(a3))) %>%
+      rename(nc = NControl, nt = NHigh)
 
 
 
@@ -153,7 +163,8 @@ a4 <- mutate(.data = a4,
                        (NControl - 1) * SDControl^2)/
                       (NHigh + NControl - 2)), 
              v = (NHigh + NControl) / (NHigh * NControl) + t^2/(2 * (NHigh + NControl)), 
-             es = rep('d', nrow(a1)))
+             es = rep('d', nrow(a4))) %>%
+      rename(nc = NControl, nt = NHigh)
 
 
 
@@ -169,7 +180,8 @@ fp <- mutate(.data = fp,
                        (NControl - 1) * SDControl^2)/ 
                       (NFlag + NControl - 2)), 
              v = (NFlag + NControl) / (NFlag * NControl) + t^2/(2 * (NFlag + NControl)), 
-             es = rep('d', nrow(a1)))
+             es = rep('d', nrow(fp))) %>%
+      rename(nc = NControl, nt = NFlag)
 
 
 
@@ -182,7 +194,9 @@ gl["es"] <- "md"
 gl <- mutate(.data = gl,
              t = log((NGainNorisk*NLossRisk)/(NGainRisk*NLossNorisk)), 
              v = 1/NGainRisk + 1/NGainNorisk + 1/NLossRisk + 1/NLossNorisk,
-             es = rep('logor', nrow(gl)))
+             es = rep('logor', nrow(gl)), 
+             nc = NGainRisk + NGainNorisk, 
+             nt = NLossRisk + NLossNorisk)
 
 
 ###----Gambler's Fallacy
@@ -196,7 +210,8 @@ gf <- mutate(.data = gf,
                                                     (NControl - 1) * SDControl^2)/
                                                    (NThree6 + NControl - 2)), 
              v = (NThree6 + NControl) / (NThree6 * NControl) + t^2/(2 * (NThree6 + NControl)), 
-             es = rep('d', nrow(a1)))
+             es = rep('d', nrow(gf))) %>%
+      rename(nc = NControl, nt = NThree6)
 
 
 
@@ -208,7 +223,9 @@ iat["experiment"] <- "IAT"
 iat <- mutate(.data = iat,
               t = .5*log((1+r)/(1-r)), #Fisher's Z
               v = 1/(N-3), 
-              es = rep('z', nrow(iat)))
+              es = rep('z', nrow(iat)), 
+              nc = N/2,
+              nt = N/2)
 
 
 ###----Imagined Contact
@@ -223,7 +240,8 @@ ic <- mutate(.data = ic,
                        (NControl - 1) * SDControl^2)/
                       (NContact + NControl - 2)), 
              v = (NContact + NControl) / (NContact * NControl) + t^2/(2 * (NContact + NControl)), 
-             es = rep('d', nrow(a1)))
+             es = rep('d', nrow(ic))) %>%
+      rename(nc = NControl, nt = NContact)
 
 
 
@@ -240,7 +258,8 @@ mag <- mutate(.data = mag,
                         (NControl - 1) * SDControl^2)/
                        (NFemale + NControl - 2)), 
               v = (NFemale + NControl) / (NFemale * NControl) + t^2/(2 * (NFemale + NControl)), 
-              es = rep('d', nrow(a1)))
+              es = rep('d', nrow(mag))) %>%
+      rename(nc = NControl, nt = NFemale)
 
 
 
@@ -256,7 +275,8 @@ mp <- mutate(.data = mp,
                        (NControl - 1) * SDControl^2)/
                       (NMoney + NControl - 2)), 
              v = (NMoney + NControl) / (NMoney * NControl) + t^2/(2 * (NMoney + NControl)), 
-             es = rep('d', nrow(a1)))
+             es = rep('d', nrow(mp))) %>%
+      rename(nc = NControl, nt = NMoney)
 
 
 
@@ -271,7 +291,8 @@ qa <- mutate(.data = qa,
                                                    (NControl - 1) * SDControl^2)/
                                                   (NLiked + NControl - 2)), 
              v = (NLiked + NControl) / (NLiked * NControl) + t^2/(2 * (NLiked + NControl)), 
-             es = rep('d', nrow(a1)))
+             es = rep('d', nrow(qa))) %>%
+      rename(nc = NControl, nt = NLiked)
 
 
 
@@ -284,7 +305,9 @@ r["experiment"] <- "Reciprocity"
 r <- mutate(.data = r,
             t = sqrt(3)/pi * log((NSecondYes*NFirstNo)/(NSecondNo*NFirstYes)), 
             v = 3/pi^2 * (1/NSecondYes + 1/NSecondNo + 1/NFirstYes + 1/NFirstNo),
-            es = rep('d', nrow(r)))
+            es = rep('d', nrow(r)), 
+            nt = NSecondYes + NSecondNo,
+            nc = NFirstYes + NFirstNo)
 
 ###----Scales
 s <- read.xlsx("manylabs.xlsx", "Scales")
@@ -296,7 +319,9 @@ s <- mutate(.data = s,
             t = NHighMore/(NHighMore + NHighLess) - NLowMore/(NLowLess + NLowMore), 
             v = NHighMore*NHighLess/(NHighMore + NHighLess)^3 + 
               NLowMore*NLowLess/(NLowLess + NLowMore)^3,
-            es = rep('rd', nrow(s)))
+            es = rep('rd', nrow(s)), 
+            nt = NHighMore + NHighLess,
+            nc = NLowLess + NLowLess)
 
 
 ###----Sunk Costs
@@ -311,7 +336,8 @@ sc <- mutate(.data = sc,
                        (NFree - 1) * SDFree^2)/
                       (NPaid + NFree - 2)), 
              v = (NPaid + NFree) / (NPaid * NFree) + t^2/(2 * (NPaid + NFree)), 
-             es = rep('d', nrow(a1)))
+             es = rep('d', nrow(sc))) %>%
+      rename(nt = NPaid, nc = NFree)
 
 
 
@@ -322,13 +348,19 @@ sc <- mutate(.data = sc,
 df_list = list(af, a1, a2, a3, a4, fp, gl, gf, iat, ic, mag, mp, qa, r, s, sc)
 dfs = rbind(do.call(rbind,
                     lapply(df_list,
-                           FUN=function(x) dplyr::select(x, experiment, site, t, v, es))),
-            origs %>% select(experiment, site, t=d, v=vd, es=orig_es)) %>%
+                           FUN=function(x) 
+                             dplyr::select(x, experiment, site, t, v, es, nt, nc))),
+            origs %>% select(experiment, site, t=d, v=vd, es=orig_es, nt, nc)) %>%
   left_join(., select(origs, experiment, replicated)) %>%
-  arrange(as.character(experiment), as.character(site))
+  arrange(as.character(experiment), as.character(site)) %>%
+  mutate(n=nt + nc)
+
+# Looks like we calculated an ES for a lab we should have excluded
+dfs %>% filter(!is.na(t)) %>% filter(n < 30)
+dfs[dfs$experiment=="Mathartgender" & dfs$site=="qccuny2", c('t', 'v')] = c(NA, NA)
 
 names(df_list) = unique(dfs$experiment)
-saveRDS(dfs, "../../manylabs_raw.RDS")
+saveRDS(df_list, "../../manylabs_raw.RDS")
 
 write.csv(dfs, "../../manylabs_comp.csv", row.names=F)
 

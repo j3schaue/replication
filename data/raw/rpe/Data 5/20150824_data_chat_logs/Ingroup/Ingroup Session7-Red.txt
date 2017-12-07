@@ -1,0 +1,47 @@
+Word Count: 138
+Lines: 34
+
+red1: has just joined the discussion
+red2: has just joined the discussion
+red3: has just joined the discussion
+red4: has just joined the discussion
+red5: has just joined the discussion
+red6: has just joined the discussion
+red3: test
+red6: hey
+red4: hi
+red3: what do you think?
+red6: lemme see..
+red2: i think kandinsky's paintings are generally brighter
+red4: both 6 and 7 are bright
+red6: yes
+red6: but both have the same color tones..
+red3: i think 6 is by kandinsky
+red2: same
+red6: klee is generally more clean lines
+red5: i think both are kandinsky
+red4: both seem quite clean to me too
+red6: Both could be kandinsky..
+red6: 7 is definitely kandinsky
+red6: he used the same method in 1B
+red6: like a shape overlay
+red4: both by same artist?
+red4: kandinsky
+red5: i think so
+red5: has just left the discussion
+red4: i submitted alr
+red1: i think 7 is by kandinsky 
+red2: has just left the discussion
+red6: 6..
+red1: and 6 is by klee
+red6: cause klee used the same grid 
+red6: but in the background eg 4B
+red6: but kandinsky in 5A did it too in the foreground
+red6: i think both kandinsky..
+red4: all submitted alr?
+red1: has just left the discussion
+red6: submitted!
+red4: has just left the discussion
+red6: bye
+red6: has just left the discussion
+red3: has just left the discussion
