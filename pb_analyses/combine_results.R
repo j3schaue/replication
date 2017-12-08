@@ -126,14 +126,15 @@ qts = do.call(rbind, lapply(toloadq, read.csv)) %>%
                 p0, p25, p33, p67,
                 mdh0, mdh25, mdh33, mdh67, 
                 tbardot, vbar, replicated) %>%
-  mutate(mdhtau0 = vbar*mdh0,
+  # compute standard metrics of sensitivity
+  mutate(mdhtau0 = vbar*mdh0, # tau^2 
          mdhtau25 = vbar*mdh25,
          mdhtau33 = vbar*mdh33,
          mdhtau67 = vbar*mdh67, 
-         mdhpwd0 = 2*vbar*mdh0,
+         mdhpwd0 = 2*vbar*mdh0, # average squared pairwise difference
          mdhpwd25 = 2*vbar*mdh25,
          mdhpwd33 = 2*vbar*mdh33,
-         mdhpwd67 = 2*vbar*mdh67)
+         mdhpwd67 = 2*vbar*mdh67) # probable errors # max difference # correlation/confounding
 
 
 # Summarize results
