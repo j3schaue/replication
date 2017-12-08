@@ -1,8 +1,7 @@
 TO DO:
-1. Clean Cheung and Rand. 
-    a. Check for corruptions and re-run code.
-2. Get original data from PPIR experiments to add to df.
-3. Analyze Cheung, Rand, and PPIR
-4. Combine analyses
-  
+1. Get original data from PPIR experiments to add to df.
+2. Finish analyses for PB. 
+	a. Comparison
+	b. Q-test
+	c. Variance Component Estimation
 
