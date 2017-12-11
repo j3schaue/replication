@@ -36,9 +36,15 @@ df_inc = do.call(rbind,
                 dd$standard = rstandard(ff)$z
                 dd$Qi = leave1out(ff)$Q
                 dd$tbardot = rep(ff$beta, nrow(dd))
-                return(dd)
+                if('original' %in% dd$site){ 
+                  return(dd) 
+                } else {
+                  foo = data.frame(matrix(rep(NA, ncol(dd)), ncol=ncol(dd)))
+                  names(foo) = names(dd)
+                  return(foo)
+                }
               })
-)
+          ) %>% filter(!is.na(experiment)) %>% filter(!is.na(t))
 
 
 df_exc = do.call(rbind, 
@@ -111,7 +117,7 @@ write.csv(fetab_inc,
           paste0("./results/qtest_fixed_", paper, "_include.csv"), row.names=F)
 
 # drop largest outlier
-tbardot = do.call(rbind, lapply(experiments, FUN=function(expt){
+tbardot = do.call(rbind, lapply(unique(df_inc$experiment), FUN=function(expt){
   dd = df_inc %>% 
     filter(experiment == expt) %>% 
     filter(abs(standard) != max(abs(standard)))
@@ -119,9 +125,14 @@ tbardot = do.call(rbind, lapply(experiments, FUN=function(expt){
                     tbardot = rma.uni(dd[[tes]], dd[[vr]], method='FE')$beta[1,1]))
 }))
 
+outliers_inc = df_inc %>% group_by(experiment) %>%
+  filter(abs(standard) == max(abs(standard))) %>%
+  select(experiment, outliersite=site, stdresid=standard, Qi)
+
 fetab_inc_ol = qtest_results(df_inc, ratios=ratios, t=tes, v=vr, paper=paper,
                              exclude="abs(standard)!=max(abs(standard))") %>%
-  left_join(tbardot)
+  left_join(tbardot) %>%
+  left_join(outliers_inc)  
 
 fetab_inc_ol
 write.csv(fetab_inc_ol, 
@@ -146,9 +157,14 @@ tbardot = do.call(rbind, lapply(experiments, FUN=function(expt){
                     tbardot = rma.uni(dd[[tes]], dd[[vr]], method='FE')$beta[1,1]))
 }))
 
+outliers_exc = df_exc %>% group_by(experiment) %>%
+  filter(abs(standard) == max(abs(standard))) %>%
+  select(experiment, outliersite=site, stdresid=standard, Qi)
+
 fetab_exc_ol = qtest_results(df_exc, ratios=ratios, t=tes, v=vr, paper=paper, 
                              exclude="abs(standard)!=max(abs(standard))") %>%
-  left_join(tbardot)
+  left_join(tbardot) %>%
+  left_join(outliers_exc)
 
 fetab_exc_ol
 
@@ -168,11 +184,11 @@ methods = c("PM", "DL")
 
 ###----Include Original Study--------------------------------------------------
 for(mm in methods){# for each method, compute tau^2 for each set of replicates
-  tab = as.data.frame(do.call(rbind, lapply(experiments, FUN=function(ee){
+  tab = as.data.frame(do.call(rbind, lapply(unique(df_inc$experiment), FUN=function(ee){
     dd = filter(df_inc, experiment==ee)
     ff = confint(rma.uni(yi=dd$t, vi=dd$v, method=mm))$random[1,] # get the estimate and the CI
   })))
-  tab$experiment = experiments
+  tab$experiment = unique(df_inc$experiment)
   tab$vbar = fetab_inc$vbar
   tab$paper = 'manylabs'
   write.csv(dplyr::select(tab, experiment, tau2=estimate, ci.lb, ci.ub, paper), 
