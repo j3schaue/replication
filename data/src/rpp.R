@@ -24,7 +24,9 @@ arp = rp %>%
   mutate(replicated=tolower(as.character(replicated))) %>%
   filter((stat=='F' & df1==1) | stat=='t' | stat=='r') # get the meta-analytic subset
 
-dim(arp)
+arp$n = as.integer(as.character(arp$n))
+arp$nrep = as.integer(as.character(arp$nrep))
+str(arp)
 
 #---Melt dataframe so that each experiment has its own row
 # df of experiments and sample sizes

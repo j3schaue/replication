@@ -84,7 +84,8 @@ foo = fulltab
 foo$paper = as.character(fulltab$paper)
 foo[foo$paper %in% c('alogna', 'cheung', 'eerland', 'hagger', 'rand', 'wagenmakers'), ]$paper = "RRR"
 out = foo %>% group_by(paper) %>% 
-  summarize(nstudies = n(), 
+  summarize(nstudies = n(),
+            vbar = mean(v1+ v2),
             nonreplication=sum(replicated==0), 
             nonrep0 = sum(p0 < .05), 
             nonrep25 = sum(p25 < .05),
@@ -98,6 +99,7 @@ out = foo %>% group_by(paper) %>%
             mdh25ratio = mean(mdh25scale/abs(t1)),
             mdh33ratio = mean(mdh33scale/abs(t1)),
             mdh67ratio = mean(mdh67scale/abs(t1)))
+out
 write.csv(out, './aggregate/table2.csv')
 
 ###---Check possible anomalies for MHD ratio 

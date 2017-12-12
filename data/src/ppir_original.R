@@ -1,3 +1,6 @@
+
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
 library(dplyr)
 
 
@@ -25,7 +28,6 @@ mc <- c("Moral Cliff", 107, 53, 54, 5.07, 4.14, 1.36, 1.26, 1)
 hscompany <- c("Higher Standards - Company", 90, 45, 45, 3.94, 3.47, 1.25, 1.47, 1)
 hscharity <- c("Higher Standards - Charity", 75, 38, 37, 4.25, 3.03, 1.29, 1.36, 0)
 chp <- c("Cold-Hearted Prosociality", 80, 40, 40, 4.56, 2.04, .93, 1.27, 1) #weird analysis
-bm <- c("Bigot-Misanthrope", ,,,,,1)
 bih <- c("Burn in Hell", 154, 77, 77, .42, .34, .3, .29, 1)
 bt <- c("Bad Tipper", 77, 38, 39, 4.41, 3.57, 1.27, 1.35, 1)
 bai <- c("Belief-Act Inconsistency", 126, 63, 63, -.92, -1.58, 1.72, 1.81, 1)
@@ -45,7 +47,7 @@ df <- mutate(df,
              site = "original",
              es = "smd",
              d = (es1-es2)/sqrt(((n1-1)*sd1^2+(n2-1)*sd2^2)/(n1+n2-2)),
-             vd = (n1+n2)/(n1*n2)+(d^2)/2*(n1+n2),
+             vd = (n1+n2)/(n1*n2) + (d^2)/(2*(n1+n2)),
              J = 1 - 3/(4*(n1+n2-2) - 1),
              g = d * J,
              vg = vd * J^2)
@@ -53,4 +55,12 @@ df <- mutate(df,
 df <- select(df, experiment, site, n, d, vd, g, vg, es, replicated)
 
 df <- rbind(df, ie)
-write.csv(df, "ppir_original.csv", row.names = FALSE)
+summary(df$vd)
+
+
+#---Bigot-Misathrope
+baorig = data.frame(experiment='Bigot-Misanthrope', site='original', n=46,
+                    d=6.07/sqrt(45), vd=1/45, g=NA, vg=NA, es='d', replicated=1)
+
+df = rbind(df, baorig)
+write.csv(df, "../raw/ppir/ppir_original.csv", row.names = FALSE)

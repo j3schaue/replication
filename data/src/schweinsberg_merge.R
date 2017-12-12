@@ -127,6 +127,14 @@ out = left_join(out, replicated_df)
 
 #---Standardize 'replicated' column
 out$replicated = as.integer(out$replicated == 'Yes')
+head(out)
+
+#---Get original study data
+origs = read.csv("./ppir_original.csv")
+names(origs)
+names(out)
+out = rbind(out, origs) %>% arrange(experiment, site)
+out$es = 'd'
 
 #---Write to file
 write.csv(out, "../../ppir.csv", row.names=F)
