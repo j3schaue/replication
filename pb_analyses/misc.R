@@ -22,7 +22,12 @@ runComparisonAnalyses = function(data, t, v, ratios, paper, methods){
       orig = data %>% filter(experiment==ee & site=='original')
       
       # combine the replicates
-      tmp = rma.uni(yi=replicates[[t]], vi=replicates[[v]], method=mm)
+      if(nrow(replicates) > 1){
+        tmp = rma.uni(yi=replicates[[t]], vi=replicates[[v]], method=mm)
+      } else {
+        tmp = list(beta=matrix(replicates[[t]], ncol=1), se=sqrt(replicates[[v]]))
+      }
+      
       
       foo = lapply(ratios, FUN=function(rr){ # loop through the lambda0s
         
