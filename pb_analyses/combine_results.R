@@ -53,7 +53,8 @@ fulltab = do.call(rbind,
                   })
 )
 
-names(fulltab)
+str(fulltab)
+head(fulltab)
 write.csv(fulltab, "./aggregate/full_comparison.csv", row.names=F)
 
 
@@ -85,7 +86,6 @@ foo$paper = as.character(fulltab$paper)
 foo[foo$paper %in% c('alogna', 'cheung', 'eerland', 'hagger', 'rand', 'wagenmakers'), ]$paper = "RRR"
 out = foo %>% group_by(paper) %>% 
   summarize(nstudies = n(),
-            vbar = mean(v1+ v2),
             nonreplication=sum(replicated==0), 
             nonrep0 = sum(p0 < .05), 
             nonrep25 = sum(p25 < .05),
@@ -98,7 +98,8 @@ out = foo %>% group_by(paper) %>%
             mdh0ratio = mean(mdh0scale/abs(t1)),
             mdh25ratio = mean(mdh25scale/abs(t1)),
             mdh33ratio = mean(mdh33scale/abs(t1)),
-            mdh67ratio = mean(mdh67scale/abs(t1)))
+            mdh67ratio = mean(mdh67scale/abs(t1)),
+            vbar = mean(v1+ v2),)
 out
 write.csv(out, './aggregate/table2.csv')
 
@@ -116,55 +117,141 @@ unique(out3$paper)
 ml = read.csv("../../data/manylabs_comp.csv")
 rpp = read.csv("../../data/rpp.csv")
 rpe = read.csv("../../data/rpe.csv")
+ppir = read.csv("../../data/ppir.csv")
 out3 = out3 %>%  left_join(do.call(rbind, 
                             lapply(list(ml, rpp, rpe), FUN=function(x)
                               distinct(dplyr::select(x, experiment, es))))) #%>%
-out3 = out3 %>% select(paper, experiment, 
+out3 = out3 %>% dplyr::select(paper, experiment, 
          mdh0ratio, mdh25ratio, mdh33ratio, mdh67ratio, powerlb3, powermed, t1,
          p0, p25, p33, p67)
 
+out3
 write.csv(out3, './aggregate/table3.csv', row.names=F)
 
 filter(sen, powerlb < .8) %>% 
   mutate(rep0 = as.integer(p0 > .05), 
          N = 1/v1 + 3, 
          pwrfrac = 1 - pnorm(1.96, mean=abs(.75*t1)/sqrt(v1))) %>% 
-  select(paper, experiment, N, powermed, pwrfrac, powerlb, powerlb2, powerlb3, t1, t2, v1, v2, mdh0, replicated, rep0)  
+  dplyr::select(paper, experiment, N, powermed, pwrfrac, powerlb, powerlb2, powerlb3, t1, t2, v1, v2, mdh0, replicated, rep0)  
 
 ##----Plots of sensitivity------------------------------------------
-library(ggplot2)
-ggplot(fulltab) + geom_point(aes(abs(t1), mdh0scale, color=paper)) + 
-  geom_abline(slope=1) +
-  theme(panel.grid.minor = element_blank()) +
-  labs(x = "|T1|", 
-       y = "Scaled MDH (0)")
-ggsave("./plots/mdh_comparison_0.pdf")
-
-ggplot(fulltab) + geom_point(aes(abs(t1), mdh25scale, color=paper)) + 
-  geom_abline(slope=1) +
-  theme(panel.grid.minor = element_blank()) +
-  labs(x = "|T1|", 
-       y = "Scaled MDH (1/4)")
-ggsave("./plots/mdh_comparison_25.pdf")
-
-ggplot(fulltab) + geom_point(aes(abs(t1), mdh33scale, color=paper)) + 
-  geom_abline(slope=1) +
-  theme(panel.grid.minor = element_blank()) +
-  labs(x = "|T1|", 
-       y = "Scaled MDH (1/3)")
-ggsave("./plots/mdh_comparison_33.pdf")
-
-ggplot(fulltab) + geom_point(aes(abs(t1), mdh67scale, color=paper)) + 
-  geom_abline(slope=1) +
-  theme(panel.grid.minor = element_blank()) +
-  labs(x = "|T1|", 
-       y = "Scaled MDH (2/3)")
-ggsave("./plots/mdh_comparison_67.pdf")
+# library(ggplot2)
+# ggplot(fulltab) + geom_point(aes(abs(t1), mdh0scale, color=paper)) + 
+#   geom_abline(slope=1) +
+#   theme(panel.grid.minor = element_blank()) +
+#   labs(x = "|T1|", 
+#        y = "Scaled MDH (0)")
+# ggsave("./plots/mdh_comparison_0.pdf")
+# 
+# ggplot(fulltab) + geom_point(aes(abs(t1), mdh25scale, color=paper)) + 
+#   geom_abline(slope=1) +
+#   theme(panel.grid.minor = element_blank()) +
+#   labs(x = "|T1|", 
+#        y = "Scaled MDH (1/4)")
+# ggsave("./plots/mdh_comparison_25.pdf")
+# 
+# ggplot(fulltab) + geom_point(aes(abs(t1), mdh33scale, color=paper)) + 
+#   geom_abline(slope=1) +
+#   theme(panel.grid.minor = element_blank()) +
+#   labs(x = "|T1|", 
+#        y = "Scaled MDH (1/3)")
+# ggsave("./plots/mdh_comparison_33.pdf")
+# 
+# ggplot(fulltab) + geom_point(aes(abs(t1), mdh67scale, color=paper)) + 
+#   geom_abline(slope=1) +
+#   theme(panel.grid.minor = element_blank()) +
+#   labs(x = "|T1|", 
+#        y = "Scaled MDH (2/3)")
+# ggsave("./plots/mdh_comparison_67.pdf")
 
 
 ###--------------------------------------------------------###
 ### Q-test and variance components
 ###--------------------------------------------------------###
+
+###----INCLUDE INITIAL STUDY--------------------------------------
+
+# lists of results files
+toloadq_inc = grep('outlier', grep("qtest_fixed", grep("include", list.files(), value=T), value=T), value=T, invert=T)
+toloadq_incol = grep('outlier', grep("qtest_fixed", grep("include", list.files(), value=T), value=T), value=T)
+toloadtaudl_inc = grep("_DL", grep("vc_include", list.files(), value=T), value=T)
+toloadtaupm_inc = grep("_PM", grep("vc_include", list.files(), value=T), value=T)
+
+# Q-test results
+qts_inc = do.call(rbind, lapply(toloadq_inc, read.csv)) %>%
+  dplyr::select(paper, experiment, k, Q, p0, p25, p33, p67, 
+         mdh0, mdh25, mdh33, mdh67, vbar, tbardot, replicated) %>%
+  mutate(mdh0scale = sqrt(mdh0 * vbar),
+         mdh25scale = sqrt(mdh25 * vbar),
+         mdh33scale = sqrt(mdh33 * vbar),
+         mdh67scale = sqrt(mdh67 * vbar),
+         mdh0ratio = sqrt(mdh0 * vbar)/tbardot,
+         mdh25ratio = sqrt(mdh25 * vbar)/tbardot,
+         mdh33ratio = sqrt(mdh33 * vbar)/tbardot,
+         mdh67ratio = sqrt(mdh67 * vbar)/tbardot)
+
+###---Table 4
+out4 = qts_inc %>%
+  dplyr::select(paper, experiment, k, Q, p0, p25, p33, p67,
+         mdh0scale, mdh25scale, mdh33scale, mdh67scale)
+
+rrrs = do.call(rbind, 
+               lapply(grep('rrr', list.files('../../data/'), value=T), FUN=function(x)
+                 read.csv(paste0("../../data/", x)) %>% 
+                   dplyr::select(experiment, es) %>% distinct()))
+rrrs$es = 'd'
+write.csv(out4 %>% 
+            left_join(., distinct(
+              dplyr::select(rbind(rrrs, dplyr::select(ml, experiment, es)), 
+                            experiment, es))), 
+          './aggregate/table4.csv', row.names=F)
+
+##-## Good to here.
+qts_incol = do.call(rbind, lapply(toloadq_incol, read.csv)) %>%
+  dplyr::select(paper, experiment, outliersite)
+qts_inc = left_join(qts_inc, qts_incol)
+
+qts_inc %>% group_by(paper) %>% summarize(nstudies = n(), 
+                                          nonrep0 = sum(p0 < .05),
+                                          nonrep25 = sum(p25 < .05),
+                                          nonrep33 = sum(p33 < .05),
+                                          nonrep67 = sum(p67 < .05),
+                                          nonrep = sum(replicated == 0))
+
+# Variance component estimates (DerSimonian & Laird, Paule & Mandel)
+dls_inc = do.call(rbind, lapply(toloadtaudl_inc, read.csv)) %>% rename(tauDL=tau2)
+pms_inc = do.call(rbind, lapply(toloadtaupm_inc, read.csv)) %>% rename(tauPM=tau2)
+
+# Combine the variance components with Q-test results
+vcs_inc = left_join(pms_inc, dls_inc) %>% 
+  select(paper, experiment, tauDL, tauPM, lb=ci.lb, ub=ci.ub) %>%
+  left_join(qts_inc)
+vcs_inc = cbind(vcs_inc,
+                data.frame(
+                  t(sapply(1:nrow(vcs_inc), 
+                           FUN=function(i) unlist(qCI(vcs_inc$Q[i], vcs_inc$k[i]))))))
+write.csv(vcs_inc, './aggregate/variance_full_include.csv', row.names=F)
+
+# Get only the variance components for the 'replicating' studies
+reps_inc = vcs_inc %>% filter(p25 > 0.05) %>%
+  select(paper, experiment, k, Q, tauDL, tauPM, lb, ub, vbar, mdh0, mdh25, 
+         p0, p25, lblambda, ublambda, replicated)
+write.csv(reps_inc, './aggregate/variance_replicates_include.csv', row.names=F)
+
+# averages by paper
+aggs_inc = reps_inc %>% group_by(paper) %>%
+  summarize(tauDL = mean(tauDL), 
+            tauPM = mean(tauPM),
+            lb = mean(lb), 
+            ub = mean(ub), 
+            vbar = mean(vbar), 
+            mdh0 = mean(mdh0), 
+            mdh25 = mean(mdh25), 
+            lblambda = mean(lblambda),
+            ublambda = mean(ublambda))
+write.csv(aggs_inc, "./aggregate/variance_rep-agg_include.csv", row.names=F)
+
+
 
 ###----EXCLUDE INITIAL STUDY--------------------------------------
 
@@ -267,83 +354,4 @@ aggs = reps %>% group_by(paper) %>%
 write.csv(aggs, "./aggregate/variance_rep-agg_exclude.csv", row.names=F)
 
 
-
-###----INCLUDE INITIAL STUDY--------------------------------------
-
-# lists of results files
-toloadq_inc = grep('outlier', grep("qtest_fixed", grep("include", list.files(), value=T), value=T), value=T, invert=T)
-toloadq_incol = grep('outlier', grep("qtest_fixed", grep("include", list.files(), value=T), value=T), value=T)
-toloadtaudl_inc = grep("_DL", grep("vc_include", list.files(), value=T), value=T)
-toloadtaupm_inc = grep("_PM", grep("vc_include", list.files(), value=T), value=T)
-
-# Q-test results
-qts_inc = do.call(rbind, lapply(toloadq_inc, read.csv)) %>%
-  select(paper, experiment, k, Q, p0, p25, p33, p67, 
-         mdh0, mdh25, mdh33, mdh67, vbar, tbardot, replicated) %>%
-  mutate(mdh0scale = sqrt(mdh0 * vbar),
-         mdh25scale = sqrt(mdh25 * vbar),
-         mdh33scale = sqrt(mdh33 * vbar),
-         mdh67scale = sqrt(mdh67 * vbar),
-         mdh0ratio = sqrt(mdh0 * vbar)/tbardot,
-         mdh25ratio = sqrt(mdh25 * vbar)/tbardot,
-         mdh33ratio = sqrt(mdh33 * vbar)/tbardot,
-         mdh67ratio = sqrt(mdh67 * vbar)/tbardot)
-
-###---Table 4
-out4 = qts_inc %>%
-  select(paper, experiment, k, Q, p0, p25, p33, p67,
-         mdh0scale, mdh25scale, mdh33scale, mdh67scale)
-
-rrrs = do.call(rbind, 
-        lapply(grep('rrr', list.files('../../data/'), value=T), FUN=function(x)
-          read.csv(paste0("../../data/", x)) %>% select(experiment, es) %>% distinct()))
-rrrs$es = 'd'
-write.csv(out4 %>% 
-  left_join(., distinct(select(rbind(rrrs, select(ml, experiment, es)), experiment, es))), 
-  './aggregate/table4.csv', row.names=F)
-
-
-qts_incol = do.call(rbind, lapply(toloadq_incol, read.csv)) %>%
-                      select(paper, experiment, outliersite)
-qts_inc = left_join(qts_inc, qts_incol)
-
-qts_inc %>% group_by(paper) %>% summarize(nstudies = n(), 
-                                          nonrep0 = sum(p0 < .05),
-                                          nonrep25 = sum(p25 < .05),
-                                          nonrep33 = sum(p33 < .05),
-                                          nonrep67 = sum(p67 < .05),
-                                          nonrep = sum(replicated == 0))
-
-# Variance component estimates (DerSimonian & Laird, Paule & Mandel)
-dls_inc = do.call(rbind, lapply(toloadtaudl_inc, read.csv)) %>% rename(tauDL=tau2)
-pms_inc = do.call(rbind, lapply(toloadtaupm_inc, read.csv)) %>% rename(tauPM=tau2)
-
-# Combine the variance components with Q-test results
-vcs_inc = left_join(pms_inc, dls_inc) %>% 
-  select(paper, experiment, tauDL, tauPM, lb=ci.lb, ub=ci.ub) %>%
-  left_join(qts_inc)
-vcs_inc = cbind(vcs_inc,
-            data.frame(
-              t(sapply(1:nrow(vcs_inc), 
-                       FUN=function(i) unlist(qCI(vcs_inc$Q[i], vcs_inc$k[i]))))))
-write.csv(vcs_inc, './aggregate/variance_full_include.csv', row.names=F)
-
-# Get only the variance components for the 'replicating' studies
-reps_inc = vcs_inc %>% filter(p25 > 0.05) %>%
-  select(paper, experiment, k, Q, tauDL, tauPM, lb, ub, vbar, mdh0, mdh25, 
-         p0, p25, lblambda, ublambda, replicated)
-write.csv(reps_inc, './aggregate/variance_replicates_include.csv', row.names=F)
-
-# averages by paper
-aggs_inc = reps_inc %>% group_by(paper) %>%
-  summarize(tauDL = mean(tauDL), 
-            tauPM = mean(tauPM),
-            lb = mean(lb), 
-            ub = mean(ub), 
-            vbar = mean(vbar), 
-            mdh0 = mean(mdh0), 
-            mdh25 = mean(mdh25), 
-            lblambda = mean(lblambda),
-            ublambda = mean(ublambda))
-write.csv(aggs_inc, "./aggregate/variance_rep-agg_include.csv", row.names=F)
 

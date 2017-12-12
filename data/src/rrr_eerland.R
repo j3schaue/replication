@@ -40,5 +40,10 @@ df <- bind_rows(im, ia, intent)
 df$site <- gsub('H & A EXPERIMENT 3', 'original', df$site)
 df$site[grepl('ONLINE', df$site)] = 'online'
 
+# Fix data types
+str(df)
+df$replicated = as.integer(as.character(df$replicated))
+df$n = df$nimp + df$nperf
+
 #Writing CSV file
 write.csv(df, "../rrr_eerland.csv", row.names=F)

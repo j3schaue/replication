@@ -74,11 +74,11 @@ write.csv(foo, "mlsamplesizes.csv", row.names=F)
 df_inc %>% 
   group_by(experiment) %>%
   filter(abs(standard) == max(abs(standard)) | Qi == min(Qi)) %>%
-  select(experiment, site, t, v, n, standard, Qi)
+  dplyr::select(experiment, site, t, v, n, standard, Qi)
 df_exc %>% 
   group_by(experiment) %>%
   filter(abs(standard) == max(abs(standard)) | Qi == min(Qi)) %>%
-  select(experiment, site, t, v, n, standard, Qi)
+  dplyr::select(experiment, site, t, v, n, standard, Qi)
 
 
 #---Comparison Framework--------------------------------
@@ -111,7 +111,7 @@ for(i in seq(lc)){
 ###----Include original study-----------------------------------
 # Main analysis
 fetab_inc = qtest_results(df_inc, ratios=ratios, t=tes, v=vr, paper=paper, verbose=F) %>% 
-  left_join(., distinct(select(df_inc, experiment, tbardot)))
+  left_join(., distinct(dplyr::select(df_inc, experiment, tbardot)))
 fetab_inc
 write.csv(fetab_inc, 
           paste0("./results/qtest_fixed_", paper, "_include.csv"), row.names=F)
@@ -127,7 +127,7 @@ tbardot = do.call(rbind, lapply(unique(df_inc$experiment), FUN=function(expt){
 
 outliers_inc = df_inc %>% group_by(experiment) %>%
   filter(abs(standard) == max(abs(standard))) %>%
-  select(experiment, outliersite=site, stdresid=standard, Qi)
+  dplyr::select(experiment, outliersite=site, stdresid=standard, Qi)
 
 fetab_inc_ol = qtest_results(df_inc, ratios=ratios, t=tes, v=vr, paper=paper,
                              exclude="abs(standard)!=max(abs(standard))") %>%
@@ -142,7 +142,7 @@ write.csv(fetab_inc_ol,
 ###----Exclude original study-----------------------------------------------
 # Main analysis
 fetab_exc = qtest_results(df_exc, ratios=ratios, t=tes, v=vr, paper=paper) %>%
-             left_join(., distinct(select(df_exc, experiment, tbardot)))
+             left_join(., distinct(dplyr::select(df_exc, experiment, tbardot)))
 fetab_exc
 write.csv(fetab_exc, 
           paste0("./results/qtest_fixed_", paper, "_exclude.csv"),
@@ -159,7 +159,7 @@ tbardot = do.call(rbind, lapply(experiments, FUN=function(expt){
 
 outliers_exc = df_exc %>% group_by(experiment) %>%
   filter(abs(standard) == max(abs(standard))) %>%
-  select(experiment, outliersite=site, stdresid=standard, Qi)
+  dplyr::select(experiment, outliersite=site, stdresid=standard, Qi)
 
 fetab_exc_ol = qtest_results(df_exc, ratios=ratios, t=tes, v=vr, paper=paper, 
                              exclude="abs(standard)!=max(abs(standard))") %>%

@@ -67,6 +67,14 @@ rr$site[grepl('mturk', rr$site)] = "mturk"
 rr$site[grepl('original', rr$site)] = "original"
 rr$replicated = 1 # authors say both studies replicated.
 
+# Get total sample size
+rr$n = rr$nc + rr$nv
+summary(rr$n)
+
+# Add columns for Cohen's d and variance
+rr$d = rr$log_or * sqrt(3)/pi
+rr$vd = rr$vlog_or * 3/pi^2
+
 # Write to file
 write.csv(rr, "../../rrr_alogna.csv", row.names=F)
 

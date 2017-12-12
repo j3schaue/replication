@@ -30,9 +30,9 @@ write.csv(s1, "../camerer_S1.csv", row.names=F)
 library(tidyr); library(dplyr)
 
 #---Melt S1 so that each experiment has its own row
-sizes = s1 %>% select(-reles, -r, -rrep) %>% gather(replicate, n, c(n,nrep))
+sizes = s1 %>% dplyr::select(-reles, -r, -rrep) %>% gather(replicate, n, c(n,nrep))
 sizes$replicate = as.integer(sizes$replicate == "nrep")
-corrs = s1 %>% select(-replicated, -reles, -n, -nrep) %>% gather(replicate, r, c(r,rrep))
+corrs = s1 %>% dplyr::select(-replicated, -reles, -n, -nrep) %>% gather(replicate, r, c(r,rrep))
 corrs$replicate = as.integer(corrs$replicate == "rrep")
 df = left_join(sizes, corrs)  # melted df
 df$n = as.numeric(as.character(df$n))
@@ -40,6 +40,10 @@ df$n = as.numeric(as.character(df$n))
 #---Transform correlations 
 df$z = 0.5*log((1 + df$r)/(1 - df$r)) # Fisher transfrom
 df$vz = 1/(df$n - 3)
+
+df$d = 2*df$r/sqrt(1 - df$r^2) # Cohen's d
+df$vd = 4 * ((1 - df$r^2)^2/(df$n -1)) / (1 - df$r^2)^3
+
 head(df)
 df %>% group_by(experiment) %>% summarize(mn = mean(replicated=='No'))
 

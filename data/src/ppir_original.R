@@ -63,4 +63,7 @@ baorig = data.frame(experiment='Bigot-Misanthrope', site='original', n=46,
                     d=6.07/sqrt(45), vd=1/45, g=NA, vg=NA, es='d', replicated=1)
 
 df = rbind(df, baorig)
+str(df)
+df$replicated = as.integer(as.character(df$replicated))
+
 write.csv(df, "../raw/ppir/ppir_original.csv", row.names = FALSE)

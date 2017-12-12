@@ -409,6 +409,13 @@ resultDataFrame <- mutate(resultDataFrame,
                    rename(nt = ntreat, nc = ncontrol)
 resultDataFrame$site = gsub("[0-9]+_", "", gsub("_Data", "", resultDataFrame$site))
 
-resultDataFrame
+
+# Check df and write to file
+str(resultDataFrame)
+convertTonumeric = c('treat', 'control', 'sdtreat', 'sdcontrol', 'ntreatexcl', 'ncontrolexcl', 'md',
+                     'sdmd', 't', 'pvalue', 'g', 'd')
+for(column in convertTonumeric){
+  resultDataFrame[[column]] = as.numeric(as.character(resultDataFrame[[column]]))
+}
 
 write.csv(resultDataFrame, "../../rrr_wagenmakers.csv", row.names = F)

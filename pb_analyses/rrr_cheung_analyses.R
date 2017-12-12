@@ -120,7 +120,7 @@ tbardot = do.call(rbind, lapply(experiments, FUN=function(expt){
 
 outliers_inc = df_inc %>% group_by(experiment) %>%
   filter(abs(standard) == max(abs(standard))) %>%
-  select(experiment, outliersite=site, stdresid=standard, Qi)
+  dplyr::select(experiment, outliersite=site, stdresid=standard, Qi)
 
 fetab_inc_ol = qtest_results(df_inc, ratios=ratios, t=tes, v=vr, paper=paper,
                              exclude="abs(standard)!=max(abs(standard))") %>%
@@ -152,7 +152,7 @@ tbardot = do.call(rbind, lapply(experiments, FUN=function(expt){
 
 outliers_exc = df_exc %>% group_by(experiment) %>%
   filter(abs(standard) == max(abs(standard))) %>%
-  select(experiment, outliersite=site, stdresid=standard, Qi)
+  dplyr::select(experiment, outliersite=site, stdresid=standard, Qi)
 
 fetab_exc_ol = qtest_results(df_exc, ratios=ratios, t=tes, v=vr, paper=paper, 
                              exclude="abs(standard)!=max(abs(standard))") %>%

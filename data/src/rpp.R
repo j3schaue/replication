@@ -15,7 +15,7 @@ unique(rp$Study.Num)
 
 #---Select the relevant data
 arp = rp %>% 
-  select(authors=Authors..O., num=Study.Num, experiment=Study.Title..O., 
+  dplyr::select(authors=Authors..O., num=Study.Num, experiment=Study.Title..O., 
          r=T_r..O., n=N..O., rrep=T_r..R., nrep=N..R., 
          pvalo = T_pval_USE..O., pvalr = T_pval_USE..R., 
          stat=T_Test.Statistic..R., df1=T_df1..O.,
@@ -30,11 +30,11 @@ str(arp)
 
 #---Melt dataframe so that each experiment has its own row
 # df of experiments and sample sizes
-sizes = arp %>% select(-r, -rrep) %>% gather(replicate, n, c(n,nrep))
+sizes = arp %>% dplyr::select(-r, -rrep) %>% gather(replicate, n, c(n,nrep))
 sizes$replicate = as.integer(sizes$replicate == "nrep") # denote replicates
 
 # df of experiments and effect sizes
-corrs = arp %>% select(-n, -nrep) %>% gather(replicate, r, c(r,rrep))
+corrs = arp %>% dplyr::select(-n, -nrep) %>% gather(replicate, r, c(r,rrep))
 corrs$replicate = as.integer(corrs$replicate == "rrep") # denote replicates
 
 # merge sample sizes and effect sizes
@@ -45,6 +45,10 @@ df$n = as.numeric(as.character(df$n)) # convert sample sizes to numeric
 df$z = 0.5*log((1 + df$r)/(1 - df$r)) # Fisher transform
 df$vz = 1/(df$n - 3)
 head(df)
+
+df$d = 2*df$r/sqrt(1 - df$r^2)
+df$vd = 4 * ((1 - df$r^2)^2/(df$n -1)) / (1 - df$r^2)^3
+
 
 #---Clean up author names
 authors = lapply(df$authors, FUN=function(x) 
@@ -67,17 +71,18 @@ out = df %>%
   mutate(replicate = ifelse(replicate==1, "_rep", "orig")) %>%
   unite(site, experiment, replicate, sep="_") %>% 
   cbind(., data.frame(experiment=df$authors)) %>%
-  select(experiment, site, n, r, z, vz, replicated, cirep, 
+  dplyr::select(experiment, site, n, r, z, vz, d, vd, replicated, cirep, 
          meta, stat, pvalo, pvalr, exp_name) %>%
   mutate(replicated = as.integer(replicated == 'yes'))
 out$site = gsub("__", "_", out$site)
 
 head(out)
 dim(out)
+str(out)
 
 #---denote ES type
 out$es = "z"
 
 #---Write to file
-write.csv(out, "../rpp.csv")
+write.csv(out, "../rpp.csv", row.names=F)
 

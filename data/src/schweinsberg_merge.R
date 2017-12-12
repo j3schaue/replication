@@ -136,6 +136,8 @@ names(out)
 out = rbind(out, origs) %>% arrange(experiment, site)
 out$es = 'd'
 
+str(out)
+
 #---Write to file
 write.csv(out, "../../ppir.csv", row.names=F)
 

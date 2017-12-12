@@ -54,20 +54,20 @@ origs$vd[is.na(origs$vd)] = origs$vd_est[is.na(origs$vd)]
 # recode gain/loss
 data = round(c(152*c(.72, 1-.72), 155*c(.22, 1-.22)), 0)
 origs[origs$experiment =="Gainloss", c("d", "vd")] = 
-    c(-log(data[1]*data[4]/(data[2]*data[3])),
-      (1/data[1] + 1/data[2] + 1/data[3] + 1/data[4]))
+    c(-log(data[1]*data[4]/(data[2]*data[3])) * sqrt(3)/pi,
+      (1/data[1] + 1/data[2] + 1/data[3] + 1/data[4]) * 3/pi^2)
 
 # recode scales
 data = round(c(64*c(1-.625, .625), 68*c(.162, 1-.162)), 0)
 origs[origs$experiment == "Scales", c("d", "vd")] = 
-  c(data[1]/(data[1] + data[2]) - data[3]/(data[3] + data[4]),
-    data[1]*data[2]/(data[1] + data[2])^3 + data[3]*data[4]/(data[3] + data[4])^2)
+  c(-log(data[1]*data[4]/(data[2]*data[3])) * sqrt(3)/pi,
+    (1/data[1] + 1/data[2] + 1/data[3] + 1/data[4]) * 3/pi^2)
 
 # recode IAT correlations
 n = 243; rr = .42
 origs[origs$experiment == "IAT", c("d", "vd")] = 
-  c(0.5 * log((1 + rr)/(1 - rr)), 
-    1/(n-3))
+  c(2*rr/sqrt(1 - rr^2), 
+    4 * ((1 - rr^2)^2/(n -1)) / (1 - rr^2)^3)
 
 # Allow/forbidden original
 # https://github.com/ManyLabsOpenScience/ManyLabs1/blob/master/Manylabs_OriginalstudiesESCI.R
@@ -76,14 +76,14 @@ Nnot_allow = round(N * .62) # 806
 Nallow = round(N * .21, 0) # 273
 Nforbid = round(N * .46) # 598
 Nnot_forbid = round(N * .39) # 507
-origs[origs$experiment == 'Allowedforbidden', c('d', 'vd')] = 
-  c(log(Nnot_allow*Nnot_forbid / (Nallow * Nforbid)),
-    1/Nnot_allow + 1/Nallow + 1/Nnot_forbid + 1/Nforbid)
+origs[origs$experiment == 'Allowedforbidden', c('d', 'vd')] = # Cohen's d
+  c(log(Nnot_allow*Nnot_forbid / (Nallow * Nforbid)) * sqrt(3)/pi,
+    (1/Nnot_allow + 1/Nallow + 1/Nnot_forbid + 1/Nforbid) * 3/pi^2)
   
 
 ###---fill in NAs for NT, NC
 origs[is.na(origs$nt), c('nt', 'nc')] = origs$n[is.na(origs$nt)]/2
-origs
+origs$es = 'd'
 
 
 ###################################################
@@ -95,12 +95,12 @@ af <- read.xlsx("manylabs.xlsx", "Allowed_forbidden")
 af<- af[3:(nrow(af) - 1), 1:(ncol(af) - 2)] #Removing summary rows and notes
 names(af) = c("site", "allow", "notallow", "forbid", "notforbid", "excluded", "TestStatistics", "ESmd") #Renaming the variables
 af["experiment"] <- "Allowedforbidden" #Adding experiment names
-af["es"] <- "logor" #Adding original effect size measurements
+af["es"] <- "d" #Adding original effect size measurements
 # Convert logOR to d to compare with original experiment
 af <- mutate(.data = af,
-             t = log((notallow*notforbid)/(allow*forbid)), 
-             v = 1/allow + 1/notallow + 1/forbid + 1/notforbid, 
-             es = rep('logor', nrow(af)), 
+             t = log((notallow*notforbid)/(allow*forbid)) * sqrt(3)/pi, 
+             v = (1/allow + 1/notallow + 1/forbid + 1/notforbid) * 3/pi^2, 
+             es = rep('d', nrow(af)), 
              nt = allow + notallow,
              nc = forbid + notforbid)
 
@@ -194,11 +194,11 @@ gl <- read.xlsx("manylabs.xlsx", "Gain_Loss")
 gl<- gl[3:nrow(gl), 1:(ncol(gl) - 2)]
 names(gl) = c("site", "NGainNorisk", "NLossNorisk", "NGainRisk", "NLossRisk", "NExcluded", "TestStatistics", "ESmd")
 gl["experiment"] <- "Gainloss"
-gl["es"] <- "md"
+gl["es"] <- "d"
 gl <- mutate(.data = gl,
-             t = log((NGainNorisk*NLossRisk)/(NGainRisk*NLossNorisk)), 
-             v = 1/NGainRisk + 1/NGainNorisk + 1/NLossRisk + 1/NLossNorisk,
-             es = rep('logor', nrow(gl)), 
+             t = log((NGainNorisk*NLossRisk)/(NGainRisk*NLossNorisk)) * sqrt(3)/pi, 
+             v = (1/NGainRisk + 1/NGainNorisk + 1/NLossRisk + 1/NLossNorisk) * 3/pi^2,
+             es = rep('d', nrow(gl)), 
              nc = NGainRisk + NGainNorisk, 
              nt = NLossRisk + NLossNorisk)
 
@@ -225,9 +225,9 @@ iat<- iat[3:nrow(iat), 1:(ncol(iat) - 3)]
 names(iat) = c("site", "N" ,"NExcluded", "r")
 iat["experiment"] <- "IAT"
 iat <- mutate(.data = iat,
-              t = .5*log((1+r)/(1-r)), #Fisher's Z
-              v = 1/(N-3), 
-              es = rep('z', nrow(iat)), 
+              t = 2*r/sqrt(1 - r^2), # Cohen's d (transform)
+              v = 4 * ((1 - r^2)^2/(N - 1)) / (1 - r^2)^3, 
+              es = rep('d', nrow(iat)), 
               nc = N/2,
               nt = N/2)
 
@@ -320,10 +320,9 @@ names(s) = c("site", "NLowLess", "NHighLess", "NLowMore", "NHighMore", "NExclude
 s["experiment"] <- "Scales"
 # Convert to RD to compare with original experiment
 s <- mutate(.data = s,
-            t = NHighMore/(NHighMore + NHighLess) - NLowMore/(NLowLess + NLowMore), 
-            v = NHighMore*NHighLess/(NHighMore + NHighLess)^3 + 
-              NLowMore*NLowLess/(NLowLess + NLowMore)^3,
-            es = rep('rd', nrow(s)), 
+            t = log((NHighMore * NLowLess)/(NHighLess * NLowMore)) * sqrt(3)/pi, 
+            v = (1/NHighMore + 1/NLowMore + 1/NHighLess + 1/NLowLess) * 3/pi^2,
+            es = rep('d', nrow(s)), 
             nt = NHighMore + NHighLess,
             nc = NLowLess + NLowLess)
 
@@ -350,23 +349,26 @@ sc <- mutate(.data = sc,
 ###-------------------------------------------------------------------------------###
 
 df_list = list(af, a1, a2, a3, a4, fp, gl, gf, iat, ic, mag, mp, qa, r, s, sc)
-dfs = rbind(do.call(rbind,
-                    lapply(df_list,
+dfs = rbind(
+  do.call(rbind, lapply(df_list, # replicates
                            FUN=function(x) 
                              dplyr::select(x, experiment, site, t, v, es, nt, nc))),
-            origs %>% select(experiment, site, t=d, v=vd, es=orig_es, nt, nc)) %>%
-  left_join(., select(origs, experiment, replicated)) %>%
-  arrange(as.character(experiment), as.character(site)) %>%
-  mutate(n=nt + nc)
+  origs %>% dplyr::select(experiment, site, t=d, v=vd, es, nt, nc)) %>% # original experiments
+  left_join(dplyr::select(origs, experiment, replicated)) %>% # get replication status
+  arrange(as.character(experiment), as.character(site)) %>% # group by experiment
+  mutate(n=nt + nc) # add sample size
 
 # Looks like we calculated an ES for a lab we should have excluded
 dfs %>% filter(!is.na(t)) %>% filter(n < 30)
 dfs[dfs$experiment=="Mathartgender" & dfs$site=="qccuny2", c('t', 'v')] = c(NA, NA)
 
-names(df_list) = unique(dfs$experiment)
-saveRDS(df_list, "../../manylabs_raw.RDS")
+# names(df_list) = unique(dfs$experiment)
+# saveRDS(df_list, "../../manylabs_raw.RDS")
 
-write.csv(dfs, "../../manylabs_comp.csv", row.names=F)
+str(dfs)
+unique(dfs$es)
+
+write.csv(dfs, "../../manylabs_d.csv", row.names=F)
 
 
 

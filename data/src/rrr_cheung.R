@@ -622,12 +622,16 @@ loyalty_es$site = c("Aykutoglu", "Bredow", "Caprariello", "Carcedo",
 loyalty_es$experiment = "Loyalty"
 loyalty_es$replicated = 1
 
+#---Check forest plot
+library(metafor)
 forest(loyalty_es$d, vi=loyalty_es$vd)
 
 
 # combine dfs and write
 df <- bind_rows(exit_es, neglect_es, voice_es, loyalty_es) %>%
   mutate(n = ntrt + nctrl)
+
+str(df)
 
 write.csv(df,  "../../rrr_cheung.csv", row.names=F)
 

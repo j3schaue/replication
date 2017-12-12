@@ -34,4 +34,8 @@ df <- mutate(.data = df,
              vd = sed^2, 
              vg = seg^2) 
 
+#Check and write to file
+str(df)
+df$replicated = as.integer(as.character(df$replicated))
+
 write.csv(df,  "rrr_hagger.csv", row.names=F)

@@ -183,4 +183,7 @@ rrr_rand$replicated = 0
 
 tail(rrr_rand)
 
+
+# Check and write to file
+str(rrr_rand)
 write.csv(rrr_rand, "../../../rrr_rand.csv", row.names = F)
