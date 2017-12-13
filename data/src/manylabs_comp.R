@@ -58,10 +58,11 @@ origs[origs$experiment =="Gainloss", c("d", "vd")] =
       (1/data[1] + 1/data[2] + 1/data[3] + 1/data[4]))
 
 # recode scales
-data = round(c(64*c(1-.625, .625), 68*c(.162, 1-.162)), 0)
+# apply continuity correction since there are several 0s in the replicates
+data = round(c(64*c(1-.625, .625), 68*c(.162, 1-.162)), 0) + .5
 origs[origs$experiment == "Scales", c("d", "vd")] = 
-  c(data[1]/(data[1] + data[2]) - data[3]/(data[3] + data[4]),
-    data[1]*data[2]/(data[1] + data[2])^3 + data[3]*data[4]/(data[3] + data[4])^2)
+  c(-log(data[1]*data[4]/(data[2]*data[3])),
+    (1/data[1] + 1/data[2] + 1/data[3] + 1/data[4]))
 
 # recode IAT correlations
 n = 243; rr = .42
@@ -71,11 +72,12 @@ origs[origs$experiment == "IAT", c("d", "vd")] =
 
 # Allow/forbidden original
 # https://github.com/ManyLabsOpenScience/ManyLabs1/blob/master/Manylabs_OriginalstudiesESCI.R
+# apply continuity correction since there are 0s in the replicates
 N = 1300 # estimate from the clever Many Labs folks!
-Nnot_allow = round(N * .62) # 806
-Nallow = round(N * .21, 0) # 273
-Nforbid = round(N * .46) # 598
-Nnot_forbid = round(N * .39) # 507
+Nnot_allow = round(N * .62) + .5# 806
+Nallow = round(N * .21, 0) + .5# 273
+Nforbid = round(N * .46) + .5# 598
+Nnot_forbid = round(N * .39) + .5 # 507
 origs[origs$experiment == 'Allowedforbidden', c('d', 'vd')] = 
   c(log(Nnot_allow*Nnot_forbid / (Nallow * Nforbid)),
     1/Nnot_allow + 1/Nallow + 1/Nnot_forbid + 1/Nforbid)
@@ -98,8 +100,8 @@ af["experiment"] <- "Allowedforbidden" #Adding experiment names
 af["es"] <- "logor" #Adding original effect size measurements
 # Convert logOR to d to compare with original experiment
 af <- mutate(.data = af,
-             t = log((notallow*notforbid)/(allow*forbid)), 
-             v = 1/allow + 1/notallow + 1/forbid + 1/notforbid, 
+             t = log(((notallow + .5) * (notforbid + .5))/((allow + .5) * (forbid + .5))), 
+             v = (1/(allow + .5) + 1/(notallow + .5) + 1/(forbid + .5) + 1/(notforbid + .5)), 
              es = rep('logor', nrow(af)), 
              nt = allow + notallow,
              nc = forbid + notforbid)
@@ -320,9 +322,8 @@ names(s) = c("site", "NLowLess", "NHighLess", "NLowMore", "NHighMore", "NExclude
 s["experiment"] <- "Scales"
 # Convert to RD to compare with original experiment
 s <- mutate(.data = s,
-            t = NHighMore/(NHighMore + NHighLess) - NLowMore/(NLowLess + NLowMore), 
-            v = NHighMore*NHighLess/(NHighMore + NHighLess)^3 + 
-              NLowMore*NLowLess/(NLowLess + NLowMore)^3,
+            t = log(((NHighMore + .5) * (NLowLess + .5))/((NHighLess + .5) * (NLowMore + .5))), 
+            v = (1/(NHighMore + .5) + 1/(NLowMore + .5) + 1/(NHighLess + .5) + 1/(NLowLess + .5)),
             es = rep('rd', nrow(s)), 
             nt = NHighMore + NHighLess,
             nc = NLowLess + NLowLess)
@@ -363,8 +364,8 @@ dfs = rbind(do.call(rbind,
 dfs %>% filter(!is.na(t)) %>% filter(n < 30)
 dfs[dfs$experiment=="Mathartgender" & dfs$site=="qccuny2", c('t', 'v')] = c(NA, NA)
 
-names(df_list) = unique(dfs$experiment)
-saveRDS(df_list, "../../manylabs_raw.RDS")
+# names(df_list) = unique(dfs$experiment)
+# saveRDS(df_list, "../../manylabs_raw.RDS")
 
 write.csv(dfs, "../../manylabs_comp.csv", row.names=F)
 

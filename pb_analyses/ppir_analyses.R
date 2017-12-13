@@ -119,9 +119,14 @@ tbardot = do.call(rbind, lapply(experiments, FUN=function(expt){
                     tbardot = rma.uni(dd[[tes]], dd[[vr]], method='FE')$beta[1,1]))
 }))
 
+outliers_inc = df_inc %>% group_by(experiment) %>%
+  filter(abs(standard) == max(abs(standard))) %>%
+  dplyr::select(experiment, outliersite=site, stdresid=standard, Qi)
+
 fetab_inc_ol = qtest_results(df_inc, ratios=ratios, t=tes, v=vr, paper=paper,
                              exclude="abs(standard)!=max(abs(standard))") %>%
-  left_join(tbardot)
+  left_join(tbardot) %>%
+  left_join(outliers_inc)
 
 fetab_inc_ol
 write.csv(fetab_inc_ol,
@@ -146,9 +151,14 @@ tbardot = do.call(rbind, lapply(experiments, FUN=function(expt){
                     tbardot = rma.uni(dd[[tes]], dd[[vr]], method='FE')$beta[1,1]))
 }))
 
-fetab_exc_ol = qtest_results(df_exc, ratios=ratios, t=tes, v=vr, paper=paper,
+outliers_exc = df_exc %>% group_by(experiment) %>%
+  filter(abs(standard) == max(abs(standard))) %>%
+  dplyr::select(experiment, outliersite=site, stdresid=standard, Qi)
+
+fetab_exc_ol = qtest_results(df_exc, ratios=ratios, t=tes, v=vr, paper=paper, 
                              exclude="abs(standard)!=max(abs(standard))") %>%
-  left_join(tbardot)
+  left_join(tbardot) %>%
+  left_join(outliers_exc)
 
 fetab_exc_ol
 
