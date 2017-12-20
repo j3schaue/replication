@@ -61,7 +61,7 @@ origs[origs$experiment =="Gainloss", c("d", "vd")] =
 # apply continuity correction since there are several 0s in the replicates
 data = round(c(64*c(1-.625, .625), 68*c(.162, 1-.162)), 0) + .5
 origs[origs$experiment == "Scales", c("d", "vd")] = 
-  c(-log(data[1]*data[4]/(data[2]*data[3])) * sqrt(3)/pi,
+  c(log(data[1]*data[4]/(data[2]*data[3])) * sqrt(3)/pi,
     (1/data[1] + 1/data[2] + 1/data[3] + 1/data[4]) * 3/pi^2)
 
 # recode IAT correlations

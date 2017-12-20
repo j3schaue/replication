@@ -1,4 +1,4 @@
-"experiment","tau2","ci.lb","ci.ub","paper"
-"Imagery",0,0,0.0538767407155704,"eerland"
-"Intention_attribution",0,0,0.0880655849594306,"eerland"
-"Intentionality",0.034079923775362,0,0.195780918645896,"eerland"
+"paper","experiment","tau2","ci.lb","ci.ub","I2","H2"
+"eerland","Imagery",0,0,0.0538767407155704,0,1
+"eerland","Intention_attribution",0,0,0.0880655849594306,0,1
+"eerland","Intentionality",0.034079923775362,0,0.195780918645896,44.8123805263543,1.81200060726943

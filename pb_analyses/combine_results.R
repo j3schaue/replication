@@ -4,16 +4,16 @@ library(dplyr)
 source("../misc.R")
 
 
-###----------------------------------------------------------###
-###----------------------------------------------------------###
-###----------------------------------------------------------###
+###-----------------------------------------------------------------------------###
+###-----------------------------------------------------------------------------###
+###-----------------------------------------------------------------------------###
 ### COMPARISON ANALYSES
 ### Analyses for k=2 comparisons of replication
 ### Read in analyses on the scale of Cohen's d and
 ### other scales to check robustness.
-###----------------------------------------------------------###
-###----------------------------------------------------------###
-###----------------------------------------------------------###
+###-----------------------------------------------------------------------------###
+###-----------------------------------------------------------------------------###
+###-----------------------------------------------------------------------------###
 
 #------Check if conversion to Cohen's d affects decisions
 # alogna et al
@@ -175,11 +175,13 @@ dagg # confirmed it's only the one RPP experiment that has a few different concl
 write.csv(agg, './aggregate/table2.csv', row.names=F)
 
 
-###----------------------------------------------------------------------###
-###----------------------------------------------------------------------###
+###-----------------------------------------------------------------------------###
+###-----------------------------------------------------------------------------###
+###-----------------------------------------------------------------------------###
 ### Q-test Results
-###----------------------------------------------------------------------###
-###----------------------------------------------------------------------###
+###-----------------------------------------------------------------------------###
+###-----------------------------------------------------------------------------###
+###-----------------------------------------------------------------------------###
 
 ###-------------INCLUDE INITIAL FINDING---------------------------------###
 
@@ -190,14 +192,18 @@ dtoloadq = grep("outlier", #drop outlier files
      value=T, invert=T),
   value=T, invert=T)
 dqs = do.call(rbind, lapply(dtoloadq, read.csv)) %>%
-  mutate(mdh0scale = sqrt(2 * vbar * mdh0 / (k - 1)),
-         mdh25scale = sqrt(2 * vbar * mdh25 / (k - 1)),
-         mdh33scale = sqrt(2 * vbar * mdh33 / (k - 1)),
-         mdh67scale = sqrt(2 * vbar * mdh67 / (k - 1)))
+  mutate(mdh0scale = sqrt(2 * vbar * mdh0),
+         mdh25scale = sqrt(2 * vbar * mdh25),
+         mdh33scale = sqrt(2 * vbar * mdh33),
+         mdh67scale = sqrt(2 * vbar * mdh67))
 dqs
+dqs %>% group_by(paper) %>% summarize(mdh0 = mean(mdh0scale),
+                                      mdh25 = mean(mdh25scale),
+                                      mdh33 = mean(mdh33scale),
+                                      mdh67 = mean(mdh67scale))
 write.csv(dqs, "./aggregate/qtest_include_full_d.csv", row.names=F)
 
-write.csv(dqs %>% select(paper, experiment, p0, p25, p33, p67, mdh0scale, mdh25scale, mdh33scale, mdh67scale), 
+write.csv(dqs %>% select(paper, experiment, k, Q, replicated, p0, p25, p33, p67, mdh0scale, mdh25scale, mdh33scale, mdh67scale), 
           "./aggregate/table3d.csv")
 
 ###--------Natural Scale 
@@ -207,10 +213,10 @@ toloadq = grep("outlier", #drop outlier files
                     value=T, invert=T),
                value=T, invert=T)
 qs = do.call(rbind, lapply(toloadq, read.csv)) %>%
-  mutate(mdh0scale = sqrt(2 * vbar * mdh0 / (k - 1)),
-         mdh25scale = sqrt(2 * vbar * mdh25 / (k - 1)),
-         mdh33scale = sqrt(2 * vbar * mdh33 / (k - 1)),
-         mdh67scale = sqrt(2 * vbar * mdh67 / (k - 1)))
+  mutate(mdh0scale = sqrt(2 * vbar * mdh0),
+         mdh25scale = sqrt(2 * vbar * mdh25),
+         mdh33scale = sqrt(2 * vbar * mdh33),
+         mdh67scale = sqrt(2 * vbar * mdh67))
 qs
 write.csv(qs, "./aggregate/qtest_include_full.csv", row.names=F)
 
@@ -242,10 +248,24 @@ dqsex = do.call(rbind, lapply(dtoloadqexc, read.csv)) %>%
          mdh33scale = sqrt(2 * vbar * mdh33 / (k - 1)),
          mdh67scale = sqrt(2 * vbar * mdh67 / (k - 1)))
 dqsex
-write.csv(dqs, "./aggregate/qtest_exclude_full_d.csv", row.names=F)
+write.csv(dqsex, "./aggregate/qtest_exclude_full_d.csv", row.names=F)
 
-write.csv(dqs %>% select(paper, experiment, p0, p25, p33, p67, mdh0scale, mdh25scale, mdh33scale, mdh67scale), 
+write.csv(dqsex %>% select(paper, experiment, p0, p25, p33, p67, mdh0scale, mdh25scale, mdh33scale, mdh67scale), 
           "./aggregate/table3d_exc.csv")
+
+## Compare inclusion vs. exclusion of original study
+dextmp = filter(dqsex, experiment != 'Quote Attribution')
+as.character(dextmp$experiment) == dqs$experiment
+which(as.integer(dextmp$p0 < .05) != as.integer(dqs$p0 < .05))
+which(as.integer(dextmp$p25 < .05) != as.integer(dqs$p25 < .05))
+which(as.integer(dextmp$p33 < .05) != as.integer(dqs$p33 < .05))
+which(as.integer(dextmp$p67 < .05) != as.integer(dqs$p67 < .05))
+dextmp[c(9, 22),]
+dqs[c(9, 22),]
+# By excluding the original study, we only affect conclusions of hypothesis tests for 2 experiments. 
+# One of these (Eerland's Intentionality) is because the original study is the outlier.
+# For the other (ML's mathartgender) it only affects the test of exact replication.
+
 
 ###--------Natural Scale 
 toloadqexc = grep("outlier", #drop outlier files
@@ -309,8 +329,10 @@ head(dol, 10)
 write.csv(dol, "./aggregate/table4d.csv", row.names=F)
 
 # get only the rows where hypothesis tests change based on one outlier
-write.csv(dol %>% slice(unique(c(dp0, dp25, dp33, dp67))), 
-          "./aggregate/outliers_d_diffs.csv", row.names=F)
+ddifs = dol %>% slice(unique(c(dp0, dp25, dp33, dp67)))
+(ddifs$Q - ddifs$Qi)/ddifs$Q
+
+write.csv(ddifs, "./aggregate/outliers_d_diffs.csv", row.names=F)
 
 
 ###--------Natural Scale 
@@ -354,17 +376,27 @@ summary(abs(ol$p67 - dol$p67))
 ###-----------------------INCLUDE INITIAL STUDY--------------------------###
 # Use Cohen's d scale
 ###-----Paule-Mandel Estimator
-dtolaodvcpm = grep("(alogna|manylabs)_vc_include_PM.csv", grep("include_PM", list.files(), value=T), value=T, invert=T)
-dpm = do.call(rbind, lapply(dtolaodvcpm, read.csv)) %>% 
+dtoloadvcpm = grep("(alogna|manylabs)_vc_include_PM.csv", grep("include_PM", list.files(), value=T), value=T, invert=T)
+dpm = do.call(rbind, lapply(dtoloadvcpm, read.csv)) %>% 
   left_join(dplyr::select(dqs, paper, experiment, k, p0, p25, p33, p67, vbar)) %>%
-  select(paper, experiment, k, tau2, cilb=ci.lb, ciub=ci.ub, p0, p25, p33, p67, vbar)
+  select(paper, experiment, k, tau2, cilb=ci.lb, ciub=ci.ub, I2, H2, p0, p25, p33, p67, vbar)
 
 dests = dpm %>%
-  filter(p33 > .05) # 'replicating studies' are ones who we fail to reject replication for 1/3
-nrow(dests)
-summary(dests$tau2/dests$vbar)
-summary(dests$ciub/dests$vbar)
-summary(sqrt(2*dests$tau2))
+  filter(p0 > .05) %>% mutate(repl=0)
+dests2 = dpm %>%
+  filter(p25 > .05) %>% mutate(repl=1/4)
+dests3 = dpm %>%
+  filter(p33 > .05) %>% mutate(repl=1/3)
+dests6 = dpm %>%
+  filter(p67 > .05) %>% mutate(repl=2/3)
+
+tab6 = dests6 %>% arrange((tau2), desc(p0)) %>% 
+  select(paper, experiment, tau2, I2, H2, vbar, p0, p25, p33, p67) 
+tab6$experiment = paste0(paste0(tab6$experiment, 
+                     ifelse(tab6$p0 > .05, "", "*")),
+              ifelse(tab6$p25 > .05, "", "*"))
+tab6
+write.csv(tab6, './aggregate/pmvcs_d_tab6.csv', row.names=F)
 
 write.csv(dests, './aggregate/vcs_include_pm.csv', row.names=F)
 
@@ -372,16 +404,66 @@ write.csv(dests, './aggregate/vcs_include_pm.csv', row.names=F)
 dtolaodvcdl = grep("(alogna|manylabs)_vc_include_DL.csv", grep("include_DL", list.files(), value=T), value=T, invert=T)
 ddl = do.call(rbind, lapply(dtolaodvcdl, read.csv)) %>% 
   left_join(dplyr::select(dqs, paper, experiment, k, p0, p25, p33, p67, vbar)) %>%
-  select(paper, experiment, k, tau2, cilb=ci.lb, ciub=ci.ub, p0, p25, p33, p67, vbar)
+  select(paper, experiment, k, tau2, cilb=ci.lb, ciub=ci.ub, I2, H2, p0, p25, p33, p67, vbar)
 
 destsdl = ddl %>%
-  filter(p33 > .05) # 'replicating studies' are ones who we fail to reject replication for 1/3
-nrow(destsdl)
-summary(destsdl$tau2/destsdl$vbar)
-summary(destsdl$ciub/destsdl$vbar)
-summary(sqrt(2*destsdl$tau2))
+  filter(p0 > .05) %>% mutate(repl=0)
+destsdl2 = ddl %>%
+  filter(p25 > .05) %>% mutate(repl=1/4)
+destsdl3 = ddl %>%
+  filter(p33 > .05) %>% mutate(repl=1/3)
+destsdl6 = ddl %>%
+  filter(p67 > .05) %>% mutate(repl=2/3)
 
 write.csv(destsdl, './aggregate/vcs_include_dl.csv', row.names=F)
+
+tab6dl = destsdl6 %>% arrange((tau2), desc(p0)) %>% 
+  select(paper, experiment, tau2, I2, H2, vbar, p0, p25, p33, p67) 
+tab6dl$experiment = paste0(paste0(tab6dl$experiment, 
+                                ifelse(tab6dl$p0 > .05, "", "*")),
+                         ifelse(tab6dl$p25 > .05, "", "*"))
+tab6dl
+write.csv(tab6dl, './aggregate/dlvcs_d_tab6.csv', row.names=F)
+
+###---Compare estimators
+# exact replicates
+summary(1/(1/(destsdl$I2/100) - 1))
+summary(1/(1/(dests$I2/100) - 1))
+
+summary(destsdl$tau2/destsdl$vbar)
+summary(dests$tau2/dests$vbar)
+
+summary(sqrt(2*destsdl$tau2))
+summary(sqrt(2*dests$tau2))
+
+summary(destsdl$H2 - 1)
+summary(dests$H2 - 1)
+
+# approx replicates 1/4-1/3
+summary(1/(1/(destsdl2$I2/100) - 1))
+summary(1/(1/(dests2$I2/100) - 1))
+
+summary(destsdl2$tau2/destsdl2$vbar)
+summary(dests2$tau2/dests2$vbar)
+
+summary(sqrt(2*destsdl2$tau2))
+summary(sqrt(2*dests2$tau2))
+
+summary(destsdl2$H2 - 1)
+summary(dests2$H2 - 1)
+
+# approx replicates 2/3
+summary(1/(1/(destsdl6$I2/100) - 1))
+summary(1/(1/(dests6$I2/100) - 1))
+
+summary(destsdl6$H2 - 1)
+summary(dests6$H2 - 1)
+
+summary(destsdl6$tau2/destsdl6$vbar)
+summary(dests6$tau2/dests6$vbar)
+
+summary(sqrt(2*destsdl6$tau2))
+summary(sqrt(2*dests6$tau2))
 
 
 

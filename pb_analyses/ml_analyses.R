@@ -185,14 +185,16 @@ methods = c("PM", "DL")
 ###----Include Original Study--------------------------------------------------
 for(mm in methods){# for each method, compute tau^2 for each set of replicates
   tab = as.data.frame(do.call(rbind, lapply(unique(df_inc$experiment), FUN=function(ee){
-    dd = filter(df_inc, experiment==ee)
-    ff = confint(rma.uni(yi=dd$t, vi=dd$v, method=mm))$random[1,] # get the estimate and the CI
+    dd = filter(df_inc, experiment==ee) # filter by experiment
+    ddmeta = rma.uni(yi=dd[[tes]], vi=dd[[vr]], method=mm) # run meta-analysis
+    ff = confint(ddmeta)$random[1,] # get the estimate and the CI
+    return(cbind(t(ff), data.frame(I2=ddmeta$I2, H2=ddmeta$H2)))
   })))
   tab$experiment = unique(df_inc$experiment)
   tab$vbar = fetab_inc$vbar
-  tab$paper = 'manylabs'
-  write.csv(dplyr::select(tab, experiment, tau2=estimate, ci.lb, ci.ub, paper), 
-            paste0('./results/manylabs_vc_include_', mm,'.csv'), 
+  tab$paper = paper
+  write.csv(dplyr::select(tab, paper, experiment, tau2=estimate, ci.lb, ci.ub, I2, H2), 
+            paste0('./results/', paper, '_vc_include_', mm,'.csv'), 
             row.names=F)
 }
 
@@ -200,16 +202,17 @@ for(mm in methods){# for each method, compute tau^2 for each set of replicates
 for(mm in methods){# for each method, compute tau^2 for each set of replicates
   tab = as.data.frame(do.call(rbind, lapply(experiments, FUN=function(ee){
     dd = filter(df_exc, experiment==ee & site!='original') # exclude the original study
-    ff = confint(rma.uni(yi=dd$t, vi=dd$v, method=mm))$random[1,] # get the estimate and the CI
+    ddmeta = rma.uni(yi=dd[[tes]], vi=dd[[vr]], method=mm) # run meta-analysis
+    ff = confint(ddmeta)$random[1,] # get the estimate and the CI
+    return(cbind(t(ff), data.frame(I2=ddmeta$I2, H2=ddmeta$H2)))
   })))
   tab$experiment = experiments
   tab$vbar = fetab_exc$vbar
-  tab$paper = 'manylabs'
-  write.csv(dplyr::select(tab, experiment, tau2=estimate, ci.lb, ci.ub, paper),
+  tab$paper = paper
+  write.csv(dplyr::select(tab, paper, experiment, tau2=estimate, ci.lb, ci.ub, I2, H2),
             paste0('./results/', paper, '_vc_exclude_', mm,'.csv'),
             row.names=F)
 }
-
 
 ###------------------------------------------------------------###
 ###------------------------------------------------------------###

@@ -1,2 +1,2 @@
-"experiment","tau2","ci.lb","ci.ub","paper"
-"time/delay",0,0,0.0165492298324328,"rand"
+"paper","experiment","tau2","ci.lb","ci.ub","I2","H2"
+"rand","time/delay",0,0,0.0165492298324328,0,1
